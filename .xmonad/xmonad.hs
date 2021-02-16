@@ -15,6 +15,7 @@ module Main (main) where
 import XMonad
 
 import qualified Data.Map as M
+--import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -100,8 +101,8 @@ main = do
             , ((controlMask, xK_F4), spawn "code")        -- spawn app (CTRL F4)
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
-            , ((mod1Mask .|. controlMask, xK_Right),  nextWS)                              -- shift to next WS (ALT UP-ARROW)
-            , ((mod1Mask .|. controlMask, xK_Left),    prevWS)                          -- shift to previous WS (ALT DOWN-ARROW)
+            , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
+            , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             , ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
             , ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
