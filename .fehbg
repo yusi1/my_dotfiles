@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/yusef/Downloads/n1ci0trfgrey.jpg' 
