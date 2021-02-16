@@ -1,0 +1,28 @@
+-- My XMobar config, written with help from https://wiki.haskell.org/Xmonad/Config_archive/John_Goerzen's_Configuration
+
+-- Also Read: https://xmobar.org/
+
+Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+        , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true" ]
+        , bgColor = "black"
+        , fgColor = "grey"
+        , position = TopW L 90
+        , commands = [ 
+                    Run Weather "EGPD" ["-t","Visibility (<visibility>) Wind (<windMph> MPH) Temp (<tempC>C)","-L","5","-H","20"
+                    ,"--normal","green"
+                    ,"--high","red"
+                    ,"--low","lightblue"
+                    ] 36000     -- Update Time
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
+                    , Run Memory ["-t","Mem: <used>M (<usedratio>%)"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
+                    , Run Volume "default" "Master" [] 10
+                    , Run StdinReader
+                    ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%StdinReader% }{ %cpu% | %memory% * %swap%   <fc=#ee9a00>%date%</fc> | Weather: %EGPD%"
+
+        }
