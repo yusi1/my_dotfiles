@@ -89,7 +89,7 @@ main = do
           , layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
           , logHook           = dynamicLogWithPP xmobarPP {
                                 ppOutput = hPutStrLn xmproc
-                              , ppTitle = xmobarColor "green" "" . shorten 50
+                              , ppTitle = xmobarColor "grey" "" . shorten 50
                               , ppSort = getSortByXineramaRule
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
@@ -104,6 +104,9 @@ main = do
             , ((controlMask, xK_F2), spawn "chromium")    -- spawn app (CTRL F2)
             , ((controlMask, xK_F3), spawn "brave")       -- spawn app (CTRL F3)
             , ((controlMask, xK_F4), spawn "code")        -- spawn app (CTRL F4)
+
+            , ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
+
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
             , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
