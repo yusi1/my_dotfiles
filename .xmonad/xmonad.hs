@@ -106,6 +106,7 @@ main = do
             , ((controlMask, xK_F4), spawn "code")        -- spawn app (CTRL F4)
 
             , ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
+            , ((mod4Mask, xK_r), spawn "jgmenu_run") -- Open application menu Windows Key+r
 
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
