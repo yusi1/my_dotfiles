@@ -3,27 +3,28 @@
 -- Also Read: https://xmobar.org/
 
 Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-        , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true" ]
+        , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=12:antialias=true:hinting=true" ]
         , bgColor = "black"
-        , fgColor = "grey"
-        , position = TopW L 90
+        , fgColor = "darkgrey"
+        --, position = TopW L 90
+        , position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
         , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
         , commands = [ 
-                    Run Weather "EGPD" ["-t","Visibility (<visibility>) Wind (<windMph> MPH) Temp (<tempC>C)","-L","5","-H","20"
-                    ,"--normal","green"
-                    ,"--high","red"
+                    Run Weather "EGPD" ["-t","<fn=1>\xfa99 </fn> (<tempC>°C)","-L","5","-H","20"
+                    ,"--high","orange"
                     ,"--low","lightblue"
                     ] 36000     -- Update Time
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Cpu ["-t", "<fn=1>\xf108 </fn> cpu: (<total>%)","-L","3","-H","50","--high","red"] 10
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
-                    , Run Memory ["-t","Mem: <used>M (<usedratio>%)"] 10
+                    , Run Memory ["-t","<fn=1>\xf233 </fn> Mem: <used>M (<usedratio>%)"] 10
                     , Run Swap [] 10
-                    , Run Date "%a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
+                    , Run Date "<fn=1>\xf133 </fn> %a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
                     , Run Volume "default" "Master" [] 10
+                    , Run Com "uname" ["-r"] "" 0
                     , Run StdinReader
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ %cpu% | %memory% * %swap%   <fc=#ee9a00>%date%</fc> | Weather: %EGPD%"
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ <fc=#38ef7d>%uname%</fc>  |  <fc=#1cefff>%cpu%</fc>  |  <fc=#0660bd>%memory% * %swap%</fc>  |  <fc=#4ca2cd>%EGPD%<</fc>  |  <fc=#ee9a00>%date%</fc>    "
 
         }
