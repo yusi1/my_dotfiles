@@ -94,6 +94,7 @@ main = do
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
           , focusedBorderColor = "darkgreen"
+          , normalBorderColor = "black" -- Temporary Workaround, window borders become annoying when window is not focused.
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
