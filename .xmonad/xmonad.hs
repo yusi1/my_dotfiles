@@ -15,7 +15,7 @@ module Main (main) where
 import XMonad
 
 import qualified Data.Map as M
-import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
+--import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
