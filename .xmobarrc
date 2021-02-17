@@ -7,6 +7,7 @@ Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true
         , bgColor = "black"
         , fgColor = "grey"
         , position = TopW L 90
+        , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
         , commands = [ 
                     Run Weather "EGPD" ["-t","Visibility (<visibility>) Wind (<windMph> MPH) Temp (<tempC>C)","-L","5","-H","20"
                     ,"--normal","green"
@@ -23,6 +24,6 @@ Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% }{ %cpu% | %memory% * %swap%   <fc=#ee9a00>%date%</fc> | Weather: %EGPD%"
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ %cpu% | %memory% * %swap%   <fc=#ee9a00>%date%</fc> | Weather: %EGPD%"
 
         }

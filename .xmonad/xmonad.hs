@@ -15,7 +15,7 @@ module Main (main) where
 import XMonad
 
 import qualified Data.Map as M
---import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -24,9 +24,10 @@ import XMonad.Hooks.ManageHelpers
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.WorkspaceCompare
 
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
-import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.NoBorders(smartBorders)
 import XMonad.Layout.ToggleLayouts
 --import XMonad.Layout.Grid (Grid(..))
 --import XMonad.Layout.TwoPane (TwoPane(..))
@@ -54,12 +55,14 @@ import System.IO
 -- For className, use the second value that xprop gives you.
 
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
-    [ className =? "Steam"    --> doFloat
-    , className =? "steam"    --> doFullFloat -- bigpicture-mode
-    , className =? "Progress" --> doFloat
+    [ [ className =? "Steam"    --> doFloat ]
+    , [ title =? "Steam" --> doFloat ]
+    , [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
+    , [ (className =? "Steam" <&&> resource =? "Dialog") --> doFloat ]
+    , [ className =? "Progress" --> doFloat ]
     --, className =? "Pcmanfm"  --> doFloat
     --, className =? "pcmanfm"  --> doFloat
-    , isFullscreen --> doFullFloat
+    , [ isFullscreen --> doFullFloat ]
     ]
 
 ---------------------------------------------------------------------
@@ -84,9 +87,10 @@ main = do
           borderWidth         = 3
           , terminal          = "alacritty"
           , layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
-          , logHook           = dynamicLogWithPP xmobarPP
-                              { ppOutput = hPutStrLn xmproc
+          , logHook           = dynamicLogWithPP xmobarPP {
+                                ppOutput = hPutStrLn xmproc
                               , ppTitle = xmobarColor "green" "" . shorten 50
+                              , ppSort = getSortByXineramaRule
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
           , focusedBorderColor = "darkgreen"
@@ -103,6 +107,8 @@ main = do
             , ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
             , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
             , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
+            --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
+            --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
             , ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
             , ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
