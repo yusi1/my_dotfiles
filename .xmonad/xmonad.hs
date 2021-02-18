@@ -94,9 +94,9 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 myLayoutHook = avoidStruts $ smartBorders 
               $ windowNavigation(
-                                  mkToggle Tall
-                                  ||| mkToggle (single MIRROR) 
-                                  ||| noBorders Full
+                                  -- mkToggle Tall
+                                  -- ||| mkToggle (single MIRROR) 
+                                  noBorders Full
                                   ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                                   ||| Grid
                                   -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
@@ -155,7 +155,7 @@ main = do
 
             --------------------------------------------------
             -- Toggle Modes
-            , ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
+            --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
             
             --------------------------------------------------
 

@@ -10,9 +10,9 @@ Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true
         , position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
         , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
         , commands = [ 
-                    Run Weather "EGPD" ["-t","<fn=1>\xe302 </fn> (<tempC>°C)","-L","5","-H","20"
+                    Run Weather "EGPD" ["-t","<fn=1>\xe302 </fn> (<tempC>°C)","-L","5","-H","9"
                     ,"--high","orange"
-                    ,"--low","lightblue"
+                    ,"--low","#268bd2"
                     ] 36000     -- Update Time
                     , Run Cpu ["-t", "<fn=1>\xf108 </fn> cpu: (<total>%)","-L","3","-H","50","--high","#dc322f"] 10
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
