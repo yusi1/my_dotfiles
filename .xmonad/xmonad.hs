@@ -39,9 +39,9 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Maximize
 import XMonad.Layout.LayoutModifier
 
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
---import XMonad.Layout.ToggleLayouts
+--import XMonad.Layout.MultiToggle
+--import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.ToggleLayouts
 
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
@@ -94,11 +94,12 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 myLayoutHook = avoidStruts $ smartBorders 
               $ windowNavigation(
-                                  -- mkToggle Tall
-                                  -- ||| mkToggle (single MIRROR) 
-                                  noBorders Full
-                                  ||| mySpacing 8 (Tall 1 (3/100) (1/2))
+                                  --noBorders Full
+                                  toggleLayouts (noBorders Full) (mySpacing 8 (Tall 1 (3/100) (1/2)))
+                                  ||| noBorders Full
                                   ||| Grid
+                                  -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
+                                  -- ||| Grid
                                   -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
                                 )
 
@@ -177,7 +178,8 @@ main = do
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
 
-            --, ((mod1Mask .|. controlMask, xK_f), sendMessage ToggleLayout)
+            , ((mod1Mask, xK_Return), sendMessage ToggleLayout)
+
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
                   --do t <- findWorkspace getSortByXineramaRule Next NonEmptyWS 2
