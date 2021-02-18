@@ -51,7 +51,7 @@ import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined
 import XMonad.Actions.Promote -- Promote selected window to master pane
 --import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
-import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
+--import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
 -- import XMonad.Actions.WindowNavigation -- Experimental rewrite of layout with same name, allows window navigation with arrow keys
 --import XMonad.Actions.Volume
 
@@ -149,10 +149,10 @@ main = do
             , ((mod1Mask,                 xK_Left ), sendMessage $ Go L)
             , ((mod1Mask,                 xK_Up   ), sendMessage $ Go U)
             , ((mod1Mask,                 xK_Down ), sendMessage $ Go D)
-            , ((mod1Mask .|. controlMask, xK_Right), sendMessage $ Swap R)
-            , ((mod1Mask .|. controlMask, xK_Left ), sendMessage $ Swap L)
-            , ((mod1Mask .|. controlMask, xK_Up   ), sendMessage $ Swap U)
-            , ((mod1Mask .|. controlMask, xK_Down ), sendMessage $ Swap D)
+            , ((mod1Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
+            , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
+            , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
+            , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
 
             --------------------------------------------------
             -- Toggle Modes
@@ -177,8 +177,7 @@ main = do
             
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
-
-            , ((mod1Mask, xK_Return), sendMessage ToggleLayout)
+            , ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
 
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
