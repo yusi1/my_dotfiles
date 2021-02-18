@@ -42,6 +42,7 @@ import XMonad.Actions.Promote -- Promote selected window to master pane
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
 import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
 -- import XMonad.Actions.WindowNavigation -- Experimental rewrite of layout with same name, allows window navigation with arrow keys
+--import XMonad.Actions.Volume
 
 import System.IO
 
@@ -116,6 +117,11 @@ main = do
             --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
             , ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
             , ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
+            
+            , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 3") -- decrease volume by 3
+            , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 3") -- increase volume by 3
+            , ((mod1Mask, xK_F5), spawn "/usr/bin/pamixer -t") -- togglemute
+
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
             --, ((mod1Mask .|. controlMask, xK_f), moveTo Next NonEmptyWS)  -- (ALT + SHIFT F) cycle between non-empty workspaces (application opened in them)
             --, ((modm .|. shiftMask, xK_Up),    shiftToPrev)
@@ -124,6 +130,10 @@ main = do
             --, ((modm .|. shiftMask, xK_Right), shiftNextScreen)
             --, ((modm .|. shiftMask, xK_Left),  shiftPrevScreen)
             , ((mod1Mask .|. controlMask, xK_z), toggleWS)                -- (ALT + Z) cycle between workspaces that are being used
+            
+            --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
+
+
             --, ((mod1Mask .|. controlMask, xK_f), sendMessage ToggleLayout)
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
