@@ -19,12 +19,14 @@ Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true
                     , Run Memory ["-t","<fn=1>\xf233 </fn> Mem: <used>M (<usedratio>%)"] 10
                     , Run Swap [] 10
                     , Run Date "<fn=1>\xf133 </fn> %a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
-                    , Run Volume "default" "Master" [] 10
+                    --, Run Volume "default" "Master" [] 10
                     , Run Com "uname" ["-r"] "kernelname" 0
+                    , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 36000
+                    , Run Com "/home/yusef/.local/bin/new" [] "vol" 10
                     , Run StdinReader
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ <fc=#38ef7d>%kernelname%</fc>  |  <fc=#1cefff>%cpu%</fc>  |  <fc=#0660bd>%memory% * %swap%</fc>  |  <fc=#4ca2cd>%EGPD%<</fc>  |  <fc=#ee9a00>%date%</fc>    "
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#38ef7d><fn=1> </fn> %kernelname%</fc>  |  <fc=#1cefff>%cpu%</fc>  |  <fc=#0660bd>%memory% * %swap%</fc>  |  <fc=#4ca2cd>%EGPD%</fc>  |  <fc=#845ec2><fn=1> </fn> %upd%</fc>  |  <fc=#eb5e0b><fn=1> </fn> %vol%</fc> |  <fc=#ee9a00>%date%</fc>  |  "
 
         }
