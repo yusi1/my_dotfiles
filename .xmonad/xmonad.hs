@@ -90,11 +90,11 @@ main = do
           , layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
           , logHook           = dynamicLogWithPP xmobarPP {
                                 ppOutput = hPutStrLn xmproc
-                              , ppTitle = xmobarColor "grey" "" . shorten 50
+                              , ppTitle = xmobarColor "#93a1a1" "" . shorten 50
                               , ppSort = getSortByXineramaRule
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
-          , focusedBorderColor = "darkgreen"
+          , focusedBorderColor = "#2aa198"
           , normalBorderColor = "black" -- Temporary Workaround, window borders become annoying when window is not focused.
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
