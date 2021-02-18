@@ -15,6 +15,7 @@ module Main (main) where
 import XMonad
 
 import qualified Data.Map as M
+--import Data.Default
 --import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import XMonad.Hooks.DynamicLog
@@ -26,14 +27,24 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
 
+import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
-import XMonad.Layout.NoBorders(smartBorders)
-import XMonad.Layout.ToggleLayouts
---import XMonad.Layout.Grid (Grid(..))
+--import XMonad.Layout.NoBorders(smartBorders, noBorders)
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Grid
 --import XMonad.Layout.TwoPane (TwoPane(..))
 --import XMonad.Layout.Tabbed (simpleTabbed)
 -- import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
+import XMonad.Layout.Maximize
+import XMonad.Layout.LayoutModifier
+
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
+--import XMonad.Layout.ToggleLayouts
+
+import XMonad.Layout.WindowNavigation
+import XMonad.Layout.AvoidFloats
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -56,27 +67,40 @@ import System.IO
 -- For className, use the second value that xprop gives you.
 
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
-    [ [ className =? "Steam"    --> doFloat ]
-    , [ title =? "Steam" --> doFloat ]
-    , [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
-    , [ (className =? "Steam" <&&> resource =? "Dialog") --> doFloat ]
-    , [ className =? "Progress" --> doFloat ]
-    --, className =? "Pcmanfm"  --> doFloat
-    --, className =? "pcmanfm"  --> doFloat
-    , [ isFullscreen --> doFullFloat ]
+    [ 
+      [ className =? "Steam"    --> doFloat ]
+      , [ title =? "Steam" --> doFloat ]
+      , [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
+      , [ (className =? "Steam" <&&> resource =? "Dialog") --> doFloat ]
+      , [ className =? "Progress" --> doFloat ]
+      , [ className =? "Pcmanfm"  --> doFloat ]
+      , [ className =? "pcmanfm"  --> doFloat ]
+      --, [ className =? "yusef"  --> doFloat ]
+      , [ className =? "Xmessage" --> doFloat ]
+      , [ isFullscreen --> doFullFloat ]
     ]
 
----------------------------------------------------------------------
+--------------------------------------------------------------------
 
 
---myLayoutHook =
-  --smartBorders $ -- layouts begin below
-  --noBorders Full
-  --`||| Tall 1 10/100 60/100
-  --`||| TwoPane 15/100 55/100
-  --`||| Mirror (Tall 1 10/100 60/100)
-  --`||| Grid
-  --`||| simpleTabbed
+--mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+
+
+--mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+--mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+--------------------------------------------------------------------
+
+myLayoutHook = avoidStruts $ smartBorders 
+              $ windowNavigation(
+                                  mkToggle Tall
+                                  ||| mkToggle (single MIRROR) 
+                                  ||| noBorders Full
+                                  ||| mySpacing 8 (Tall 1 (3/100) (1/2))
+                                  ||| Grid
+                                  -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
+                                )
 
 --------------------------------------------------------------------
 
@@ -87,7 +111,8 @@ main = do
       {
           borderWidth         = 3
           , terminal          = "alacritty"
-          , layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
+          --, layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
+          , layoutHook        = myLayoutHook
           , logHook           = dynamicLogWithPP xmobarPP {
                                 ppOutput = hPutStrLn xmproc
                               , ppTitle = xmobarColor "#93a1a1" "" . shorten 50
@@ -95,7 +120,7 @@ main = do
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
           , focusedBorderColor = "#2aa198"
-          , normalBorderColor = "black" -- Temporary Workaround, window borders become annoying when window is not focused.
+          , normalBorderColor = "#545454"
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
@@ -111,16 +136,34 @@ main = do
 
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
-            , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
-            , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
+            --, ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
+            --, ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
             --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
-            , ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
-            , ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
+            --, ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
+            --, ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
+            --------------------------------------------------
+            -- Manage Windows Easily Using Arrowkeys
+            , ((mod1Mask,                 xK_Right), sendMessage $ Go R)
+            , ((mod1Mask,                 xK_Left ), sendMessage $ Go L)
+            , ((mod1Mask,                 xK_Up   ), sendMessage $ Go U)
+            , ((mod1Mask,                 xK_Down ), sendMessage $ Go D)
+            , ((mod1Mask .|. controlMask, xK_Right), sendMessage $ Swap R)
+            , ((mod1Mask .|. controlMask, xK_Left ), sendMessage $ Swap L)
+            , ((mod1Mask .|. controlMask, xK_Up   ), sendMessage $ Swap U)
+            , ((mod1Mask .|. controlMask, xK_Down ), sendMessage $ Swap D)
+
+            --------------------------------------------------
+            -- Toggle Modes
+            , ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
             
+            --------------------------------------------------
+
             , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 3") -- decrease volume by 3
             , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 3") -- increase volume by 3
             , ((mod1Mask, xK_F5), spawn "/usr/bin/pamixer -t") -- togglemute
+
+            --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
             --, ((mod1Mask .|. controlMask, xK_f), moveTo Next NonEmptyWS)  -- (ALT + SHIFT F) cycle between non-empty workspaces (application opened in them)
