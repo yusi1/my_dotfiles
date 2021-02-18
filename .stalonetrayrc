@@ -47,7 +47,7 @@ grow_gravity NW
 icon_gravity NW
 
 # icon_size <int>            # specifies dimensions of typical icon slot
-icon_size 18
+icon_size 24
 
 # log_level <level>          # controls the amount of logging output, level can
                              # be err (default), info, or trace (enabled only
@@ -72,7 +72,7 @@ log_level err
 max_geometry 8x1
 
 # no_shrink [<bool>]         # disables shrink-back mode
-no_shrink false
+no_shrink true
 
 # parent_bg [<bool>]         # whether to use pseudo-transparency
                              # (looks better when reparented into smth like FvwmButtons)
