@@ -9,7 +9,8 @@ Plug 'itchyny/lightline.vim'
 "Plug 'ghifarit53/tokyonight-vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
+Plug 'overcache/NeoSolarized'
 
 " Initialize plugins
 call plug#end()
@@ -17,12 +18,31 @@ call plug#end()
 " Set theme
 set termguicolors
 
-" -- Onedark Theme Configuration --
-syntax on
-colorscheme onedark
+" -- Solarized Theme Configuration --
+
+set termguicolors
+colorscheme NeoSolarized
+set background=dark
 let g:lightline = {
-    \ 'colorscheme': 'onedark',
-    \ }
+            \ 'colorscheme': 'solarized',
+            \ }
+
+" If you wish to enable/disable NeoSolarized from displaying bold, underlined
+" or italicized" typefaces, simply assign 1 or 0 to the appropriate variable.
+" Default values:
+let g:neosolarized_bold = 1
+let g:neosolarized_underline = 1
+let g:neosolarized_italic = 1
+
+"------------------------------------
+
+
+" -- Onedark Theme Configuration --
+"syntax on
+"colorscheme onedark
+"let g:lightline = {
+    "\ 'colorscheme': 'onedark',
+    "\ }
 "----------------------------------
 
 " -- Gruvbox Theme Configuration --
