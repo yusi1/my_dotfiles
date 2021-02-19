@@ -7,7 +7,7 @@
 -- Bits of the file have been gained (different features) as I read documentation etc..
 -- Remember READ documentation, it's very useful (or even find random questions on reddit/github/stackoverflow etc...)
 -- Default Keys https://gist.github.com/c33k/1ecde9be24959f1c738d
--- My goal for my specific config is to keep it functional, but simple and well defined, keeping bloat to a minimum, of course adding comments only where necessary
+-- My goal for my specific config is to keep it functional, but simple and well defined, keeping bloat to a minimum
 
 ----------------------Imports----------------------------------------------
 
