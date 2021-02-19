@@ -1,0 +1,36 @@
+Custom Keybinds for desktop
+
+-- Open Apps --
+
+CTRL + F1   = Open File Manager
+CTRL + F2   = Open Chromium Web Browser
+CTRL + F3   = Open Brave Web Browser
+CTRL + F4   = Open Visual Studio Code
+ALT + CTRL + B      = Open GNU Icecat Web Browser
+
+---------------
+
+
+WINDOWS KEY + R     = Spawn Application Menu Based Launcher
+
+ALT + TAB                       = Cycle Free & NonFree Workspaces
+ALT + (Arrow Keys)              = Navigate Open Windows Using The Arrow Keys
+ALT + SHIFT + (Arrow Keys)      = Swap Open Windows Using Arrow Keys
+
+
+-- Volume --
+
+ALT + F8    = Increase Volume
+ALT + F7    = Decrease Volume
+ALT + F5    = Mute Volume
+
+-----------
+
+
+ALT + CTRL + Z  = Toggle Free Workspaces (No Windows Open)
+ALT + ENTER     = Toggle Fullscreen and Tiling Layouts
+
+
+-- Useful Defaults Keybinds --
+
+ALT + >  &  ALT + <    = Toggle Window Amount In Master Pane on Tall Layout
