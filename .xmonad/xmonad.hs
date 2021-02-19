@@ -86,6 +86,15 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
+tiled = Tall 1 (3/100) (1/2)        -- Easier Tall layout assignment & changing
+defSpacing = mySpacing 8            -- Default Spacing
+
+tiledSp = defSpacing (tiled)        -- For not needing to define spacing for Tall Layout
+nBFull = noBorders Full             -- NoBorders on Full without defining each time
+
+defLayouts = tiled ||| Grid ||| nBFull      -- Layouts to be used in LayoutHook
+-- defLayoutsT a b = a (nBFull) b (tiledSp)        -- Layouts for toggleLayouts
+--dLT2 = defLayoutsT
 
 --mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 --mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
@@ -95,10 +104,8 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 myLayoutHook = avoidStruts $ smartBorders 
               $ windowNavigation(
                                   --noBorders Full
-                                  toggleLayouts (noBorders Full) (mySpacing 8 (Tall 1 (3/100) (1/2)))
-                                  ||| Tall 1 (3/100) (1/2) 
-                                  ||| Grid
-                                  ||| noBorders Full
+                                  toggleLayouts (nBFull) (tiledSp)
+                                  ||| defLayouts
                                   -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                                   -- ||| Grid
                                   -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
