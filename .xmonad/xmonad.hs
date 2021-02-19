@@ -96,6 +96,7 @@ myLayoutHook = avoidStruts $ smartBorders
               $ windowNavigation(
                                   --noBorders Full
                                   toggleLayouts (noBorders Full) (mySpacing 8 (Tall 1 (3/100) (1/2)))
+                                  ||| Tall 1 (3/100) (1/2) 
                                   ||| Grid
                                   ||| noBorders Full
                                   -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
