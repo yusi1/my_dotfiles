@@ -187,7 +187,7 @@ main = do
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
             , ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
-
+            --, ((mod1Mask .|. controlMask, xK_f), sendMessage (Toggle "Full"))
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
                   --do t <- findWorkspace getSortByXineramaRule Next NonEmptyWS 2
