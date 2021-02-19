@@ -93,8 +93,8 @@ defSpacing = mySpacing 8            -- Default Spacing
 tiledSp = defSpacing (tiled)        -- For not needing to define spacing for Tall Layout
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
-defLayouts = tiled ||| Grid         -- Layouts to be used in LayoutHook
---defLayoutsT a b = a (nBFull) b (tiledSp)        -- Layouts for toggleLayouts
+defLayouts = tiled ||| Grid                    -- Layouts to be used in LayoutHook
+--defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
 
 --mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
