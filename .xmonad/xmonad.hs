@@ -30,7 +30,7 @@ import XMonad.Util.WorkspaceCompare
 
 import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
---import XMonad.Layout.NoBorders(smartBorders, noBorders)
+--import XMonad.Layout.NoBorders(OnlyFloat)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Grid
 --import XMonad.Layout.TwoPane (TwoPane(..))
@@ -94,7 +94,7 @@ tiledSp = defSpacing (tiled)        -- For not needing to define spacing for Tal
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
 defLayouts = tiled ||| Grid ||| nBFull      -- Layouts to be used in LayoutHook
--- defLayoutsT a b = a (nBFull) b (tiledSp)        -- Layouts for toggleLayouts
+--defLayoutsT a b = a (nBFull) b (tiledSp)        -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
 
 --mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -102,15 +102,15 @@ defLayouts = tiled ||| Grid ||| nBFull      -- Layouts to be used in LayoutHook
 
 --------------------------------------------------------------------
 
-myLayoutHook = avoidStruts $ smartBorders 
-              $ windowNavigation(
-                                  --noBorders Full
-                                  toggleLayouts (nBFull) (tiledSp)
-                                  ||| defLayouts
-                                  -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
-                                  -- ||| Grid
-                                  -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
-                                )
+myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
+              (
+                --noBorders Full
+                toggleLayouts (nBFull) (tiledSp)
+                ||| defLayouts
+                -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
+                -- ||| Grid
+                -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
+              )
 
 --------------------------------------------------------------------
 
