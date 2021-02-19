@@ -31,6 +31,6 @@ ALT + CTRL + Z  = Toggle Free Workspaces (No Windows Open)
 ALT + ENTER     = Toggle Fullscreen and Tiling Layouts
 
 
--- Useful Defaults Keybinds --
+-- Useful Default Keybinds --
 
 ALT + >  &  ALT + <    = Toggle Window Amount In Master Pane on Tall Layout
