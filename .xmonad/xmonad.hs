@@ -173,6 +173,11 @@ main = do
             , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 3") -- increase volume by 3
             , ((mod1Mask, xK_F5), spawn "/usr/bin/pamixer -t") -- togglemute
 
+            
+            , ((mod1Mask .|. controlMask, xK_i), incWindowSpacing 4)    -- Increase Window Spacing on the Fly
+            , ((mod1Mask .|. controlMask, xK_d), decWindowSpacing 4)    -- Decrease Window Spacing on the Fly
+
+
             --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
