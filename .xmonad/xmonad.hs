@@ -37,7 +37,7 @@ import XMonad.Layout.Grid
 --import XMonad.Layout.Tabbed (simpleTabbed)
 -- import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
-import XMonad.Layout.Maximize
+--import XMonad.Layout.Maximize
 import XMonad.Layout.LayoutModifier
 
 --import XMonad.Layout.MultiToggle
@@ -49,7 +49,7 @@ import XMonad.Layout.AvoidFloats
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
-import XMonad.Actions.Promote -- Promote selected window to master pane
+--import XMonad.Actions.Promote -- Promote selected window to master pane
 --import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
 --import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
