@@ -93,7 +93,7 @@ defSpacing = mySpacing 8            -- Default Spacing
 tiledSp = defSpacing (tiled)        -- For not needing to define spacing for Tall Layout
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
-defLayouts = tiled ||| Grid ||| nBFull      -- Layouts to be used in LayoutHook
+defLayouts = tiled ||| Grid         -- Layouts to be used in LayoutHook
 --defLayoutsT a b = a (nBFull) b (tiledSp)        -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
 
