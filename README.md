@@ -1,3 +1,5 @@
+[![2021-02-19-235939-3100x1080-scrot.png](https://i.postimg.cc/3Np7Xy9q/2021-02-19-235939-3100x1080-scrot.png)](https://postimg.cc/m1b0Rgv3)
+
 ## My Config Files
 
 These are my dotfiles for different applications that I use on my setup, I don't like bloat, I like simplicity and not having applications that are bloated and take up a lot of ram.
