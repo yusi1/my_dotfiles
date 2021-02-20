@@ -1,4 +1,4 @@
-[![2021-02-20-00-27.png](https://i.postimg.cc/nhn2fy8j/2021-02-20-00-27.png)](https://postimg.cc/BXwHxwn4)
+[![newdesktop.png](https://i.postimg.cc/k4sngBwP/newdesktop.png)](https://postimg.cc/JDywT79p)
 
 ## My Config Files
 
