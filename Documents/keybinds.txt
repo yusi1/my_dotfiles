@@ -33,6 +33,7 @@ ALT + ENTER     = Toggle Fullscreen and Tiling Layouts
 ALT + CTRL + I   = Increase Window Spacing (On The Fly)
 ALT + CTRL + D   = Decrease Window Spacing (On The Fly)
 
+ALT + PRINT SCREEN  = Take a Screenshot Of The Screen(s)
 
 
 -- Useful Default Keybinds --
