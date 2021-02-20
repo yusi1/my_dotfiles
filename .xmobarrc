@@ -2,9 +2,10 @@
 
 -- Also Read: https://xmobar.org/
 
-Config { font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-        --font = "xft:Mononoki Nerd Font:pixelsize=10:antialias=true:hinting=true"
+Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+        font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"       --font = "xft:Mononoki Nerd Font:pixelsize=10:antialias=true:hinting=true"
         --font = "xft:Terminess Nerd Font:pixelsize=11:antialias=true:hinting=true"
+        --font = "xft:Meslo:pixelsize=11:antialias=true:hinting=true"
         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=12:antialias=true:hinting=true" ]
         , bgColor = "#002b36"
         , fgColor = "#839496"
