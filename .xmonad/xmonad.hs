@@ -90,10 +90,10 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 tiled = Tall 1 (3/100) (1/2)        -- Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = defSpacing (tiled)        -- For not needing to define spacing for Tall Layout
+tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall Layout
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
-defLayouts = tiled ||| Grid                    -- Layouts to be used in LayoutHook
+defLayouts = tiled                    -- Layouts to be used in LayoutHook
 --defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
 
