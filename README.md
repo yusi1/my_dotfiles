@@ -1,4 +1,4 @@
-[![2021-02-19-235939-3100x1080-scrot.png](https://i.postimg.cc/3Np7Xy9q/2021-02-19-235939-3100x1080-scrot.png)](https://postimg.cc/m1b0Rgv3)
+[![2021-02-20-00-27.png](https://i.postimg.cc/nhn2fy8j/2021-02-20-00-27.png)](https://postimg.cc/BXwHxwn4)
 
 ## My Config Files
 
