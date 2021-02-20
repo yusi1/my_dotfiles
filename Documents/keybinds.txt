@@ -29,6 +29,7 @@ ALT + F5    = Mute Volume
 
 ALT + CTRL + Z  = Toggle Free Workspaces (No Windows Open)
 ALT + ENTER     = Toggle Fullscreen and Tiling Layouts
+ALT + SPACE		= Toggle Layouts
 
 ALT + CTRL + I   = Increase Window Spacing (On The Fly)
 ALT + CTRL + D   = Decrease Window Spacing (On The Fly)
