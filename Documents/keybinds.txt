@@ -40,3 +40,11 @@ ALT + PRINT SCREEN  = Take a Screenshot Of The Screen(s)
 -- Useful Default Keybinds --
 
 ALT + >  &  ALT + <    = Toggle Window Amount In Master Pane on Tall Layout
+ALT + (Number Keys)	   = Switch Workspaces
+
+
+
+
+
+
+
