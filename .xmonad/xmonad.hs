@@ -129,8 +129,9 @@ main = do
                               , ppSort = getSortByXineramaRule
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
-          , focusedBorderColor = "#2aa198"
-          , normalBorderColor = "#545454"
+          --, focusedBorderColor = "#2aa198"
+          , focusedBorderColor = "#46d9ff"
+          , normalBorderColor = "#282c34"
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
@@ -146,8 +147,8 @@ main = do
 
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             --, ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
-            --, ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
-            --, ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
+            , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
+            , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
             --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
             --, ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
