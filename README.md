@@ -1,3 +1,5 @@
+https://imgur.com/mFHEbXx
+
 ## My Config Files
 
 These are my dotfiles for different applications that I use on my setup, I don't like bloat, I like simplicity and not having applications that are bloated and take up a lot of ram.
