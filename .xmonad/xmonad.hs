@@ -232,6 +232,8 @@ main = do
             , ((mod1Mask, xK_F12), spawn "killall picom; picom -b & disown") -- Restart Compositor
 
             , ((mod1Mask .|. controlMask, xK_k), spawn "notepadqq ~/Documents/keybinds.txt")  -- Show keybinds
+            
+            , ((mod1Mask, xK_F11), spawn "killall stalonetray; stalonetray & disown") -- Restart Stalonetray
 
             --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
