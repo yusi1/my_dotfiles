@@ -86,6 +86,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "mpv"     --> doShift ( myWorkspaces !! 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
       , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
+      , className =? "LBRY"   --> doShift ( myWorkspaces !! 5 )
       , className =? "Chromium" --> doShift ( myWorkspaces !! 1 )
       --, title =? "GNU IceCat" --> doFloat
       --, [ className =? "gl"     --> doShift ( myWorkspaces !! 6 ) ]
