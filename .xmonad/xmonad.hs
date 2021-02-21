@@ -139,7 +139,7 @@ main = do
            [
             ((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
             , ((controlMask, xK_F2), spawn "chromium")    -- spawn app (CTRL F2)
-            , ((controlMask, xK_F3), spawn "brave")       -- spawn app (CTRL F3)
+            , ((controlMask, xK_F3), spawn "epdfview")       -- spawn app (CTRL F3)
             , ((controlMask, xK_F4), spawn "code")        -- spawn app (CTRL F4)
 
             , ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
