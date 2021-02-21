@@ -43,6 +43,8 @@ ALT + CTRL + (Arrow Keys [Left & Right])    = Switch workspaces (horizontal orde
 ALT + >  &  ALT + <    = Toggle Window Amount In Master Pane on Tall Layout
 ALT + (Number Keys)	   = Switch Workspaces
 
+ALT + CTRL + K 		   = Open Keybinds List
+
 
 
 
