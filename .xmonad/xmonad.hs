@@ -101,7 +101,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "pcmanfm"  --> doFloat
       --, [ className =? "yusef"  --> doFloat ]
       , className =? "Xmessage" --> doFloat
-      , className =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
+      , className =? "ckb-next" --> doShift ( myWorkspaces !! 2 )
+      , className =? "obs"      --> doShift ( myWorkspaces !! 7 )
       --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
       , isFullscreen --> doFullFloat
     ]
@@ -109,8 +110,9 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" dev ", " www ", " sys ", " virt ", " mus ", " vid ", " game ", " misc1 ", " misc2 "]
+myWorkspaces = [" dev ", " www ", " sys ", " virt ", " mus ", " vid ", " game ", " rec ", " misc "]
 -- myWorkspaces = [" 1 ", " 2 ",  " 3 ",   " 4 ",    " 5 ",   " 6 ",   " 7 ",       " 8 ",      " 9 "]
+-- Offset:         " 0 ", " 1 ",  " 2 ",   " 3 ",    " 4 ",   " 5 ",   " 6 ",       " 7 ",      " 8 "       Offset = n-1
 
 
 
