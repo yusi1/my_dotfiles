@@ -18,15 +18,25 @@ import XMonad
 import qualified Data.Map as M
 --import Data.Default
 --import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
+--import System.Directory
+--import System.IO
+--import System.Exit (exitSuccess)
+import qualified XMonad.StackSet as W
+import Data.Monoid
+
+--import Text.Printf
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.FadeInactive
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
+--import XMonad.Util.Loggers
 
 import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
@@ -67,21 +77,40 @@ import System.IO
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 
+myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
-    [ 
-      [ className =? "Steam"    --> doFloat ]
-      , [ title =? "Steam" --> doFloat ]
-      , [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
-      , [ (className =? "Steam" <&&> resource =? "Dialog") --> doFloat ]
-      , [ className =? "Progress" --> doFloat ]
-      , [ className =? "Pcmanfm"  --> doFloat ]
-      , [ className =? "pcmanfm"  --> doFloat ]
+    [
+      -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
+      className =? "Steam"    --> doShift ( myWorkspaces !! 6 )
+      , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
+      , className =? "mpv"     --> doShift ( myWorkspaces !! 5 )
+      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+      , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
+      , className =? "Chromium" --> doShift ( myWorkspaces !! 1 )
+      , title =? "GNU IceCat" --> doFloat
+      --, [ className =? "gl"     --> doShift ( myWorkspaces !! 6 ) ]
+      --, [ title =? "mpv"         --> doShift ( myWorkspaces !! 6 ) ]
+      --, [ title =? "Steam" --> doShift ( myWorkspaces !! 7 ) ]
+      --, [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
+      , className =? "Progress" --> doFloat
+      , className =? "Pcmanfm"  --> doFloat
+      , className =? "pcmanfm"  --> doFloat
       --, [ className =? "yusef"  --> doFloat ]
-      , [ className =? "Xmessage" --> doFloat ]
-      , [ isFullscreen --> doFullFloat ]
+      , className =? "Xmessage" --> doFloat
+      , className =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
+      --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
+      , isFullscreen --> doFullFloat
     ]
 
 --------------------------------------------------------------------
+-- [ My Workspaces ]
+
+myWorkspaces = [" dev ", " www ", " sys ", " virt ", " mus ", " vid ", " game ", " misc1 ", " misc2 "]
+-- myWorkspaces = [" 1 ", " 2 ",  " 3 ",   " 4 ",    " 5 ",   " 6 ",   " 7 ",       " 8 ",      " 9 "]
+
+
+
+-------------------------------------------------------------------
 
 
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -96,6 +125,9 @@ nBFull = noBorders Full             -- NoBorders on Full without defining each t
 defLayouts = tiled                    -- Layouts to be used in LayoutHook
 --defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
+
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 --mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 --mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
@@ -114,6 +146,13 @@ myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
 
 --------------------------------------------------------------------
 
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 1
+
+-------------------------------------------------------------------
+
+
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
@@ -122,11 +161,21 @@ main = do
           borderWidth         = 3
           , terminal          = "alacritty"
           --, layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
+          , workspaces = myWorkspaces
+          , manageHook = myManageHook
           , layoutHook        = myLayoutHook
-          , logHook           = dynamicLogWithPP xmobarPP {
+          , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 ppOutput = hPutStrLn xmproc
-                              , ppTitle = xmobarColor "#93a1a1" "" . shorten 50
-                              , ppSort = getSortByXineramaRule
+                              , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
+                              , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
+                              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
+                              , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
+                              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                              , ppExtras  = [windowCount]                           -- # of windows current workspace
+                              --, ppSort = getSortByXineramaRule
+                              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
           --, focusedBorderColor = "#2aa198"
