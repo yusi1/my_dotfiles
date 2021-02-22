@@ -94,7 +94,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Vmware"       --> doShift ( myWorkspaces !! 3 ) <+> viewShift ( myWorkspaces !! 3 )
       , className =? "powder-toy"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
       --, className =? "powder-toy"   --> viewShift ( myWorkspaces !! 6 )
-      --, className =? "Chromium" --> doShift ( myWorkspaces !! 1 )
+      , className =? "Chromium" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
       --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
       --, title =? "GNU IceCat" --> doFloat
       --, [ className =? "gl"     --> doShift ( myWorkspaces !! 6 ) ]
@@ -220,14 +220,14 @@ main = do
             --, ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
             --------------------------------------------------
             -- Manage Windows Easily Using Arrowkeys
-            , ((mod1Mask,                 xK_Right), sendMessage $ Go R)
-            , ((mod1Mask,                 xK_Left ), sendMessage $ Go L)
-            , ((mod1Mask,                 xK_Up   ), sendMessage $ Go U)
-            , ((mod1Mask,                 xK_Down ), sendMessage $ Go D)
-            , ((mod1Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
-            , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
-            , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
-            , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
+            , ((mod4Mask,                 xK_Right), sendMessage $ Go R)
+            , ((mod4Mask,                 xK_Left ), sendMessage $ Go L)
+            , ((mod4Mask,                 xK_Up   ), sendMessage $ Go U)
+            , ((mod4Mask,                 xK_Down ), sendMessage $ Go D)
+            , ((mod4Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
+            , ((mod4Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
+            , ((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
+            , ((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
 
             --------------------------------------------------
             -- Toggle Modes
