@@ -39,13 +39,16 @@ ALT + PRINT SCREEN  = Take a Screenshot Of The Screen(s)
 
 ALT + CTRL + (Arrow Keys [Left & Right])    = Switch workspaces (horizontal order) 
 
--- Useful Default Keybinds --
-
 ALT + >  &  ALT + <    = Toggle Window Amount In Master Pane on Tall Layout
 ALT + (Number Keys)	   = Switch Workspaces
 
 ALT + CTRL + K 		   = Open Keybinds List
 
+ALT + SHIFT + C		   = Close Application
+
+ALT + (Hold Right Click on Mouse)	= Resize application
+
+ALT + (Left click on Mouse)		= Move Floating Window
 
 
 
