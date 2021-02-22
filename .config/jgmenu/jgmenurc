@@ -54,14 +54,14 @@
 # icon_theme_fallback = xtg
 # arrow_string = ▸
 # arrow_width = 15
-color_menu_bg = #002b36 100
+# color_menu_bg = #002b36 100
 # color_menu_bg_to = #000000 100
 # color_menu_border = #586e75 20
 # color_norm_bg = #000000 00
 # color_norm_fg = #eeeeee 100
 # color_sel_bg = #ffffff 20
-# color_sel_fg = #eeeeee 100
-# color_sel_border = #eeeeee 8
+color_sel_fg = #39ff14 100
+color_sel_border = #228b22 8
 # color_sep_fg = #ffffff 20
 # color_scroll_ind = #eeeeee 40
 # color_title_fg = #eeeeee 50
