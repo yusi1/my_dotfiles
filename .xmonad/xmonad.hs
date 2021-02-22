@@ -89,6 +89,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "IceCat" --> doShift ( myWorkspaces !! 1 )
       , className =? "LBRY"   --> doShift ( myWorkspaces !! 5 )
       , className =? "qnvsm"  --> doShift ( myWorkspaces !! 2 )
+      , className =? "vmware" --> doShift ( myWorkspaces !! 3 )
+      , className =? "Vmware" --> doShift ( myWorkspaces !! 3 )
       --, className =? "Chromium" --> doShift ( myWorkspaces !! 1 )
       --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
       --, title =? "GNU IceCat" --> doFloat
@@ -101,7 +103,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "pcmanfm"  --> doFloat
       --, [ className =? "yusef"  --> doFloat ]
       , className =? "Xmessage" --> doFloat
-      , className =? "ckb-next" --> doShift ( myWorkspaces !! 2 )
+      , className =? "ckb-next" --> doShift ( myWorkspaces !! 8 )
       , className =? "obs"      --> doShift ( myWorkspaces !! 7 )
       --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
       , isFullscreen --> doFullFloat
@@ -172,10 +174,10 @@ main = do
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 ppOutput = hPutStrLn xmproc
-                              , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
-                              , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                              , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                              , ppCurrent = xmobarColor "#56B24E" "" . wrap "[" "]" -- Current workspace in xmobar
+                              , ppVisible = xmobarColor "#56B24E" ""                -- Visible but not current workspace
+                              , ppHidden = xmobarColor "#368d33" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = xmobarColor "#39FF14" ""        -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
@@ -185,7 +187,7 @@ main = do
                               }
                               >> updatePointer (0.95, 0.95) (0.95, 0.95)
           --, focusedBorderColor = "#2aa198"
-          , focusedBorderColor = "#46d9ff"
+          , focusedBorderColor = "#56B24E"
           , normalBorderColor = "#282c34"
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
