@@ -193,7 +193,8 @@ main = do
                               --, ppSort = getSortByXineramaRule
                               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                               }
-                              >> updatePointer (0.95, 0.95) (0.95, 0.95)
+                              -- >> updatePointer (0.95, 0.95) (0.95, 0.95)
+                              >> updatePointer (1, 1) (0, 0)
           --, focusedBorderColor = "#2aa198"
           , focusedBorderColor = "#56B24E"
           , normalBorderColor = "#282c34"
