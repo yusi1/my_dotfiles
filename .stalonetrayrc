@@ -41,7 +41,7 @@ geometry 8x1+1728+0
 							 # grow_gravity; if horizontal or vertical
 							 # direction is not specified, tray will not grow in
 							 # that direction
-# grow_gravity NW
+#grow_gravity NW
 
 # icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
 icon_gravity SE
@@ -72,7 +72,7 @@ log_level err
 max_geometry 8x1
 
 # no_shrink [<bool>]         # disables shrink-back mode
-no_shrink true
+no_shrink false
 
 # parent_bg [<bool>]         # whether to use pseudo-transparency
                              # (looks better when reparented into smth like FvwmButtons)
@@ -84,9 +84,9 @@ parent_bg false
 # scrollbars <mode>          # enable/disable scrollbars; mode is either
                              # vertical, horizontal, all or none (default)
                              # NEW in @VERSION_STR@.
-scrollbars none
+#scrollbars vertical
 
-# scrollbars-size <size>     # scrollbars step in pixels; default is slot_size / 4
+#scrollbars-size 1     # scrollbars step in pixels; default is slot_size / 4
 # scrollbars-step 8
 
 # scrollbars-step <step>     # scrollbars step in pixels; default is slot_size / 2

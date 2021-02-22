@@ -12,6 +12,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         , bgColor = "#000000"
         , fgColor = "#839496"
         --, position = TopW L 90
+        --, position = TopP 0 192
         , position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
         , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
         , commands = [ 

@@ -110,6 +110,9 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "ckb-next" --> doShift ( myWorkspaces !! 10 ) <+> viewShift ( myWorkspaces !! 10 )
       , className =? "obs"      --> doShift ( myWorkspaces !! 7 ) <+> viewShift ( myWorkspaces !! 7 )
       , className =? "Maltego"  --> doShift ( myWorkspaces !! 8 ) <+> viewShift ( myWorkspaces !! 8 )
+      
+      , className =? "Lutris"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
+
       --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
       , isFullscreen --> doFullFloat
     ]
