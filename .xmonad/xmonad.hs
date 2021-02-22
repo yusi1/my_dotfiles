@@ -23,6 +23,7 @@ import qualified Data.Map as M
 --import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 import Data.Monoid
+import Control.Monad (liftM2)
 
 --import Text.Printf
 
@@ -81,17 +82,18 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
     [
       -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
-      className =? "Steam"    --> doShift ( myWorkspaces !! 6 )
+      className =? "Steam"    --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
-      , className =? "mpv"     --> doShift ( myWorkspaces !! 5 )
+      , className =? "mpv"     --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
       , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
-      , className =? "IceCat"       --> doShift ( myWorkspaces !! 1 )
-      , className =? "LBRY"         --> doShift ( myWorkspaces !! 5 )
-      , className =? "qnvsm"        --> doShift ( myWorkspaces !! 2 )
-      , className =? "vmware"       --> doShift ( myWorkspaces !! 3 )
-      , className =? "Vmware"       --> doShift ( myWorkspaces !! 3 )
-      , className =? "powder-toy"   --> doShift ( myWorkspaces !! 6 )
+      , className =? "IceCat"       --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
+      , className =? "LBRY"         --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
+      , className =? "qnvsm"        --> doShift ( myWorkspaces !! 2 ) <+> viewShift ( myWorkspaces !! 2 )
+      --, className =? "vmware"       --> doShift ( myWorkspaces !! 3 )
+      , className =? "Vmware"       --> doShift ( myWorkspaces !! 3 ) <+> viewShift ( myWorkspaces !! 3 )
+      , className =? "powder-toy"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
+      --, className =? "powder-toy"   --> viewShift ( myWorkspaces !! 6 )
       --, className =? "Chromium" --> doShift ( myWorkspaces !! 1 )
       --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
       --, title =? "GNU IceCat" --> doFloat
@@ -104,12 +106,13 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "pcmanfm"  --> doFloat
       --, [ className =? "yusef"  --> doFloat ]
       , className =? "Xmessage" --> doFloat
-      , className =? "ckb-next" --> doShift ( myWorkspaces !! 10 )
-      , className =? "obs"      --> doShift ( myWorkspaces !! 7 )
-      , className =? "Maltego"  --> doShift ( myWorkspaces !! 8 )
+      , className =? "ckb-next" --> doShift ( myWorkspaces !! 10 ) <+> viewShift ( myWorkspaces !! 10 )
+      , className =? "obs"      --> doShift ( myWorkspaces !! 7 ) <+> viewShift ( myWorkspaces !! 7 )
+      , className =? "Maltego"  --> doShift ( myWorkspaces !! 8 ) <+> viewShift ( myWorkspaces !! 8 )
       --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
       , isFullscreen --> doFullFloat
     ]
+    where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 --------------------------------------------------------------------
 -- [ My Workspaces ]
