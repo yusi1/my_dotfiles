@@ -1,5 +1,3 @@
-[![2021-02-21-23-33.png](https://i.postimg.cc/v81KhwYM/2021-02-21-23-33.png)](https://postimg.cc/3WT9r60b)
-
 ## My Config Files
 
 These are my dotfiles for different applications that I use on my setup, I don't like bloat, I like simplicity and not having applications that are bloated and take up a lot of ram. These dotfiles on Github act as a backup for me and plus others can copy my config for comments/help or as a basis to their configs.
