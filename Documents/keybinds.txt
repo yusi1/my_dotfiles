@@ -7,6 +7,7 @@ CTRL + F2   = Open Chromium Web Browser
 CTRL + F3   = Open PDF Viewer
 CTRL + F4   = Open Visual Studio Code
 ALT + CTRL + B      = Open GNU Icecat Web Browser
+ALT + CTRL + M      = Open Email Application (Mailspring)
 
 ---------------
 

@@ -104,6 +104,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Progress" --> doFloat
       , className =? "Pcmanfm"  --> doFloat
       , className =? "pcmanfm"  --> doFloat
+      , className =? "Mailspring" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
       --, [ className =? "yusef"  --> doFloat ]
       , className =? "Xmessage" --> doFloat
       , className =? "ckb-next" --> doShift ( myWorkspaces !! 10 ) <+> viewShift ( myWorkspaces !! 10 )
@@ -117,8 +118,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" dev ", " www ", " sys ", " virt ", " mus ", " vid ", " game ", " rec ", " osint ", "osint1 ", " misc "]
--- Offset:      " 0 ",   " 1 ",   " 2 ",   " 3 ",    " 4 ",   " 5 ",   " 6 ",    " 7 ",   " 8 ",     " 9 ",     " 10 "         Offset = n-1
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:mus ", " 6:vid ", " 7:game ", " 8:rec ", " 9:osint ", " 10:osint1 ", " 11:misc "]
+-- Offset:      " 0 ",     " 1 ",     " 2 ",     " 3 ",      " 4 ",     " 5 ",     " 6 ",      " 7 ",     " 8 ",       " 9 ",         " 10 "         Offset = n-1
 
 
 
@@ -182,7 +183,7 @@ main = do
                               , ppVisible = xmobarColor "#56B24E" ""                -- Visible but not current workspace
                               , ppHidden = xmobarColor "#368d33" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = xmobarColor "#39FF14" ""        -- Hidden workspaces (no windows)
-                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 40     -- Title of active window in xmobar
+                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 25     -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                               , ppExtras  = [windowCount]                           -- # of windows current workspace
@@ -246,6 +247,8 @@ main = do
             , ((mod1Mask .|. controlMask, xK_k), spawn "notepadqq ~/Documents/keybinds.txt")  -- Show keybinds
             
             , ((mod1Mask, xK_F11), spawn "killall stalonetray; stalonetray & disown") -- Restart Stalonetray
+            
+            , ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
 
             --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
