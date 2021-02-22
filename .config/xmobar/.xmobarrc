@@ -1,0 +1,41 @@
+-- My XMobar config, written with help from https://wiki.haskell.org/Xmonad/Config_archive/John_Goerzen's_Configuration
+
+-- Also Read: https://xmobar.org/
+
+Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+        font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"     
+        --font = "xft:mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+        --font = "xft:TerminessTTF Nerd Font:pixelsize=11:antialias=true:hinting=true"
+        --font = "xft:MesloLGS NF:pixelsize=11:antialias=true:hinting=true"
+        --font = "xft:Hack Nerd Font:pixelsize=11:antialias=true;hinting=true"
+        , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=12:antialias=true:hinting=true" ]
+        , bgColor = "#000000"
+        , fgColor = "#839496"
+        --, position = TopW L 90
+        --, position = TopP 0 192
+        --, position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
+        , position = Static { xpos = 0, ypos = 0, width = 1920, height = 24 }
+        , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
+        , commands = [ 
+                    Run Weather "EGPD" ["-t","<fn=1>\xe302 </fn> (<tempC>°C)","-L","5","-H","9"
+                    ,"--high","orange"
+                    ,"--low","#268bd2"
+                    ] 36000     -- Update Time
+                    , Run Cpu ["-t", "<fn=1>\xf108 </fn> cpu: (<total>%)","-L","3","-H","50","--high","#dc322f"] 10
+                    -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
+                    , Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
+                    , Run Memory ["-t","<fn=1>\xf233 </fn> Mem: <used>M (<usedratio>%)"] 10
+                    , Run Swap [] 10
+                    , Run Date "<fn=1>\xf133 </fn> %a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
+                    --, Run Volume "default" "Master" [] 10
+                    , Run Com "uname" ["-r"] "kernelname" 0
+                    , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 12000
+                    , Run Com "/home/yusef/.local/bin/new" [] "vol" 10
+                    , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 10
+                    , Run StdinReader
+                    ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#56b24e><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#228b22>%memory% * %swap%</fc>  |  <fc=#368d33>%enp2s0%</fc>  |   <fc=#5e9a24>%EGPD%</fc>  |  <fc=#64b21b><fn=1> </fn> %upd%</fc>  |  <fc=#5e9a24><fn=1> </fn> %vol%</fc> |  <fc=#64b21b>%date%</fc>  |  %trayerpad% "
+
+        }
