@@ -83,6 +83,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
     [
       -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
       className =? "Steam"    --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
+      , className =? "Alacritty" --> doShift ( myWorkspaces !! 0 ) <+> viewShift ( myWorkspaces !! 0 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
       , className =? "mpv"     --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
@@ -95,6 +96,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "powder-toy"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
       --, className =? "powder-toy"   --> viewShift ( myWorkspaces !! 6 )
       , className =? "Chromium" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
+      , className =? "Code"     --> doShift ( myWorkspaces !! 0 ) <+> viewShift ( myWorkspaces !! 0 )
+      , className =? "LibreWolf" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
       --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
       --, title =? "GNU IceCat" --> doFloat
       --, [ className =? "gl"     --> doShift ( myWorkspaces !! 6 ) ]
