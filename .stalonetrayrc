@@ -72,7 +72,7 @@ log_level err
 max_geometry 8x1
 
 # no_shrink [<bool>]         # disables shrink-back mode
-no_shrink false
+no_shrink true
 
 # parent_bg [<bool>]         # whether to use pseudo-transparency
                              # (looks better when reparented into smth like FvwmButtons)
