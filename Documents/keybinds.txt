@@ -15,8 +15,8 @@ ALT + CTRL + M      = Open Email Application (Mailspring)
 WINDOWS KEY + R     = Spawn Application Menu Based Launcher
 
 ALT + TAB                       = Cycle Free & NonFree Workspaces
-WINDOWS KEY + (Arrow Keys)              = Navigate Open Windows Using The Arrow Keys
-WINDOWS KEY + SHIFT + (Arrow Keys)      = Swap Open Windows Using Arrow Keys
+ALT + (Arrow Keys)              = Navigate Open Windows Using The Arrow Keys
+ALT + SHIFT + (Arrow Keys)      = Swap Open Windows Using Arrow Keys
 
 
 -- Volume --

@@ -220,14 +220,14 @@ main = do
             --, ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
             --------------------------------------------------
             -- Manage Windows Easily Using Arrowkeys
-            , ((mod4Mask,                 xK_Right), sendMessage $ Go R)
-            , ((mod4Mask,                 xK_Left ), sendMessage $ Go L)
-            , ((mod4Mask,                 xK_Up   ), sendMessage $ Go U)
-            , ((mod4Mask,                 xK_Down ), sendMessage $ Go D)
-            , ((mod4Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
-            , ((mod4Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
-            , ((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
-            , ((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
+            , ((mod1Mask,                 xK_Right), sendMessage $ Go R)
+            , ((mod1Mask,                 xK_Left ), sendMessage $ Go L)
+            , ((mod1Mask,                 xK_Up   ), sendMessage $ Go U)
+            , ((mod1Mask,                 xK_Down ), sendMessage $ Go D)
+            , ((mod1Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
+            , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
+            , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
+            , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
 
             --------------------------------------------------
             -- Toggle Modes
