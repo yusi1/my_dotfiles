@@ -30,7 +30,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     --, Run Volume "default" "Master" [] 10
                     , Run Com "uname" ["-r"] "kernelname" 0
                     , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 12000
-                    , Run Com "/home/yusef/.local/bin/new" [] "vol" 10
+                    , Run Com "/home/yusef/.local/bin/new" [] "vol" 1
                     , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 10
                     , Run StdinReader
                     ]
