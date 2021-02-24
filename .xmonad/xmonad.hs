@@ -78,50 +78,42 @@ import System.IO
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 
+viewShift = doF . liftM2 (.) W.greedyView W.shift
+doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
+
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
     [
       -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
-      className =? "Steam"    --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
-      , className =? "Alacritty" --> doShift ( myWorkspaces !! 0 ) <+> viewShift ( myWorkspaces !! 0 )
+      className =? "Steam"    --> ( doShiftWS 6 )
+      , className =? "Alacritty" --> ( doShiftWS 0 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
-      , className =? "mpv"     --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
-      , className =? "vlc"     --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
+      , className =? "mpv" --> ( doShiftWS 5 )
+      , className =? "vlc" --> ( doShiftWS 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
       , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
-      , className =? "IceCat"       --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
-      , className =? "LBRY"         --> doShift ( myWorkspaces !! 5 ) <+> viewShift ( myWorkspaces !! 5 )
-      , className =? "qnvsm"        --> doShift ( myWorkspaces !! 2 ) <+> viewShift ( myWorkspaces !! 2 )
-      --, className =? "vmware"       --> doShift ( myWorkspaces !! 3 )
-      , className =? "Vmware"       --> doShift ( myWorkspaces !! 3 ) <+> viewShift ( myWorkspaces !! 3 )
-      , className =? "powder-toy"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
-      --, className =? "powder-toy"   --> viewShift ( myWorkspaces !! 6 )
-      , className =? "Chromium" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
-      , className =? "Code"     --> doShift ( myWorkspaces !! 0 ) <+> viewShift ( myWorkspaces !! 0 )
-      , className =? "Epdfview" --> doShift ( myWorkspaces !! 4 ) <+> viewShift ( myWorkspaces !! 4 )
-      , className =? "LibreWolf" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
-      --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
-      --, title =? "GNU IceCat" --> doFloat
-      --, [ className =? "gl"     --> doShift ( myWorkspaces !! 6 ) ]
-      --, [ title =? "mpv"         --> doShift ( myWorkspaces !! 6 ) ]
-      --, [ title =? "Steam" --> doShift ( myWorkspaces !! 7 ) ]
-      --, [ className =? "steam"    --> doFullFloat ] -- bigpicture-mode
-      , className =? "Progress" --> doFloat
-      , className =? "Pcmanfm"  --> doFloat
-      , className =? "pcmanfm"  --> doFloat
-      , className =? "Mailspring" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
-      --, [ className =? "yusef"  --> doFloat ]
-      , className =? "Xmessage" --> doFloat
-      , className =? "ckb-next" --> doShift ( myWorkspaces !! 10 ) <+> viewShift ( myWorkspaces !! 10 )
-      , className =? "obs"      --> doShift ( myWorkspaces !! 7 ) <+> viewShift ( myWorkspaces !! 7 )
-      , className =? "Maltego"  --> doShift ( myWorkspaces !! 8 ) <+> viewShift ( myWorkspaces !! 8 )
-      , className =? "Nvidia-settings"  --> doShift ( myWorkspaces !! 2 ) <+> viewShift ( myWorkspaces !! 2 )
-      , className =? "Lutris"   --> doShift ( myWorkspaces !! 6 ) <+> viewShift ( myWorkspaces !! 6 )
-
-      --, title =? "ckb-next" --> doShift ( myWorkspaces !! 7 )
+      , className =? "IceCat"     --> ( doShiftWS 1 )
+      , className =? "LBRY"       --> ( doShiftWS 5 )
+      , className =? "qnvsm"      --> ( doShiftWS 2 )
+      , className =? "Vmware"     --> ( doShiftWS 3 )
+      , className =? "powder-toy" --> ( doShiftWS 6 )
+      , className =? "Chromium"   --> ( doShiftWS 1 )
+      , className =? "Code"       --> ( doShiftWS 0 )
+      , className =? "Epdfview"   --> ( doShiftWS 4 )
+      , className =? "llpp"       --> ( doShiftWS 4 ) 
+      , className =? "LibreWolf"  --> ( doShiftWS 1 )
+      , className =? "Progress"   --> doFloat
+      , className =? "Pcmanfm"    --> doFloat
+      , className =? "pcmanfm"    --> doFloat
+      , className =? "Mailspring" --> ( doShiftWS 1 )
+      , className =? "Xmessage"   --> doFloat
+      , className =? "ckb-next"   --> ( doShiftWS 10 )
+      , className =? "obs"        --> ( doShiftWS 7 )
+      , className =? "Maltego"    --> ( doShiftWS 8 )
+      , className =? "Nvidia-settings"  --> ( doShiftWS 2 )
+      , className =? "Lutris"     --> ( doShiftWS 6 )
       , isFullscreen --> doFullFloat
     ]
-    where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 --------------------------------------------------------------------
 -- [ My Workspaces ]
