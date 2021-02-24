@@ -85,6 +85,9 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
     [
       -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
+      -- Added New Variable (doShiftWS (n)) to shorten these lines, before it had to be two different definitions (doShift) and (viewShift);
+      -- Along with duplicate numbers. This was inefficient, as I had to write the same line with duplicate numbers each time, it was becoming a pain -
+      -- to write all of those lines, which were the same thing anyway.
       className =? "Steam"    --> ( doShiftWS 6 )
       , className =? "Alacritty" --> ( doShiftWS 0 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
