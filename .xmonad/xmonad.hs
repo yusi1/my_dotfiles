@@ -98,6 +98,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       --, className =? "powder-toy"   --> viewShift ( myWorkspaces !! 6 )
       , className =? "Chromium" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
       , className =? "Code"     --> doShift ( myWorkspaces !! 0 ) <+> viewShift ( myWorkspaces !! 0 )
+      , className =? "Epdfview" --> doShift ( myWorkspaces !! 4 ) <+> viewShift ( myWorkspaces !! 4 )
       , className =? "LibreWolf" --> doShift ( myWorkspaces !! 1 ) <+> viewShift ( myWorkspaces !! 1 )
       --, title =? "Youtube"    --> doShift ( myWorkspaces !! 5 )
       --, title =? "GNU IceCat" --> doFloat
@@ -125,8 +126,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:mus ", " 6:vid ", " 7:game ", " 8:rec ", " 9:osint ", " 10:osint1 ", " 11:misc "]
--- Offset:      " 0 ",     " 1 ",     " 2 ",     " 3 ",      " 4 ",     " 5 ",     " 6 ",      " 7 ",     " 8 ",       " 9 ",         " 10 "         Offset = n-1
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint ", " 10:osint1 ", " 11:misc "]
+-- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    ", "     9     ", "    10   "      Offset=n-1
 
 
 
