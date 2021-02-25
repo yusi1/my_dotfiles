@@ -101,6 +101,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "qnvsm"      --> ( doShiftWS 2 )
       , className =? "Vmware"     --> ( doShiftWS 3 )
       , className =? "powder-toy" --> ( doShiftWS 6 )
+      , className =? "calibre"    --> ( doShiftWS 4 )
       , className =? "Chromium"   --> ( doShiftWS 1 )
       , className =? "Code"       --> ( doShiftWS 0 )
       , className =? "Epdfview"   --> ( doShiftWS 4 )
