@@ -91,6 +91,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       className =? "Steam"    --> ( doShiftWS 6 )
       , className =? "Alacritty" --> ( doShiftWS 0 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
+      , className =? "Soffice"  --> doFloat
       , className =? "mpv" --> ( doShiftWS 5 )
       , className =? "vlc" --> ( doShiftWS 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
