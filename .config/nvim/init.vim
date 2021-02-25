@@ -4,12 +4,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 " This is where you specify plugins
 " - Make sure to use single quotes
 
+Plug 'itchyny/landscape.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
 "Plug 'ghifarit53/tokyonight-vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
 "Plug 'overcache/NeoSolarized'
 
 " Initialize plugins
@@ -17,6 +18,15 @@ call plug#end()
 
 " Set theme
 set termguicolors
+
+" -- Landscape Theme Config --
+syntax on
+colorscheme landscape
+let g:lightline = {
+    \ 'colorscheme': 'landscape',
+    \ }
+
+"-----------------------------
 
 " -- Solarized Theme Configuration --
 
@@ -38,11 +48,11 @@ set termguicolors
 
 
 " -- Onedark Theme Configuration --
-syntax on
-colorscheme onedark
-let g:lightline = {
-    \ 'colorscheme': 'onedark',
-    \ }
+"syntax on
+"colorscheme onedark
+"let g:lightline = {
+    "\ 'colorscheme': 'onedark',
+    "\ }
 "----------------------------------
 
 " -- Gruvbox Theme Configuration --
