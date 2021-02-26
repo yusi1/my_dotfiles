@@ -115,7 +115,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Mailspring" --> ( doShiftWS 1 )
       , className =? "KeePassXC"  --> ( doShiftWS 4 )
       , className =? "Xmessage"   --> doFloat
-      , className =? "ckb-next"   --> ( doShiftWS 10 )
+      , className =? "ckb-next"   --> ( doShiftWS 2 )
       , className =? "obs"        --> ( doShiftWS 7 )
       , className =? "Maltego"    --> ( doShiftWS 8 )
       , className =? "Nvidia-settings"  --> ( doShiftWS 2 )
@@ -130,8 +130,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint ", " 10:osint1 ", " 11:misc "]
--- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    ", "     9     ", "    10   "      Offset=n-1
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "]
+-- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "         Offset=n-1
 
 
 
