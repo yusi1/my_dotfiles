@@ -119,10 +119,11 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "obs"        --> ( doShiftWS 7 )
       , className =? "Maltego"    --> ( doShiftWS 8 )
       , className =? "Nvidia-settings"  --> ( doShiftWS 2 )
-      , className =? "Lutris"       --> ( doShiftWS 6 )
-      , className =? "libreoffice"  --> ( doShiftWS 4 )
-      , title =? "LibreOffice"      --> ( doShiftWS 4 )
-      , className =? "Mousepad"     --> ( doShiftWS 4 )
+      , className =? "Lutris"           --> ( doShiftWS 6 )
+      , className =? "libreoffice"      --> ( doShiftWS 4 )
+      , title =? "LibreOffice"          --> ( doShiftWS 4 )
+      , className =? "Mousepad"         --> ( doShiftWS 4 )
+      , className =? "Brave-browser"    --> ( doShiftWS 1 )
       , isFullscreen --> doFullFloat
     ]
 
