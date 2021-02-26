@@ -122,6 +122,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Lutris"       --> ( doShiftWS 6 )
       , className =? "libreoffice"  --> ( doShiftWS 4 )
       , title =? "LibreOffice"      --> ( doShiftWS 4 )
+      , className =? "Mousepad"     --> ( doShiftWS 4 )
       , isFullscreen --> doFullFloat
     ]
 
@@ -146,7 +147,7 @@ tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
-defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
+--defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
 --defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
 
@@ -161,8 +162,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
               (
                 --noBorders Full
-                toggleLayouts (nBFull) (tiledSp)
-                ||| defLayouts
+                --toggleLayouts (tiled) (nBFull)
+                toggleLayouts (nBFull) (tiled)
+                ||| (tiledSp)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                 -- ||| Grid
                 -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
