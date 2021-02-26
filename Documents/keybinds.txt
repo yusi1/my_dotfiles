@@ -50,7 +50,9 @@ ALT + (Hold Right Click on Mouse)	= Resize application
 
 ALT + (Left click on Mouse)		= Move Floating Window
 
-MOST USED:
+KEYS THAT I COMMONLY USE (PRETTY MUCH ALL THE TIME):
+
+-- Window Management
 
 ALT ><
 ALT (ARROW KEYS)
@@ -62,6 +64,11 @@ ALT (RIGHT MOUSE BUTTON HOLD) + RESIZE FLOATING WINDOW
 ALT ENTER
 ALT SPACE
 
+-- Volume
+
+ALT F7
+ALT F8 
+ALT F5
 
 
 
