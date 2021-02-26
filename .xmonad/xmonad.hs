@@ -111,6 +111,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Progress"   --> doFloat
       , className =? "Pcmanfm"    --> doFloat
       , className =? "pcmanfm"    --> doFloat
+      , className =? "Virt-manager" --> ( doShiftWS 3 )
       , className =? "Mailspring" --> ( doShiftWS 1 )
       , className =? "KeePassXC"  --> ( doShiftWS 4 )
       , className =? "Xmessage"   --> doFloat
