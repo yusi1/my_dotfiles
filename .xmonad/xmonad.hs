@@ -111,6 +111,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Pcmanfm"    --> doFloat
       , className =? "pcmanfm"    --> doFloat
       , className =? "Mailspring" --> ( doShiftWS 1 )
+      , className =? "KeePassXC"  --> ( doShiftWS 4 )
       , className =? "Xmessage"   --> doFloat
       , className =? "ckb-next"   --> ( doShiftWS 10 )
       , className =? "obs"        --> ( doShiftWS 7 )
