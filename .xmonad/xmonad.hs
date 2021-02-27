@@ -102,6 +102,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "qnvsm"      --> ( doShiftWS 2 )
       , className =? "Vmware"     --> ( doShiftWS 3 )
       , className =? "VirtualBox Manager" --> ( doShiftWS 3 )
+      , className =? "VirtualBox Machine" --> doFloat
       --, className =? "Virtualbox" --> doFloat
       , className =? "powder-toy" --> ( doShiftWS 6 )
       , className =? "calibre"    --> ( doShiftWS 4 )
