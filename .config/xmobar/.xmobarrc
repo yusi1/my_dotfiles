@@ -25,7 +25,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
                     --, Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx> <fn=1>\xf0ab </fn><rx>"] 20
                     --, Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
-                    , Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><fn=1>\xf0ab </fn> 1: <tx>kb <rx>kb"] 20
+                    , Run Network "enp2s0" ["-t"," <fn=1>\xf98a </fn> [UP/DL] 1: <tx>kb <rx>kb"] 20
                     --, Run Network "enp3s0" ["-t", " <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
                     , Run Network "enp3s0" ["-t", " 2: <tx>kb <rx>kb"] 20
                     --, Run Network "enp4s5" ["-t", " <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
