@@ -24,6 +24,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     , Run Cpu ["-t", "<fn=1>\xf108 </fn> cpu: (<total>%)","-L","3","-H","50","--high","#dc322f"] 10
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
                     , Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
+                    , Run Network "enp3s0" ["-t", " <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
                     , Run Memory ["-t","<fn=1>\xf233 </fn> Mem: <used>M (<usedratio>%)"] 10
                     , Run Swap [] 10
                     , Run Date "<fn=1>\xf133 </fn> %a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
@@ -36,6 +37,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#56b24e><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#228b22>%memory% * %swap%</fc>  |  <fc=#368d33>%enp2s0%</fc>  |   <fc=#5e9a24>%EGPD%</fc>  |  <fc=#64b21b><fn=1> </fn> %upd%</fc>  |  <fc=#5e9a24><fn=1> </fn> %vol%</fc> |  <fc=#64b21b>%date%</fc>  |  %trayerpad% "
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#56b24e><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#228b22>%memory% * %swap%</fc>  |  <fc=#368d33>NIC1: %enp2s0%</fc>  |  <fc=#368d33>NIC2: %enp3s0%</fc>  |   <fc=#5e9a24>%EGPD%</fc>  |  <fc=#64b21b><fn=1> </fn> %upd%</fc>  |  <fc=#5e9a24><fn=1> </fn> %vol%</fc> |  <fc=#64b21b>%date%</fc>  |  %trayerpad% "
 
         }
