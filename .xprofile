@@ -5,5 +5,5 @@
 picom -b & disown
 /usr/bin/dunst & disown
 #stalonetray & disown
-trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown
+trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 --iconspacing 5 & disown
 /home/yusef/./.fehbg & disown
