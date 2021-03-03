@@ -80,6 +80,7 @@ import System.IO
 
 viewShift = doF . liftM2 (.) W.greedyView W.shift
 doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
+doWSNoShift a = doShift ( myWorkspaces !! a )
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
@@ -119,7 +120,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Mailspring" --> ( doShiftWS 1 )
       , className =? "KeePassXC"  --> ( doShiftWS 4 )
       , className =? "Xmessage"   --> doFloat
-      , className =? "ckb-next"   --> ( doShiftWS 2 )
+      , className =? "ckb-next"   --> ( doWSNoShift 2 )
       , className =? "obs"        --> ( doShiftWS 7 )
       , className =? "Maltego"    --> ( doShiftWS 8 )
       , className =? "Nvidia-settings"  --> ( doShiftWS 2 )

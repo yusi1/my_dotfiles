@@ -7,7 +7,7 @@ picom -b & disown
 /usr/bin/dunst & disown
 
 #stalonetray & disown
-trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 --iconspacing 4 & disown
+trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 --iconspacing 2 & disown
 
 #/home/yusef/./.fehbg & disown
 /usr/bin/variety & disown   # New wallpaper changer (changes wallpaper every 5 mins)
