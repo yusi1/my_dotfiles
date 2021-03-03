@@ -12,4 +12,4 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 #/home/yusef/./.fehbg & disown
 /usr/bin/variety & disown   # New wallpaper changer (changes wallpaper every 5 mins)
 
-sleep 12; /usr/bin/ckb-next & disown  # Wait 4 seconds, then start kb colour switcher
+sleep 12; /usr/bin/ckb-next & disown  # Wait (n) seconds, then start kb colour switcher
