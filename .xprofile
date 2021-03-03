@@ -3,8 +3,8 @@
 #trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 #--expand true --width 10 --transparent true --tint 0x191970 --height 17 &          Replacing trayer with stalonetray for better integration in XMobar
 
-picom -b & disown
-/usr/bin/dunst & disown
+picom -b & disown   # Start Compositor
+/usr/bin/dunst & disown     # Start notification agent
 
 #stalonetray & disown
 trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 --iconspacing 2 & disown
