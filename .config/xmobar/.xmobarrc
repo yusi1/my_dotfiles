@@ -43,6 +43,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#56b24e><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#228b22>%memory% * %swap%</fc>  |  <fc=#368d33>%enp2s0% /%enp3s0% /%enp4s5%</fc>  |  <fc=#5e9a24>%EGPD%</fc>  |  <fc=#64b21b><fn=1> </fn> %upd%</fc>  |  <fc=#5e9a24><fn=1> </fn> %vol%</fc> |  <fc=#64b21b>%date%</fc>  |  %trayerpad% "
+        , template = "<icon=language-haskell.xpm/>  |  %StdinReader% }{ |  <fc=#56b24e><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#228b22>%memory% * %swap%</fc>  |  <fc=#368d33>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#5e9a24>%EGPD%</fc>  |  <fc=#64b21b><fn=1> </fn> %upd%</fc>  |  <fc=#5e9a24><fn=1> </fn> %vol%</fc> |  <fc=#64b21b>%date%</fc>  |  %trayerpad% "
 
         }

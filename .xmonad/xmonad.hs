@@ -268,7 +268,7 @@ main = do
 
             , ((mod1Mask .|. controlMask, xK_k), spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
             
-            , ((mod1Mask, xK_F11), spawn "killall stalonetray; stalonetray & disown") -- Restart Stalonetray
+            , ((mod1Mask, xK_F11), spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
             
             , ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
 
