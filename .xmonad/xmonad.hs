@@ -129,6 +129,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , title =? "LibreOffice"          --> ( doShiftWS 4 )
       , className =? "Mousepad"         --> ( doShiftWS 4 )
       , className =? "Brave-browser"    --> ( doShiftWS 1 )
+      , className =? "qutebrowser"      --> ( doShiftWS 1 )
       , className =? "Xarchiver"        --> doFloat
       , isFullscreen --> doFullFloat
     ]
