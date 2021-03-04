@@ -4,7 +4,8 @@ Custom Keybinds for desktop
 
 CTRL + F1   = Open File Manager
 CTRL + F2   = Open Chromium Web Browser
-CTRL + F3   = Open PDF Viewer
+CTRL + F3   = Open Qutebrowser
+CTRL + WIN + F3 = Open Brave Browser
 CTRL + F4   = Open Visual Studio Code
 ALT + CTRL + B      = Open GNU Icecat Web Browser
 ALT + CTRL + M      = Open Email Application (Mailspring)
