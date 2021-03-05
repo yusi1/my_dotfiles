@@ -7,7 +7,7 @@
 -- Bits of the file have been gained (different features) as I read documentation etc..
 -- Remember READ documentation, it's very useful (or even find random questions on reddit/github/stackoverflow etc...)
 -- Default Keys https://gist.github.com/c33k/1ecde9be24959f1c738d
--- My goal for my specific config is to keep it functional, but simple and well defined, keeping bloat to a minimum
+-- This config may be messy, but I am a beginner so please don't mind that.
 
 ----------------------Imports----------------------------------------------
 
@@ -30,7 +30,7 @@ import Control.Monad (liftM2)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
-import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Multi-mon support) #MM
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.FadeInactive
 
@@ -131,7 +131,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Brave-browser"    --> ( doShiftWS 1 )
       , className =? "qutebrowser"      --> ( doShiftWS 1 )
       , className =? "Xarchiver"        --> doFloat
-      , isFullscreen --> doFullFloat
+      --, isFullscreen --> doFullFloat
+      , isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
     ]
 
 --------------------------------------------------------------------
@@ -167,7 +168,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 --------------------------------------------------------------------
 
-myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
+myLayoutHook = avoidStruts $ lessBorders OnlyScreenFloat    -- #MM
+              --smartBorders $
+              $ windowNavigation
               (
                 --noBorders Full
                 --toggleLayouts (tiled) (nBFull)
@@ -222,7 +225,11 @@ main = do
                               >> updatePointer (0.95, 0.95) (0, 0)
           --, focusedBorderColor = "#2aa198"
           , focusedBorderColor = "#56B24E"
-          , normalBorderColor = "#282c34"
+          , normalBorderColor = "#000000" -- #MM (Temp Fix for border on "inactive" window showing on second monitor showing around the content;
+          -- Even though it is technically active when watching media content on it etc..)
+          -- This is the design of smartBorders where it will stop showing borders on the only active window on a (single) screen (which works, but only when you have 1 screen);
+          -- But now I am using 2 monitors (which smartBorders doesn't apply to) 
+          -- and I have to apply this temp workaround to stop showing a border around movies on the second monitor. 
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
