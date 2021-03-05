@@ -173,7 +173,6 @@ myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
                 --toggleLayouts (tiled) (nBFull)
                 toggleLayouts (nBFull) (tiled)
                 ||| (tiledSp) 
-                
                 -- ||| (simpleTabbed)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                 -- ||| Grid
