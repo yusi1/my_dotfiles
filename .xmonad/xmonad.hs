@@ -43,9 +43,9 @@ import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
 --import XMonad.Layout.NoBorders(OnlyFloat)
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Grid
+--import XMonad.Layout.Grid
 --import XMonad.Layout.TwoPane (TwoPane(..))
---import XMonad.Layout.Tabbed (simpleTabbed)
+--import XMonad.Layout.Tabbed
 -- import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 --import XMonad.Layout.Maximize
@@ -172,7 +172,9 @@ myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
                 --noBorders Full
                 --toggleLayouts (tiled) (nBFull)
                 toggleLayouts (nBFull) (tiled)
-                ||| (tiledSp)
+                ||| (tiledSp) 
+                -- ||| (simpleTabbed)
+                
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                 -- ||| Grid
                 -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
@@ -254,7 +256,7 @@ main = do
             --------------------------------------------------
             -- Toggle Modes
             --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
-            
+
             --------------------------------------------------
 
             , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 3") -- decrease volume by 3
