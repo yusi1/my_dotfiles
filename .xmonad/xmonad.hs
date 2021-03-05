@@ -151,7 +151,7 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 tiled = Tall 1 (3/100) (1/2)        -- Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall Layout
+tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall Layout The Long Way
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
@@ -173,8 +173,8 @@ myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
                 --toggleLayouts (tiled) (nBFull)
                 toggleLayouts (nBFull) (tiled)
                 ||| (tiledSp) 
-                -- ||| (simpleTabbed)
                 
+                -- ||| (simpleTabbed)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                 -- ||| Grid
                 -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
