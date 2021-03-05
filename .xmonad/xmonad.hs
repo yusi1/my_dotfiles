@@ -180,6 +180,11 @@ myLayoutHook = avoidStruts $ smartBorders $ windowNavigation
               )
 
 --------------------------------------------------------------------
+-- [ Fade Inactive Windows ]
+-- Currently set to one, but is here in case I want to change it;
+-- In the future.
+
+
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
