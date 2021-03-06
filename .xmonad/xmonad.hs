@@ -130,8 +130,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Brave-browser"    --> ( doShiftWS 1 )
       , className =? "qutebrowser"      --> ( doShiftWS 1 )
       , className =? "Xarchiver"        --> doFloat
-      --, isFullscreen --> doFullFloat
-      , isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
+      , isFullscreen --> doFullFloat
+      --, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
     ]
 
 --------------------------------------------------------------------
@@ -167,9 +167,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 --------------------------------------------------------------------
 
-myLayoutHook = avoidStruts $ lessBorders OnlyScreenFloat    -- #MM
-              --smartBorders $
-              $ windowNavigation
+myLayoutHook = avoidStruts $ --lessBorders OnlyScreenFloat    -- #MM
+              smartBorders $
+              windowNavigation
               (
                 --noBorders Full
                 --toggleLayouts (tiled) (nBFull)
