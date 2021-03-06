@@ -140,7 +140,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "] -- $ def { withScreens 2 ["web"] }
 -- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "         Offset=n-1
 
-
+--myConfig = def { workspaces = withScreens 2 ["web", "media"] }
 
 -------------------------------------------------------------------
 
@@ -268,6 +268,14 @@ main = do
             --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
 
             --------------------------------------------------
+            -- Seperate Workspace shortcuts (2nd monitor)
+            --, ((mod1Mask, xK_k), windows $ onCurrentScreen f i) 
+            
+
+
+
+            --------------------------------------------------
+
 
             , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 3") -- decrease volume by 3
             , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 3") -- increase volume by 3
