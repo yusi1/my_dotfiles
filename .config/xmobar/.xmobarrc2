@@ -46,6 +46,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<fc=#FFFFFF><fn=1>   </fn>Monitor 2</fc>   |   %StdinReader%   }{  |  <action=`pavucontrol` button=1><fc=#16DA00><fn=1> </fn> %vol%</fc></action>  |  <action=`gsimplecal` button=1><fc=#16DA00>%date%</fc></action>  "
+        , template = "<fc=#FFFFFF><fn=1>   </fn>Screen 2</fc>   |   %StdinReader%   }{  |  <action=`pavucontrol` button=1><fc=#16DA00><fn=1> </fn> %vol%</fc></action>  |  <action=`gsimplecal` button=1><fc=#16DA00>%date%</fc></action>  "
 
         }
