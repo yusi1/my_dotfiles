@@ -50,13 +50,12 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 --import XMonad.Layout.Maximize
 import XMonad.Layout.LayoutModifier
-
 --import XMonad.Layout.MultiToggle
 --import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.ToggleLayouts
-
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
+--import XMonad.Layout.IndependentScreens
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -138,7 +137,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "]
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "] -- $ def { withScreens 2 ["web"] }
 -- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "         Offset=n-1
 
 
