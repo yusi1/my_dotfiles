@@ -3,7 +3,10 @@
 -- Also Read: https://xmobar.org/
 
 Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-        font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"     
+        --font = "xft:Iosevka Term:weight=bold:pixelsize=9:antialias=true:hinting=true"
+        --font = "xft:Terminus:weight=regular:pixelsize=9.5:antialias=true:hinting=true"
+        font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true" 
+        --font = "xft:Consolas:weight=bold:pixelsize=10:antialias=true:hinting=true"
         --font = "xft:mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:TerminessTTF Nerd Font:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:MesloLGS NF:pixelsize=11:antialias=true:hinting=true"
@@ -33,7 +36,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     --, Network "enp2s0" "enp3s0" "enp4s5" ["-t", " </fn=1>\xf0aa </fn><tx1> "] 20
                     , Run Memory ["-t","<fn=1>\xf233 </fn> Mem: <used>M (<usedratio>%)"] 10
                     , Run Swap [] 10
-                    , Run Date "<fn=1>\xf133 </fn> %a %b %_d %d/%m/%Y %k:%M:%S" "date" 10
+                    , Run Date "<fn=1>\xf133 </fn> %a %d/%m/%Y %k:%M:%S" "date" 10
                     --, Run Volume "default" "Master" [] 10
                     , Run Com "uname" ["-r"] "kernelname" 0
                     , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 12000
