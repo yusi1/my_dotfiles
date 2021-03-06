@@ -33,6 +33,7 @@ import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
 import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Multi-mon support) #MM
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.DynamicBars
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
@@ -91,7 +92,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       className =? "Steam"    --> ( doShiftWS 6 )
       , className =? "Alacritty" --> ( doShiftWS 0 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
-      , className =? "Deluge" --> ( doShiftWS 1 )
+      --, className =? "Deluge" --> ( doShiftWS 1 )
       , className =? "Soffice"  --> doFloat
       , className =? "mpv" --> ( doShiftWS 5 )
       , className =? "vlc" --> ( doShiftWS 5 )
@@ -129,6 +130,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Mousepad"         --> ( doShiftWS 4 )
       , className =? "Brave-browser"    --> ( doShiftWS 1 )
       , className =? "qutebrowser"      --> ( doShiftWS 1 )
+      , className =? "qBittorrent"      --> ( doShiftWS 4 )
       , className =? "Xarchiver"        --> doFloat
       , isFullscreen --> doFullFloat
       --, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
@@ -197,7 +199,8 @@ myLogHook = fadeInactiveLogHook fadeAmount
 
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "xmobar"
+    xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
     xmonad $ ewmh $ docks defaultConfig
       {
           borderWidth         = 3
@@ -207,7 +210,7 @@ main = do
           , manageHook = myManageHook
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
-                                ppOutput = hPutStrLn xmproc
+                                ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                               , ppCurrent = xmobarColor "#56B24E" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#56B24E" ""                -- Visible but not current workspace
                               , ppHidden = xmobarColor "#368d33" "" . wrap "*" ""   -- Hidden workspaces in xmobar
@@ -262,6 +265,22 @@ main = do
             , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
             , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
             , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
+            
+            -------------------------------------------------
+            -- Switch focus to different screens easily
+            -- Default: ALT (W,E,R)
+            -- Where :
+            -- [+] W is screen 1 
+            -- [+] E is screen 2 
+            -- [+] R is screen 3
+            -- But now, no matter how much screens I have, this will make sense as a keybind
+            
+            , ((mod1Mask .|. mod4Mask, xK_Right), nextScreen)
+            , ((mod1Mask .|. mod4Mask, xK_Left), prevScreen)
+
+            -- [ Shift Windows to Other Screens Easily ]
+            , ((mod1Mask .|. mod4Mask, xK_Up), shiftNextScreen)
+            , ((mod1Mask .|. mod4Mask, xK_Down), shiftPrevScreen)
 
             --------------------------------------------------
             -- Toggle Modes

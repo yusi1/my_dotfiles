@@ -46,6 +46,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  |  %StdinReader% }{ |  <fc=#368d33><fn=1> </fn> %kernelname%</fc>  |  <fc=#368d33>%cpu%</fc>  |  <fc=#368d33>%memory% * %swap%</fc>  |  <fc=#368d33>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#368d33>%EGPD%</fc>  |  <fc=#368d33><fn=1> </fn> %upd%</fc>  |  <action=`pavucontrol` button=1><fc=#368d33><fn=1> </fn> %vol%</fc></action> |  <action=`gsimplecal` button=1><fc=#368d33>%date%</fc></action>  |  %trayerpad% "
+        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  |  %StdinReader% }{ |  <fc=#16DA00><fn=1> </fn> %kernelname%</fc>  |  <fc=#16DA00>%cpu%</fc>  |  <fc=#16DA00>%memory% * %swap%</fc>  |  <fc=#16DA00>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#16DA00>%EGPD%</fc>  |  <fc=#16DA00><fn=1> </fn> %upd%</fc>  |  <action=`pavucontrol` button=1><fc=#16DA00><fn=1> </fn> %vol%</fc></action> |  <action=`gsimplecal` button=1><fc=#16DA00>%date%</fc></action>  |  %trayerpad% "
 
         }
