@@ -200,8 +200,7 @@ myStartupHook = do
             -- Put apps you want XMonad to start in here
             -- example:
             -- spawnOnce "ckb-next & disown"
-            setWMName "LG3D"    -- For java application support, 
-                                -- see: https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-SetWMName.html
+            setWMName "LG3D"    -- For java application support, -- see: https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-SetWMName.html
 
 -------------------------------------------------------------------
 
