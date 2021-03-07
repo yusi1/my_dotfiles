@@ -144,7 +144,6 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 
 -------------------------------------------------------------------
 
-
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
