@@ -28,6 +28,7 @@ import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
 import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Multi-mon support) #MM
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.SetWMName
 --import XMonad.Hooks.DynamicBars
 
 import XMonad.Util.Run(spawnPipe)
@@ -190,6 +191,17 @@ myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1
 
 -------------------------------------------------------------------
+-- Startup Hook (.xprofile is used more)
+
+myStartupHook :: X ()
+myStartupHook = do
+            -- Put apps you want XMonad to start in here
+            -- example:
+            -- spawnOnce "ckb-next & disown"
+            setWMName "LG3D"    -- For java application support, 
+                                -- see: https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-SetWMName.html
+
+-------------------------------------------------------------------
 
 
 main :: IO ()
@@ -201,8 +213,9 @@ main = do
           borderWidth         = 3
           , terminal          = "alacritty"
           --, layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
-          , workspaces = myWorkspaces
-          , manageHook = myManageHook
+          , startupHook = myStartupHook
+          , workspaces  = myWorkspaces
+          , manageHook  = myManageHook
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
