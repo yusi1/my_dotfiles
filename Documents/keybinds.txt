@@ -16,7 +16,7 @@ CTRL + ALT + Z      Toggle Used Workspaces
 
 ALT + (Arrow Keys)                  Switch Focus to Windows
 ALT + Shift + (Arrow Keys)          Shift Windows
-ALT + WIN + (Up & Down Arrow Key)   Shift Window to a Screen
+ALT + WIN + (Up & Down Arrow Key)   Shift Window to a Screen (Vertical (Down & Up)) -> (Through Horizontal List of Screens)
 
 ALT + WIN + (->)    Switch Screen Focus (Horizontal) -> (Through List)
 ALT + WIN + (<-)    Switch Screen Focus (Horizontal) <- (Through List)
@@ -37,6 +37,7 @@ ALT + SHIFT + C     Close an Application
 ALT + (<)           Toggle Window Amount in Master Pane on Tall Layout
 ALT + (>)           Toggle Window Amount in Master Pane on Tall Layout
 ALT + Q             Recompile XMonad
+ALT + P		        Open Dmenu (Application-Name Based Launcher)
 
 ALT + (NUM KEYS 0-9)            Go to (n) Workspace
 ALT + SHIFT + (NUM KEYS 0-9)    Shift Window to (n) Workspace
