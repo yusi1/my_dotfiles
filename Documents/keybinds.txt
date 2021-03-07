@@ -34,6 +34,7 @@ ALT + ENTER     Toggle Layouts (Tall, Fullscreen)
 --------[ Default Keybinds ]---------
 ALT + SPACE         Toggle Other Layouts (Spacing Tall)
 ALT + SHIFT + C     Close an Application
+ALT + SHIFT + ENTER Open Terminal
 ALT + (<)           Toggle Window Amount in Master Pane on Tall Layout
 ALT + (>)           Toggle Window Amount in Master Pane on Tall Layout
 ALT + Q             Recompile XMonad

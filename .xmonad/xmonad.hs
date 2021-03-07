@@ -114,6 +114,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "pcmanfm"    --> doFloat
       , className =? "Virt-manager" --> ( doShiftWS 3 )
       , className =? "Mailspring" --> ( doShiftWS 1 )
+      --, title =? "Minecraft Launcher" --> ( doShiftWS 6 )
+      --, className =? "Minecraft" --> ( doShiftWS 6 )
       , className =? "KeePassXC"  --> ( doShiftWS 4 )
       , className =? "Xmessage"   --> doFloat
       , className =? "ckb-next"   --> ( doWSNoShift 2 )
@@ -316,7 +318,7 @@ main = do
             
             , ((mod1Mask, xK_F12), spawn "killall picom; picom -b & disown") -- Restart Compositor
 
-            --, ((mod1Mask .|. controlMask, xK_k), spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
+            , ((mod1Mask .|. controlMask, xK_k), spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
             
             , ((mod1Mask, xK_F11), spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
             
