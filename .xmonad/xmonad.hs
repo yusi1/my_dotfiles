@@ -1,11 +1,6 @@
 -- My XMonad Configuration File
 -- Written By Yusef Aslam
--- Copied stuff from many sources including: https://pastebin.com/BWrvV4SH
--- Also, https://www.reddit.com/r/xmonad/comments/hiysu2/cant_open_steam_games/
--- https://www.reddit.com/r/xmonad/comments/herxnc/steam_and_xmonad/
 -- Based on John Goerzens Configuration
--- Bits of the file have been gained (different features) as I read documentation etc..
--- Remember READ documentation, it's very useful (or even find random questions on reddit/github/stackoverflow etc...)
 -- Default Keys https://gist.github.com/c33k/1ecde9be24959f1c738d
 -- This config may be messy, but I am a beginner so please don't mind that.
 
