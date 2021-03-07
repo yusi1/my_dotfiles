@@ -28,7 +28,7 @@ import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
 import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Multi-mon support) #MM
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.DynamicBars
+--import XMonad.Hooks.DynamicBars
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
