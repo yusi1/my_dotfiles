@@ -12,7 +12,7 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 /home/yusef/./.fehbg & disown
 #/usr/bin/variety & disown   # New wallpaper changer (changes wallpaper every 5 mins)
 
-sleep 12; /usr/bin/ckb-next & disown  # Wait (n) seconds, then start kb colour switcher
+#sleep 12; /usr/bin/ckb-next & disown  # Wait (n) seconds, then start kb colour switcher
 
 ### Run Polkit Agent at Startup in the Background (IMPORTANT) Needed for privilege escalation in apps
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & disown
