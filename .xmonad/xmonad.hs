@@ -87,6 +87,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       -- to write all of those lines, which were the same thing anyway.
       className =? "Steam"    --> ( doShiftWS 6 )
       , className =? "Alacritty" --> ( doShiftWS 0 )
+      , className =? "Audacity" --> ( doShiftWS 5 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
       --, className =? "Deluge" --> ( doShiftWS 1 )
       , className =? "Soffice"  --> doFloat
@@ -207,7 +208,7 @@ myStartupHook = do
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
+    --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
     xmonad $ ewmh $ docks defaultConfig
       {
           borderWidth         = 3
@@ -218,7 +219,8 @@ main = do
           , manageHook  = myManageHook
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
-                                ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
+                                --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
+                                ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#56B24E" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#56B24E" ""                -- Visible but not current workspace
                               , ppHidden = xmobarColor "#368d33" "" . wrap "*" ""   -- Hidden workspaces in xmobar

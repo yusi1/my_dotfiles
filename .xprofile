@@ -3,7 +3,7 @@
 #trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 #--expand true --width 10 --transparent true --tint 0x191970 --height 17 &          Replacing trayer with stalonetray for better integration in XMobar
 
-picom -b & disown   # Start Compositor
+/usr/bin/picom -b & disown   # Start Compositor
 /usr/bin/dunst & disown     # Start notification agent
 
 #stalonetray & disown
@@ -16,3 +16,6 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 
 ### Run Polkit Agent at Startup in the Background (IMPORTANT) Needed for privilege escalation in apps
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & disown
+
+## Run caffeine, a system tray app to inhibit sleep of the system
+/usr/bin/caffeine & disown

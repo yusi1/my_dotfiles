@@ -119,7 +119,10 @@ alias grep='rg'
 
 
 # Show nice random art when opening the terminal
-colorscript random
+#colorscript random
+
+# Show some quotes
+fortune /usr/share/fortune | cowsay | lolcat -f -t
 echo "\n"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
