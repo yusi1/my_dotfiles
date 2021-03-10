@@ -306,8 +306,8 @@ main = do
             --------------------------------------------------
 
 
-            , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 3") -- decrease volume by 3
-            , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 3") -- increase volume by 3
+            , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 2") -- decrease volume by n
+            , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 2") -- increase volume by n
             , ((mod1Mask, xK_F5), spawn "/usr/bin/pamixer -t") -- togglemute
 
             
