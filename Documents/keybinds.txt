@@ -19,6 +19,7 @@ ALT + Shift + (Arrow Keys)          	  Shift Windows
 ALT + WIN + (Up & Down Arrow Key)   	  Shift Window to a Screen (Vertical (Down & Up)) -> (Through Horizontal List of Screens)
 CTRL + ALT + (Left & Right Arrow Keys)    Increase horizontal window size (Left & Right) 
 CTRL + ALT + (Up & Down Arrow Keys)	  Increase vertical window size (Up & Down)
+ALT + F 				  Toggle bar at the top of screen (XMobar) (ToggleStruts)
 
 ALT + WIN + (->)    Switch Screen Focus (Horizontal) -> (Through List)
 ALT + WIN + (<-)    Switch Screen Focus (Horizontal) <- (Through List)
