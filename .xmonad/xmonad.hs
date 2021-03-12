@@ -54,6 +54,7 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
 --import XMonad.Layout.IndependentScreens
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
+import XMonad.Layout.Renamed -- Rename Layouts
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -151,10 +152,10 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-tiled = ResizableTall 1 (3/100) (1/2) []       -- Easier Tall layout assignment & changing
+tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall Layout The Long Way
+tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
@@ -176,7 +177,8 @@ myLayoutHook = avoidStruts $ --lessBorders OnlyScreenFloat    -- #MM
               (
                 --noBorders Full
                 --toggleLayouts (tiled) (nBFull)
-                toggleLayouts (nBFull) (tiled)
+                --toggleLayouts (nBFull) (tiled)
+                toggleLayouts (nBFull) (tiled)   
                 ||| (tiledSp) 
                 -- ||| (simpleTabbed)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
