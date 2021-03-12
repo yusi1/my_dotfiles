@@ -157,6 +157,7 @@ defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 nBFull = noBorders Full             -- NoBorders on Full without defining each time
+--realFull = avoidStruts $ nBFull
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
 --defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
@@ -180,6 +181,7 @@ myLayoutHook = avoidStruts $ --lessBorders OnlyScreenFloat    -- #MM
                 --toggleLayouts (nBFull) (tiled)
                 toggleLayouts (nBFull) (tiled)   
                 ||| (tiledSp) 
+                -- ||| (realFull)
                 -- ||| (simpleTabbed)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
                 -- ||| Grid
@@ -306,6 +308,8 @@ main = do
             --------------------------------------------------
             -- Toggle Modes
             --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
+            --, ((mod1Mask, xK_f), sendMessage (Toggle "realFull"))
+            , ((mod1Mask, xK_f), sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
 
             --------------------------------------------------
             -- Seperate Workspace shortcuts (2nd monitor)
