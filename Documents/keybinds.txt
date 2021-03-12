@@ -14,9 +14,11 @@ CTRL + ALT + (->)   Go through Workspaces (Horizontal) -> (Through List)
 CTRL + ALT + (<-)   Go through Workspaces (Horizontal) <- (Through List)
 CTRL + ALT + Z      Toggle Used Workspaces
 
-ALT + (Arrow Keys)                  Switch Focus to Windows
-ALT + Shift + (Arrow Keys)          Shift Windows
-ALT + WIN + (Up & Down Arrow Key)   Shift Window to a Screen (Vertical (Down & Up)) -> (Through Horizontal List of Screens)
+ALT + (Arrow Keys)                  	  Switch Focus to Windows
+ALT + Shift + (Arrow Keys)          	  Shift Windows
+ALT + WIN + (Up & Down Arrow Key)   	  Shift Window to a Screen (Vertical (Down & Up)) -> (Through Horizontal List of Screens)
+CTRL + ALT + (Left & Right Arrow Keys)    Increase horizontal window size (Left & Right) 
+CTRL + ALT + (Up & Down Arrow Keys)	  Increase vertical window size (Up & Down)
 
 ALT + WIN + (->)    Switch Screen Focus (Horizontal) -> (Through List)
 ALT + WIN + (<-)    Switch Screen Focus (Horizontal) <- (Through List)

@@ -53,6 +53,7 @@ import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
 --import XMonad.Layout.IndependentScreens
+import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -150,7 +151,7 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-tiled = Tall 1 (3/100) (1/2)        -- Easier Tall layout assignment & changing
+tiled = ResizableTall 1 (3/100) (1/2) []       -- Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = defSpacing (tiled)       -- For not needing to define spacing for Tall Layout The Long Way
@@ -278,6 +279,12 @@ main = do
             , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
             , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
             
+            -- Window Resizing
+            , ((mod4Mask .|. controlMask, xK_Up), sendMessage $ MirrorExpand)
+            , ((mod4Mask .|. controlMask, xK_Down), sendMessage $ MirrorShrink)
+            , ((mod4Mask .|. controlMask, xK_Left), sendMessage $ Shrink)
+            , ((mod4Mask .|. controlMask, xK_Right), sendMessage $ Expand)
+
             -------------------------------------------------
             -- Switch focus to different screens easily
             -- Default: ALT (W,E,R)
