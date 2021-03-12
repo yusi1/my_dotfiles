@@ -118,6 +118,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       , className =? "Pcmanfm" --> ( doShiftWS 4 )
       , className =? "Pavucontrol" --> ( doShiftWS 5 )
       , className =? "Virt-manager" --> ( doShiftWS 3 )
+      --, title =? "Virtual Cottage" --> ( doShiftWS 5 )
       , className =? "Mailspring" --> ( doShiftWS 1 )
       --, title =? "minecraft-launcher" --> ( doShiftWS 6 )
       --, className =? "Minecraft Launcher" --> ( doShiftWS 6 )
