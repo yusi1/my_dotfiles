@@ -87,59 +87,59 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       -- Added New Variable (doShiftWS (n)) to shorten these lines, before it had to be two different definitions (doShift) and (viewShift);
       -- Along with duplicate numbers. This was inefficient, as I had to write the same line with duplicate numbers each time, it was becoming a pain -
       -- to write all of those lines, which were the same thing anyway.
-      className =? "Steam"    --> ( doShiftWS 6 )
-      , className =? "Alacritty" --> ( doShiftWS 0 )
-      , className =? "Audacity" --> ( doShiftWS 5 )
+      className =? "Steam" --> ( doShiftWS 6 )
+      --, className =? "Alacritty" --> ( doShiftWS 0 )
+      --, className =? "Audacity" --> ( doShiftWS 5 )
       , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
-      --, className =? "Deluge" --> ( doShiftWS 1 )
-      , className =? "Soffice"  --> doFloat
-      , className =? "mpv" --> ( doShiftWS 5 )
-      , className =? "vlc" --> ( doShiftWS 5 )
+      -- !, className =? "Deluge" --> ( doShiftWS 1 )
+      , className =? "Soffice" --> doFloat
+      --, className =? "mpv" --> ( doShiftWS 5 )
+      --, className =? "vlc" --> ( doShiftWS 5 )
       , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
       , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
-      , className =? "IceCat"     --> ( doShiftWS 1 )
-      , className =? "LBRY"       --> ( doShiftWS 5 )
-      , className =? "qnvsm"      --> ( doShiftWS 2 )
-      , className =? "Vmware"     --> ( doShiftWS 3 )
-      --, className =? "VirtualBox Manager" --> ( doShiftWS 3 )
-      --, className =? "VirtualBox Machine" --> doFloat
-      , className =? "VirtualBox" --> ( doShiftWS 3 )
+      --, className =? "IceCat"     --> ( doShiftWS 1 )
+      --, className =? "LBRY"       --> ( doShiftWS 5 )
+      --, className =? "qnvsm"      --> ( doShiftWS 2 )
+      --, className =? "Vmware"     --> ( doShiftWS 3 )
+      -- !, className =? "VirtualBox Manager" --> ( doShiftWS 3 )
+      -- !, className =? "VirtualBox Machine" --> doFloat
+      --, className =? "VirtualBox" --> ( doShiftWS 3 )
       , className =? "powder-toy" --> ( doShiftWS 6 )
-      , className =? "calibre"    --> ( doShiftWS 4 )
-      , className =? "Chromium"   --> ( doShiftWS 1 )
-      , className =? "Code"       --> ( doShiftWS 0 )
-      , className =? "Epdfview"   --> ( doShiftWS 4 )
-      , className =? "Gnome-disks" --> ( doShiftWS 2 )
-      , className =? "Godot"      --> ( doShiftWS 0 )
-      , className =? "llpp"       --> ( doShiftWS 4 ) 
-      , className =? "LibreWolf"  --> ( doShiftWS 1 )
-      , className =? "Progress"   --> doFloat
-      --, className =? "Pcmanfm"    --> doFloat
-      --, className =? "pcmanfm"    --> doFloat
-      , className =? "Pcmanfm" --> ( doShiftWS 4 )
+      --, className =? "calibre"    --> ( doShiftWS 4 )
+      --, className =? "Chromium"   --> ( doShiftWS 1 )
+      --, className =? "Code"       --> ( doShiftWS 0 )
+      --, className =? "Epdfview"   --> ( doShiftWS 4 )
+      --, className =? "Gnome-disks" --> ( doShiftWS 2 )
+      --, className =? "Godot"      --> ( doShiftWS 0 )
+      , className =? "llpp" --> ( doShiftWS 4 ) 
+      --, className =? "LibreWolf"  --> ( doShiftWS 1 )
+      , className =? "Progress" --> doFloat
+      -- !, className =? "Pcmanfm"    --> doFloat
+      -- !, className =? "pcmanfm"    --> doFloat
+      --, className =? "Pcmanfm" --> ( doShiftWS 4 )
       , className =? "Pavucontrol" --> ( doShiftWS 5 )
-      , className =? "Virt-manager" --> ( doShiftWS 3 )
-      --, title =? "Virtual Cottage" --> ( doShiftWS 5 )
-      , className =? "Mailspring" --> ( doShiftWS 1 )
-      --, title =? "minecraft-launcher" --> ( doShiftWS 6 )
-      --, className =? "Minecraft Launcher" --> ( doShiftWS 6 )
-      --, className =? "minecraft-launcher" --> ( doShiftWS 6 )
-      , className =? "KeePassXC"  --> ( doShiftWS 4 )
-      , className =? "Xmessage"   --> doFloat
-      , className =? "ckb-next"   --> ( doWSNoShift 2 )
-      , className =? "obs"        --> ( doShiftWS 7 )
-      , className =? "Maltego"    --> ( doShiftWS 8 )
-      , className =? "Nvidia-settings"  --> ( doShiftWS 2 )
-      , className =? "Lutris"           --> ( doShiftWS 6 )
-      , className =? "libreoffice"      --> ( doShiftWS 4 )
-      , title =? "LibreOffice"          --> ( doShiftWS 4 )
-      , className =? "Mousepad"         --> ( doShiftWS 4 )
-      , className =? "Brave-browser"    --> ( doShiftWS 1 )
-      , className =? "qutebrowser"      --> ( doShiftWS 1 )
-      , className =? "qBittorrent"      --> ( doShiftWS 4 )
-      , className =? "Xarchiver"        --> doFloat
+      --, className =? "Virt-manager" --> ( doShiftWS 3 )
+      -- !, title =? "Virtual Cottage" --> ( doShiftWS 5 )
+      --, className =? "Mailspring" --> ( doShiftWS 1 )
+      -- !, title =? "minecraft-launcher" --> ( doShiftWS 6 )
+      -- !, className =? "Minecraft Launcher" --> ( doShiftWS 6 )
+      -- !, className =? "minecraft-launcher" --> ( doShiftWS 6 )
+      --, className =? "KeePassXC"  --> ( doShiftWS 4 )
+      , className =? "Xmessage" --> doFloat
+      , className =? "ckb-next" --> ( doWSNoShift 2 )
+      --, className =? "obs"        --> ( doShiftWS 7 )
+      --, className =? "Maltego"    --> ( doShiftWS 8 )
+      --, className =? "Nvidia-settings"  --> ( doShiftWS 2 )
+      --, className =? "Lutris"           --> ( doShiftWS 6 )
+      --, className =? "libreoffice"      --> ( doShiftWS 4 )
+      --, title =? "LibreOffice"          --> ( doShiftWS 4 )
+      --, className =? "Mousepad"         --> ( doShiftWS 4 )
+      --, className =? "Brave-browser"    --> ( doShiftWS 1 )
+      --, className =? "qutebrowser"      --> ( doShiftWS 1 )
+      --, className =? "qBittorrent"      --> ( doShiftWS 4 )
+      , className =? "Xarchiver" --> doFloat
       , isFullscreen --> doFullFloat
-      --, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
+      -- !, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
     ]
 
 --------------------------------------------------------------------
