@@ -231,11 +231,11 @@ main = do
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 ppOutput = hPutStrLn xmproc
-                              , ppCurrent = xmobarColor "#56B24E" "" . wrap "[" "]" -- Current workspace in xmobar
+                              , ppCurrent = xmobarColor "#5EFC8D" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#56B24E" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#368d33" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                              , ppHiddenNoWindows = xmobarColor "#18EB00" ""        -- Hidden workspaces (no windows)
-                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
+                              , ppHidden = xmobarColor "#1ec24f" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = xmobarColor "#8ef9f3" ""        -- Hidden workspaces (no windows)
+                              , ppTitle = xmobarColor "#76fbc0" "" . shorten 40    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                               , ppExtras  = [windowCount]                           -- # of windows current workspace
@@ -246,8 +246,8 @@ main = do
                               -- >> updatePointer (1, 1) (0, 0)
                               >> updatePointer (0.95, 0.95) (0, 0)
           --, focusedBorderColor = "#2aa198"
-          , focusedBorderColor = "#56B24E"
-          , normalBorderColor = "#000000" -- #MM (Temp Fix for border on "inactive" window showing on second monitor showing around the content;
+          , focusedBorderColor = "#5efc8d"
+          , normalBorderColor = "#09c3b6" -- #MM (Temp Fix for border on "inactive" window showing on second monitor showing around the content;
           -- Even though it is technically active when watching media content on it etc..)
           -- This is the design of smartBorders where it will stop showing borders on the only active window on a (single) screen (which works, but only when you have 1 screen);
           -- But now I am using 2 monitors (which smartBorders doesn't apply to) 

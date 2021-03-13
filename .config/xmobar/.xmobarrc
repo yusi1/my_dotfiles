@@ -3,9 +3,11 @@
 -- Also Read: https://xmobar.org/
 
 Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-        --font = "xft:Iosevka Term:weight=bold:pixelsize=9:antialias=true:hinting=true"
+        --font = "xft:Iosevka Term:weight=bold:pixelsize:10:antialias=true:hinting=true"
         --font = "xft:Terminus:weight=regular:pixelsize=9.5:antialias=true:hinting=true"
         font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true" 
+        --font = "montecarlo:weight=bold:pixelsize=11:antialias=true:hinting=true"
+        --font = "cherry:weight=regular:pixelsize=0.1"
         --font = "xft:Consolas:weight=bold:pixelsize=10:antialias=true:hinting=true"
         --font = "xft:mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:TerminessTTF Nerd Font:pixelsize=12:antialias=true:hinting=true"
@@ -46,6 +48,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  |  %StdinReader% }{ |  <fc=#16DA00><fn=1> </fn>%kernelname%</fc>  |  <fc=#16DA00>%cpu%</fc>  |  <fc=#16DA00>%memory% * %swap%</fc>  |  <fc=#16DA00>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#16DA00>%EGPD%</fc>  |  <fc=#16DA00><fn=1> </fn>%upd%</fc>  |  <action=`pavucontrol` button=1><fc=#16DA00><fn=1> </fn> %vol%</fc></action> |  <action=`gsimplecal` button=1><fc=#16DA00>%date%</fc></action>  |  %trayerpad% "
+        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  |  %StdinReader% }{ |  <fc=#8ef9f3><fn=1> </fn>%kernelname%</fc>  |  <fc=#8ef9f3>%cpu%</fc>  |  <fc=#8ef9f3>%memory% * %swap%</fc>  |  <fc=#8ef9f3>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#8ef9f3>%EGPD%</fc>  |  <fc=#8ef9f3><fn=1> </fn>%upd%</fc>  |  <action=`pavucontrol` button=1><fc=#8ef9f3><fn=1> </fn> %vol%</fc></action> |  <action=`gsimplecal` button=1><fc=#8ef9f3>%date%</fc></action>  |  %trayerpad% "
 
         }
