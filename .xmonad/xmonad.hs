@@ -34,7 +34,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
-import XMonad.Util.Loggers
+--import XMonad.Util.Loggers
 
 import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
