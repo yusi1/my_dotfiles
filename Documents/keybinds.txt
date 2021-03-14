@@ -46,3 +46,5 @@ ALT + P		        Open Dmenu (Application-Name Based Launcher)
 ALT + (NUM KEYS 0-9)            Go to (n) Workspace
 ALT + SHIFT + (NUM KEYS 0-9)    Shift Window to (n) Workspace
 
+
+ALT + SHIFT + SPACE -- Reset Layout

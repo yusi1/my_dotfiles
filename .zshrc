@@ -120,6 +120,8 @@ alias grep='rg'
 
 # Show nice random art when opening the terminal
 colorscript random
+#a=`curl rate.sx`
+#echo "$a"
 echo "\n"
 
 # Show some quotes
