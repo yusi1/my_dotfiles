@@ -7,8 +7,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'itchyny/landscape.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
-"Plug 'romgrk/doom-one.vim'
-Plug 'sainnhe/edge'
+Plug 'romgrk/doom-one.vim'
+"Plug 'sainnhe/edge'
 "Plug 'ghifarit53/tokyonight-vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'shinchu/lightline-gruvbox.vim'
@@ -23,16 +23,20 @@ set termguicolors
 
 " -- Edge config --
 syntax on
-colorscheme edge
+"colorscheme edge
 "let g:edge_style = 'edge'
-let g:edge_enable_italic = 0
-let g:edge_disable_italic_comment = 0
-let g:lightline = {}
-        let g:lightline.colorscheme = 'edge'
+"let g:edge_enable_italic = 0
+"let g:edge_disable_italic_comment = 0
+"let g:lightline = {}
+        "let g:lightline.colorscheme = 'edge'
+let g:lightline = {
+      \ 'colorscheme': 'darcula',
+      \ }
+
 
 " -- Distrotube's config's colourscheme (doom one & dracula mixed)
-"syntax on
-"colorscheme doom-one
+syntax on
+colorscheme doom-one
 "let g:lightline = {
     "\ 'colorscheme': 'doom-one',
     "\ }
