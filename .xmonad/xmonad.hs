@@ -34,7 +34,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
---import XMonad.Util.Loggers
+import XMonad.Util.Loggers
 
 import XMonad.Layout
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
@@ -233,12 +233,12 @@ main = do
                                 ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                              , ppExtras  = [windowCount]                           -- # of windows current workspace
+                              , ppExtras  = [windowCount]   -- # of windows current workspace
                               --, ppSort = getSortByXineramaRule
                               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                               }
