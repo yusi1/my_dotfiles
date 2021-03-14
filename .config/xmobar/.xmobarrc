@@ -14,8 +14,9 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         --font = "xft:MesloLGS NF:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:Hack Nerd Font:pixelsize=11:antialias=true;hinting=true"
         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
-        , bgColor = "#0F0F0F"
-        , fgColor = "#839496"
+        --, bgColor = "#282c34"
+        , bgColor = "#1A1C21"
+        , fgColor = "#ff6c6b"
         --, position = TopW L 90
         --, position = TopP 0 192
         --, position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
@@ -48,6 +49,6 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  |  %StdinReader% }{ |  <fc=#3EDF6E><fn=1> </fn>%kernelname%</fc>  |  <fc=#46E776>%cpu%</fc>  |  <fc=#52F282>%memory% * %swap%</fc>  |  <fc=#5EFC8D>%enp2s0% %enp3s0% %enp4s5%</fc>  |  <fc=#64FC9A>%EGPD%</fc>  |  <fc=#6AFCA7><fn=1> </fn>%upd%</fc>  |  <action=`pavucontrol` button=1><fc=#76FBC0><fn=1> </fn> %vol%</fc></action> |  <action=`gsimplecal` button=1><fc=#8EF9F3>%date%</fc></action>  |  %trayerpad% "
+        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  <fc=#666666>|</fc>  %StdinReader% }{ <fc=#666666>|</fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc>  <fc=#666666>|</fc>  <fc=#ecbe7b>%cpu%</fc>  <fc=#666666>|</fc>  <fc=#ff6c6b>%memory% * %swap%</fc>  <fc=#666666>|</fc>  <fc=#98be65>%enp2s0% %enp3s0% %enp4s5%</fc>  <fc=#666666>|</fc>  <fc=#c678dd>%EGPD%</fc>  <fc=#666666>|</fc>  <fc=#c678dd><fn=1> </fn>%upd%</fc>  <fc=#666666>|</fc>  <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action> <fc=#666666>|</fc>  <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action>  <fc=#666666>|</fc>  %trayerpad% "
 
         }

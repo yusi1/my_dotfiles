@@ -4,14 +4,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 " This is where you specify plugins
 " - Make sure to use single quotes
 
-Plug 'itchyny/landscape.vim'
+"Plug 'itchyny/landscape.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
+Plug 'romgrk/doom-one.vim'
 "Plug 'ghifarit53/tokyonight-vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'shinchu/lightline-gruvbox.vim'
 "Plug 'joshdick/onedark.vim'
-"Plug 'overcache/NeoSolarized'
+Plug 'overcache/NeoSolarized'
 
 " Initialize plugins
 call plug#end()
@@ -19,12 +20,19 @@ call plug#end()
 " Set theme
 set termguicolors
 
-" -- Landscape Theme Config --
+" -- Distrotube's config's colourscheme (doom one & dracula mixed)
 syntax on
-colorscheme landscape
-let g:lightline = {
-    \ 'colorscheme': 'landscape',
-    \ }
+colorscheme doom-one
+"let g:lightline = {
+    "\ 'colorscheme': 'doom-one',
+    "\ }
+
+" -- Landscape Theme Config --
+"syntax on
+"colorscheme landscape
+"let g:lightline = {
+    "\ 'colorscheme': 'landscape',
+    "\ }
 
 "-----------------------------
 
@@ -79,4 +87,4 @@ set shiftwidth=4
 set expandtab
 set softtabstop=4
 
-hi Normal guibg=NONE ctermbg=NONE
+"hi Normal guibg=NONE ctermbg=NONE
