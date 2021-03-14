@@ -262,7 +262,7 @@ main = do
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "qutebrowser")  -- spawn app (CTRL F3)
             , ((controlMask .|. mod4Mask, xK_F3), spawn "brave") -- spawn optional app (CTRL + WIN + F3)
-            , ((controlMask, xK_F4), spawn "code")        -- spawn app (CTRL F4)
+            , ((controlMask, xK_F4), spawn "emacs")        -- spawn app (CTRL F4)
 
             , ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
             , ((mod4Mask, xK_r), spawn "jgmenu_run") -- Open application menu Windows Key+r

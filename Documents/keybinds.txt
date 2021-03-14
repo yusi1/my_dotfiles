@@ -4,7 +4,7 @@ CTRL + F2           Open Web Browser (Chromium)
 CTRL + F3           Open Keybind-Controlled Web Browser (Qutebrowser)
 CTRL + WIN          Open Web Browser (Brave-Browser)
 
-CTRL + F4           Spawn Code Development Application (Visual Studio Code)
+CTRL + F4           Spawn Code Development Application (Emacs)
 CTRL + ALT + B      Open Web Browser (Icecat)
 ALT + R             Open Application Launcher (JgMenu)
 CTRL + ALT + M      Spawn Mail Client (Mailspring)
