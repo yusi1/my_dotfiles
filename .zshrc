@@ -14,7 +14,7 @@ export ZSH="/home/yusef/.oh-my-zsh"
 export PATH=/home/yusef/.emacs.d/bin:$PATH
 
 # SET MANPAGER
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim -e -c 'set ft=man' -"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
