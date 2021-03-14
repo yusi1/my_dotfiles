@@ -183,7 +183,7 @@ myLayoutHook = avoidStruts $ --lessBorders OnlyScreenFloat    -- #MM
                 --toggleLayouts (tiled) (nBFull)
                 --toggleLayouts (nBFull) (tiled)
                 toggleLayouts (nBFull) (tiled)   
-                ||| (tiledSp) 
+                ||| (tiledSp)
                 -- ||| (realFull)
                 -- ||| (simpleTabbed)
                 -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
