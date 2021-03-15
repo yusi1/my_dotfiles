@@ -312,7 +312,7 @@ main = do
             -- Toggle Modes
             --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
             --, ((mod1Mask, xK_f), sendMessage (Toggle "realFull"))
-            , ((mod1Mask, xK_f), sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
+            , ((mod1Mask, xK_b), sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
 
             --------------------------------------------------
             -- Seperate Workspace shortcuts (2nd monitor)
@@ -340,7 +340,7 @@ main = do
             
             , ((mod1Mask, xK_F11), spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
             
-            , ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
+            --, ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
 
             --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
@@ -356,7 +356,7 @@ main = do
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
             , ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
-            --, ((mod1Mask .|. controlMask, xK_f), sendMessage (Toggle "Full"))
+            --, ((mod1Mask .|. controlMask, xK_f), sendMessage (Toggle "nBFull"))
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
                   --do t <- findWorkspace getSortByXineramaRule Next NonEmptyWS 2
