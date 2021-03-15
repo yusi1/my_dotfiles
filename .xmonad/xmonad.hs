@@ -29,6 +29,7 @@ import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Mult
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
+--import XMonad.Hooks.ToggleHook
 --import XMonad.Hooks.DynamicBars
 
 import XMonad.Util.Run(spawnPipe)
@@ -37,6 +38,7 @@ import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 
 import XMonad.Layout
+--import XMonad.Layout.LayoutCombinators ((|||))
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
 --import XMonad.Layout.NoBorders(OnlyFloat)
 import XMonad.Layout.NoBorders
@@ -47,17 +49,19 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 --import XMonad.Layout.Maximize
 import XMonad.Layout.LayoutModifier
---import XMonad.Layout.MultiToggle
---import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
 --import XMonad.Layout.IndependentScreens
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 import XMonad.Layout.Renamed -- Rename Layouts
+import XMonad.Layout.MultiToggle as MT (Toggle(..))
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
+--import XMonad.Actions.CycleSelectedLayouts
 --import XMonad.Actions.Promote -- Promote selected window to master pane
 --import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
@@ -159,13 +163,19 @@ tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Ren
 defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
-nBFull = noBorders Full             -- NoBorders on Full without defining each time
+--nBFull = noBorders Full             -- NoBorders on Full without defining each time
 --realFull = avoidStruts $ nBFull
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
 --defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
 --defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
 --dLT2 = defLayoutsT
+
+---- Add Some Modifiers To The Layouts ----
+tiled' = avoidStruts $ smartBorders tiled
+tiledSp' = avoidStruts $ smartBorders tiledSp
+
+------------
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -175,20 +185,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 --------------------------------------------------------------------
 
-myLayoutHook = avoidStruts $ --lessBorders OnlyScreenFloat    -- #MM
-              smartBorders $
-              windowNavigation
-              (
-                --noBorders Full
-                --toggleLayouts (tiled) (nBFull)
-                --toggleLayouts (nBFull) (tiled)
-                toggleLayouts (nBFull) (tiled)   
-                ||| (tiledSp)
-                -- ||| (realFull)
-                -- ||| (simpleTabbed)
-                -- ||| mySpacing 8 (Tall 1 (3/100) (1/2))
-                -- ||| Grid
-                -- ||| toggleLayouts Full (Tall 1 (3/100) (1/2))
+myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
+                (tiled')
+                ||| (tiledSp')
               )
 
 --------------------------------------------------------------------
@@ -310,7 +309,7 @@ main = do
 
             --------------------------------------------------
             -- Toggle Modes
-            --, ((mod1Mask, xK_x), sendMessage $ Toggle MIRROR)
+            , ((mod1Mask, xK_Return), sendMessage (MT.Toggle NBFULL))
             --, ((mod1Mask, xK_f), sendMessage (Toggle "realFull"))
             , ((mod1Mask, xK_b), sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
 
@@ -352,10 +351,9 @@ main = do
             --, ((modm .|. shiftMask, xK_Right), shiftNextScreen)
             --, ((modm .|. shiftMask, xK_Left),  shiftPrevScreen)
             , ((mod1Mask .|. controlMask, xK_z), toggleWS)                -- (ALT + Z) cycle between workspaces that are being used
-            
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
-            , ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
+            --, ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
             --, ((mod1Mask .|. controlMask, xK_f), sendMessage (Toggle "nBFull"))
             --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
             --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
