@@ -239,7 +239,7 @@ main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
     --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
-    xmonad $ ewmh $ docks defaultConfig
+    xmonad $ ewmh $ docks def
       {
           borderWidth         = 3
           , terminal          = "alacritty"
