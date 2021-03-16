@@ -19,3 +19,5 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 
 ## Run caffeine, a system tray app to inhibit sleep of the system
 /usr/bin/caffeine & disown
+
+/usr/bin/emacsclient --daemon & disown

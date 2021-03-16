@@ -315,11 +315,7 @@ main = do
 
             --------------------------------------------------
             -- Seperate Workspace shortcuts (2nd monitor)
-            --, ((mod1Mask, xK_k), windows $ onCurrentScreen f i) 
-            
-
-
-
+            --, ((mod1Mask, xK_k), windows $ onCurrentScreen f i)
             --------------------------------------------------
 
 

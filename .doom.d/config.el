@@ -55,3 +55,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq scroll-conservatively 10)
+(setq scroll-margin 7)
+
+;;(setq default-frame-alist '((font . "Mononoki Nerd Font 16")))
