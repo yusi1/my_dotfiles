@@ -51,13 +51,14 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.ToggleLayouts
+--import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
 --import XMonad.Layout.IndependentScreens
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 import XMonad.Layout.Renamed -- Rename Layouts
 import XMonad.Layout.MultiToggle as MT (Toggle(..))
+--import XMonad.Layout.TabBarDecoration
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -156,15 +157,29 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 
 -------------------------------------------------------------------
 
+--myFont :: String
+--myFont = "xft:Iosevka NF:regular:size=9:antialias=true:hinting=true"
+
+-- setting colors for tabs layout and tabs sublayout.
+--myTabTheme = def { fontName            = myFont
+                 --, activeColor         = "#46d9ff"
+                 --, inactiveColor       = "#313846"
+                 --, activeBorderColor   = "#46d9ff"
+                 --, inactiveBorderColor = "#282c34"
+                 --, activeTextColor     = "#282c34"
+                 --, inactiveTextColor   = "#d0d0d0"
+                 --}
+
 --mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
-
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 --nBFull = noBorders Full             -- NoBorders on Full without defining each time
 --realFull = avoidStruts $ nBFull
+
+--tabs = renamed [Replace "Tabbed"] $ simpleTabbed
 
 --defLayouts = tiled                    -- Layouts to be used in LayoutHook
 --defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
@@ -172,9 +187,14 @@ tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename 
 --dLT2 = defLayoutsT
 
 ---- Add Some Modifiers To The Layouts ----
-tiled' = avoidStruts $ smartBorders tiled
-tiledSp' = avoidStruts $ smartBorders tiledSp
+tiled' = avoidStruts $ smartBorders (
+              tiled)
 
+tiledSp' = avoidStruts $ smartBorders (
+              tiledSp)
+
+--tabs' = avoidStruts $ smartBorders (
+              --tabs)
 ------------
 
 windowCount :: X (Maybe String)
@@ -188,6 +208,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
                 (tiled')
                 ||| (tiledSp')
+                -- ||| (tabs')
               )
 
 --------------------------------------------------------------------
