@@ -59,4 +59,4 @@
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
-;;(setq default-frame-alist '((font . "Mononoki Nerd Font 16")))
+;;(setq initial-frame-alist '((font . "Mononoki Nerd Font 16")))
