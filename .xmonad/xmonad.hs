@@ -73,6 +73,20 @@ import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow k
 import System.IO
 
 ---------------------------------------------------------------------
+-- Define some variables for the manageHook, which contain application names
+-- To help with mass editing of how application windows are manipulated
+
+gameApps = ["Steam","powder-toy","Godot","Lutris"]
+mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
+officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
+webApps = ["IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
+systemApps = ["Xmessage","ckb-next","qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings"]
+virtApps = ["Vmware","VirtualBox","Virt-manager"]
+generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
+devApps = ["Code"]
+osintApps = ["Maltego"]
+otherApps = ["Progress"]
+
 
 -- [ Manipulate windows as they are created.
 -- | The list is processed from top -> bottom, 
@@ -86,22 +100,24 @@ doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
 doWSNoShift a = doShift ( myWorkspaces !! a )
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
-myManageHook = composeAll         -- Add Custom Hook to make certain windows open in floating mode
+myManageHook = composeAll . concat $        -- Add Custom Hook to make certain windows open in floating mode
     [
-      -- For some reason the doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st)
+      -- The doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st) (since workspaces begin at 0)
       -- Added New Variable (doShiftWS (n)) to shorten these lines, before it had to be two different definitions (doShift) and (viewShift);
       -- Along with duplicate numbers. This was inefficient, as I had to write the same line with duplicate numbers each time, it was becoming a pain -
       -- to write all of those lines, which were the same thing anyway.
-      className =? "Steam" --> ( doShiftWS 6 )
+    [className =? "Steam" --> doShiftWS 6]
+    --, [className =? c --> doShiftWS 1 | c <- gameApps]
+    --, className =? (gameApps !! 2) --> doShiftWS 3
       --, className =? "Alacritty" --> ( doShiftWS 0 )
       --, className =? "Audacity" --> ( doShiftWS 5 )
-      , (className =? "Steam" <&&> resource =? "Dialog") --> doFloat
+    , [className =? "Steam" <&&> resource =? "Dialog" --> doFloat]
       -- !, className =? "Deluge" --> ( doShiftWS 1 )
-      , className =? "Soffice" --> doFloat
+    , [className =? "Soffice" --> doFloat]
       --, className =? "mpv" --> ( doShiftWS 5 )
       --, className =? "vlc" --> ( doShiftWS 5 )
-      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-      , (className =? "IceCat" <&&> resource =? "Dialog") --> doFloat  -- Float IceCat Dialog
+    , [(className =? "firefox" <&&> resource =? "Dialog") --> doFloat]  -- Float Firefox Dialog
+    , [(className =? "IceCat" <&&> resource =? "Dialog") --> doFloat]  -- Float IceCat Dialog
       --, className =? "IceCat"     --> ( doShiftWS 1 )
       --, className =? "LBRY"       --> ( doShiftWS 5 )
       --, className =? "qnvsm"      --> ( doShiftWS 2 )
@@ -118,7 +134,7 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       --, className =? "Godot"      --> ( doShiftWS 0 )
       --, className =? "llpp" --> ( doShiftWS 4 ) 
       --, className =? "LibreWolf"  --> ( doShiftWS 1 )
-      , className =? "Progress" --> doFloat
+    , [className =? "Progress" --> doFloat]
       -- !, className =? "Pcmanfm"    --> doFloat
       -- !, className =? "pcmanfm"    --> doFloat
       --, className =? "Pcmanfm" --> ( doShiftWS 4 )
@@ -130,8 +146,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       -- !, className =? "Minecraft Launcher" --> ( doShiftWS 6 )
       -- !, className =? "minecraft-launcher" --> ( doShiftWS 6 )
       --, className =? "KeePassXC"  --> ( doShiftWS 4 )
-      , className =? "Xmessage" --> doFloat
-      , className =? "ckb-next" --> ( doWSNoShift 2 )
+    , [className =? "Xmessage" --> doFloat]
+    , [className =? "ckb-next" --> doWSNoShift 2]
       --, className =? "obs"        --> ( doShiftWS 7 )
       --, className =? "Maltego"    --> ( doShiftWS 8 )
       --, className =? "Nvidia-settings"  --> ( doShiftWS 2 )
@@ -142,8 +158,8 @@ myManageHook = composeAll         -- Add Custom Hook to make certain windows ope
       --, className =? "Brave-browser"    --> ( doShiftWS 1 )
       --, className =? "qutebrowser"      --> ( doShiftWS 1 )
       --, className =? "qBittorrent"      --> ( doShiftWS 4 )
-      , className =? "Xarchiver" --> doFloat
-      , isFullscreen --> doFullFloat
+    , [className =? "Xarchiver" --> doFloat]
+    , [isFullscreen --> doFullFloat]
       -- !, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
     ]
 
