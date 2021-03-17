@@ -75,6 +75,7 @@ import System.IO
 ---------------------------------------------------------------------
 -- Define some variables for the manageHook, which contain application names
 -- To help with mass editing of how application windows are manipulated
+-- Got this idea from (https://wiki.haskell.org/Xmonad/Using_xmonad_in_KDE)
 
 gameApps = ["Steam","powder-toy","Godot","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
