@@ -81,12 +81,13 @@ gameApps = ["Steam","powder-toy","Godot","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 webApps = ["IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
-systemApps = ["Xmessage","ckb-next","qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings"]
+systemApps = ["qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
 devApps = ["Code"]
 osintApps = ["Maltego"]
-otherApps = ["Progress"]
+otherApps = ["Progress","Xmessage"]
+floatApps = ["Dialog"]
 
 
 -- [ Manipulate windows as they are created.
@@ -101,67 +102,13 @@ doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
 doWSNoShift a = doShift ( myWorkspaces !! a )
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
-myManageHook = composeAll . concat $        -- Add Custom Hook to make certain windows open in floating mode
+myManageHook = composeAll . concat $
     [
-      -- The doShift ( variable !! WS ) function has offset workspaces by 1 (so the 2nd workspace would be the 1st) (since workspaces begin at 0)
-      -- Added New Variable (doShiftWS (n)) to shorten these lines, before it had to be two different definitions (doShift) and (viewShift);
-      -- Along with duplicate numbers. This was inefficient, as I had to write the same line with duplicate numbers each time, it was becoming a pain -
-      -- to write all of those lines, which were the same thing anyway.
-    [className =? "Steam" --> doShiftWS 6]
-    --, [className =? c --> doShiftWS 1 | c <- gameApps]
-    --, className =? (gameApps !! 2) --> doShiftWS 3
-      --, className =? "Alacritty" --> ( doShiftWS 0 )
-      --, className =? "Audacity" --> ( doShiftWS 5 )
-    , [className =? "Steam" <&&> resource =? "Dialog" --> doFloat]
-      -- !, className =? "Deluge" --> ( doShiftWS 1 )
-    , [className =? "Soffice" --> doFloat]
-      --, className =? "mpv" --> ( doShiftWS 5 )
-      --, className =? "vlc" --> ( doShiftWS 5 )
-    , [(className =? "firefox" <&&> resource =? "Dialog") --> doFloat]  -- Float Firefox Dialog
-    , [(className =? "IceCat" <&&> resource =? "Dialog") --> doFloat]  -- Float IceCat Dialog
-      --, className =? "IceCat"     --> ( doShiftWS 1 )
-      --, className =? "LBRY"       --> ( doShiftWS 5 )
-      --, className =? "qnvsm"      --> ( doShiftWS 2 )
-      --, className =? "Vmware"     --> ( doShiftWS 3 )
-      -- !, className =? "VirtualBox Manager" --> ( doShiftWS 3 )
-      -- !, className =? "VirtualBox Machine" --> doFloat
-      --, className =? "VirtualBox" --> ( doShiftWS 3 )
-      --, className =? "powder-toy" --> ( doShiftWS 6 )
-      --, className =? "calibre"    --> ( doShiftWS 4 )
-      --, className =? "Chromium"   --> ( doShiftWS 1 )
-      --, className =? "Code"       --> ( doShiftWS 0 )
-      --, className =? "Epdfview"   --> ( doShiftWS 4 )
-      --, className =? "Gnome-disks" --> ( doShiftWS 2 )
-      --, className =? "Godot"      --> ( doShiftWS 0 )
-      --, className =? "llpp" --> ( doShiftWS 4 ) 
-      --, className =? "LibreWolf"  --> ( doShiftWS 1 )
-    , [className =? "Progress" --> doFloat]
-      -- !, className =? "Pcmanfm"    --> doFloat
-      -- !, className =? "pcmanfm"    --> doFloat
-      --, className =? "Pcmanfm" --> ( doShiftWS 4 )
-      --, className =? "Pavucontrol" --> ( doShiftWS 5 )
-      --, className =? "Virt-manager" --> ( doShiftWS 3 )
-      -- !, title =? "Virtual Cottage" --> ( doShiftWS 5 )
-      --, className =? "Mailspring" --> ( doShiftWS 1 )
-      -- !, title =? "minecraft-launcher" --> ( doShiftWS 6 )
-      -- !, className =? "Minecraft Launcher" --> ( doShiftWS 6 )
-      -- !, className =? "minecraft-launcher" --> ( doShiftWS 6 )
-      --, className =? "KeePassXC"  --> ( doShiftWS 4 )
-    , [className =? "Xmessage" --> doFloat]
-    , [className =? "ckb-next" --> doWSNoShift 2]
-      --, className =? "obs"        --> ( doShiftWS 7 )
-      --, className =? "Maltego"    --> ( doShiftWS 8 )
-      --, className =? "Nvidia-settings"  --> ( doShiftWS 2 )
-      --, className =? "Lutris"           --> ( doShiftWS 6 )
-      --, className =? "libreoffice"      --> ( doShiftWS 4 )
-      --, title =? "LibreOffice"          --> ( doShiftWS 4 )
-      --, className =? "Mousepad"         --> ( doShiftWS 4 )
-      --, className =? "Brave-browser"    --> ( doShiftWS 1 )
-      --, className =? "qutebrowser"      --> ( doShiftWS 1 )
-      --, className =? "qBittorrent"      --> ( doShiftWS 4 )
-    , [className =? "Xarchiver" --> doFloat]
+    [className =? (gameApps !! 0) --> doShiftWS 6]
+    , [className =? c --> doShiftWS 2 | c <- systemApps]
+    , [resource =? (floatApps !! 0) --> doFloat]
+    , [className =? (otherApps !! 0) --> doFloat]
     , [isFullscreen --> doFullFloat]
-      -- !, isFullscreen --> (doF W.focusDown <+> doFullFloat)  -- #MM
     ]
 
 --------------------------------------------------------------------
@@ -174,34 +121,12 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 
 -------------------------------------------------------------------
 
---myFont :: String
---myFont = "xft:Iosevka NF:regular:size=9:antialias=true:hinting=true"
-
--- setting colors for tabs layout and tabs sublayout.
---myTabTheme = def { fontName            = myFont
-                 --, activeColor         = "#46d9ff"
-                 --, inactiveColor       = "#313846"
-                 --, activeBorderColor   = "#46d9ff"
-                 --, inactiveBorderColor = "#282c34"
-                 --, activeTextColor     = "#282c34"
-                 --, inactiveTextColor   = "#d0d0d0"
-                 --}
-
---mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
 defSpacing = mySpacing 8            -- Default Spacing
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
---nBFull = noBorders Full             -- NoBorders on Full without defining each time
---realFull = avoidStruts $ nBFull
 
---tabs = renamed [Replace "Tabbed"] $ simpleTabbed
-
---defLayouts = tiled                    -- Layouts to be used in LayoutHook
---defLayouts = toggleLayouts (tiled) (nBFull)    -- Layouts to be used in LayoutHook, but ALT+ENTER can be used in Tall to toggle between Full and Tall Layouts
---defLayoutsT a b = a (nBFull) b (tiledSp)     -- Layouts for toggleLayouts
---dLT2 = defLayoutsT
 
 ---- Add Some Modifiers To The Layouts ----
 tiled' = avoidStruts $ smartBorders (
@@ -212,13 +137,11 @@ tiledSp' = avoidStruts $ smartBorders (
 
 --tabs' = avoidStruts $ smartBorders (
               --tabs)
-------------
+
+--------------------------------------------
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-
---mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
---mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 --------------------------------------------------------------------
 
@@ -284,11 +207,7 @@ main = do
                               >> updatePointer (0.95, 0.95) (0, 0)
           --, focusedBorderColor = "#2aa198"
           , focusedBorderColor = "#46d9ff"
-          , normalBorderColor = "#282c34" -- #MM (Temp Fix for border on "inactive" window showing on second monitor showing around the content;
-          -- Even though it is technically active when watching media content on it etc..)
-          -- This is the design of smartBorders where it will stop showing borders on the only active window on a (single) screen (which works, but only when you have 1 screen);
-          -- But now I am using 2 monitors (which smartBorders doesn't apply to) 
-          -- and I have to apply this temp workaround to stop showing a border around movies on the second monitor. 
+          , normalBorderColor = "#282c34"           
           , handleEventHook    = handleEventHook def <+> fullscreenEventHook
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
