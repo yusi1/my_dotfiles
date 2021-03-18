@@ -77,14 +77,14 @@ import System.IO
 -- To help with mass editing of how application windows are manipulated
 -- Got this idea from (https://wiki.haskell.org/Xmonad/Using_xmonad_in_KDE)
 
-gameApps = ["Steam","powder-toy","Godot","Lutris"]
+gameApps = ["Steam","powder-toy","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 webApps = ["IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
 systemApps = ["qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
-devApps = ["Code"]
+devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 otherApps = ["Progress","Xmessage"]
 floatApps = ["Dialog"]
@@ -105,7 +105,9 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
     [className =? (gameApps !! 0) --> doShiftWS 6]
-    , [className =? c --> doShiftWS 2 | c <- systemApps]
+    , [className =? a --> doShiftWS 6 | a <- gameApps]
+    , [className =? b --> doShiftWS 2 | b <- systemApps]
+    , [className =? c --> doShiftWS 0 | c <- devApps]
     , [resource =? (floatApps !! 0) --> doFloat]
     , [className =? (otherApps !! 0) --> doFloat]
     , [isFullscreen --> doFullFloat]
