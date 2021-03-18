@@ -80,12 +80,15 @@ import System.IO
 gameApps = ["Steam","powder-toy","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
+
 webApps = ["IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
 systemApps = ["qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
+
 generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
 devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
+
 otherApps = ["Progress","Xmessage"]
 floatApps = ["Dialog"]
 
@@ -105,11 +108,13 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
     [className =? (gameApps !! 0) --> doShiftWS 6]
-    , [className =? a --> doShiftWS 6 | a <- gameApps]
-    , [className =? b --> doShiftWS 2 | b <- systemApps]
-    , [className =? c --> doShiftWS 0 | c <- devApps]
-    , [resource =? (floatApps !! 0) --> doFloat]
-    , [className =? (otherApps !! 0) --> doFloat]
+    , [className =? gA --> doShiftWS 6 | gA <- gameApps]
+    , [className =? sA --> doShiftWS 2 | sA <- systemApps]
+    , [className =? dA --> doShiftWS 0 | dA <- devApps]
+    , [resource =? flA --> doFloat | flA <- floatApps]
+    , [className =? oA --> doFloat | oA <- otherApps]
+    , [className =? vA --> doShiftWS 3 | vA <- virtApps]
+    , [className =? (generalApps !! 0) --> doShiftWS 1] 
     , [isFullscreen --> doFullFloat]
     ]
 
