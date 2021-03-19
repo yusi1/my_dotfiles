@@ -10,7 +10,7 @@
 /usr/bin/dunst & disown     # Start notification agent
 
 #stalonetray & disown
-trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown
+#trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown
 
 /home/yusef/./.fehbg & disown
 /usr/bin/variety & disown   # New wallpaper changer (changes wallpaper every 5 mins)

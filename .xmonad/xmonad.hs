@@ -36,6 +36,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
+import XMonad.Util.SpawnOnce
 
 import XMonad.Layout
 --import XMonad.Layout.LayoutCombinators ((|||))
@@ -177,7 +178,10 @@ myStartupHook = do
             -- Put apps you want XMonad to start in here
             -- example:
             -- spawnOnce "ckb-next & disown"
-            setWMName "LG3D"    -- For java application support, -- see: https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-SetWMName.html
+            setWMName "LG3D"    -- For java application support
+            spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown"
+            spawnOnce "ckb-next -b & disown"
+            spawnOnce "openrgb --startminimized & disown"
 
 -------------------------------------------------------------------
 
