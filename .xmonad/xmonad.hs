@@ -112,7 +112,8 @@ myManageHook = composeAll . concat $
     , [className =? gA --> doShiftWS 6 | gA <- gameApps]
     , [className =? sA --> doShiftWS 2 | sA <- systemApps]
     , [className =? dA --> doShiftWS 0 | dA <- devApps]
-    , [resource =? flA --> doFloat | flA <- floatApps ++ otherApps]
+    , [resource =? flA --> doFloat | flA <- floatApps]
+    , [className =? otA --> doFloat | otA <- otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
     , [className =? (generalApps !! 0) --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps]
@@ -171,7 +172,7 @@ myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1
 
 -------------------------------------------------------------------
--- Startup Hook (.xprofile is used more)
+-- Startup Hook (check .xprofile too)
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -181,7 +182,7 @@ myStartupHook = do
             setWMName "LG3D"    -- For java application support
             spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown"
             spawnOnce "ckb-next -b & disown"
-            spawnOnce "openrgb --startminimized & disown"
+            spawnOnce "openrgb --startminimized -p new.orp & disown"
 
 -------------------------------------------------------------------
 
