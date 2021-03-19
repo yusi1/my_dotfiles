@@ -113,7 +113,8 @@ myManageHook = composeAll . concat $
     , [className =? dA --> doShiftWS 0 | dA <- devApps]
     , [resource =? flA --> doFloat | flA <- floatApps ++ otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
-    , [className =? (generalApps !! 0) --> doShiftWS 1] 
+    , [className =? (generalApps !! 0) --> doShiftWS 1]
+    , [className =? floA --> doFloat | floA <- take 2 officeApps]
     , [isFullscreen --> doFullFloat]
     ]
 
