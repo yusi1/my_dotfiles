@@ -231,7 +231,7 @@ main = do
             --, ((controlMask, xK_F3), spawn "icecat")  -- spawn app (CTRL F3)
             --, ((controlMask .|. mod4Mask, xK_F3), spawn "qutebrowser") -- spawn optional app (CTRL + WIN + F3)
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
-            , ((mod1Mask .|. shiftMask, xK_b), spawn "bitwarden-dmenu --dmenu-args='-nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b''")
+            , ((mod1Mask .|. shiftMask, xK_b), spawn "bitwarden-dmenu --dmenu-args='-nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'Ubuntu:style=Bold:size=11''")
             , ((mod1Mask, xK_p), spawn "dmenu_run -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
             , ((mod1Mask, xK_c), spawn "clipmenu -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
             , ((controlMask .|. mod1Mask, xK_b), spawn "bitwarden")
