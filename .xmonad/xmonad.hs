@@ -55,11 +55,9 @@ import XMonad.Layout.MultiToggle.Instances
 --import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
---import XMonad.Layout.IndependentScreens
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 import XMonad.Layout.Renamed -- Rename Layouts
 import XMonad.Layout.MultiToggle as MT (Toggle(..))
---import XMonad.Layout.TabBarDecoration
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -133,19 +131,18 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
+
 defSpacing = mySpacing 8            -- Default Spacing
+
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 
-
 ---- Add Some Modifiers To The Layouts ----
+
 tiled' = avoidStruts $ smartBorders (
               tiled)
 
 tiledSp' = avoidStruts $ smartBorders (
               tiledSp)
-
---tabs' = avoidStruts $ smartBorders (
-              --tabs)
 
 --------------------------------------------
 
@@ -157,7 +154,6 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
                 (tiled')
                 ||| (tiledSp')
-                -- ||| (tabs')
               )
 
 --------------------------------------------------------------------
@@ -260,10 +256,10 @@ main = do
             , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
             
             -- Window Resizing
-            , ((mod4Mask .|. controlMask, xK_Up), sendMessage $ MirrorExpand)
-            , ((mod4Mask .|. controlMask, xK_Down), sendMessage $ MirrorShrink)
-            , ((mod4Mask .|. controlMask, xK_Left), sendMessage $ Shrink)
-            , ((mod4Mask .|. controlMask, xK_Right), sendMessage $ Expand)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Up), sendMessage $ MirrorExpand)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Down), sendMessage $ MirrorShrink)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Left), sendMessage $ Shrink)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Right), sendMessage $ Expand)
 
             -------------------------------------------------
             -- Switch focus to different screens easily
