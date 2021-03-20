@@ -20,4 +20,8 @@
 ## Run caffeine, a system tray app to inhibit sleep of the system
 /usr/bin/caffeine & disown
 
+## Start emacs daemon
 /usr/bin/emacsclient --daemon & disown
+
+## Start clipmenud for clipboard history
+/usr/bin/clipmenud & disown
