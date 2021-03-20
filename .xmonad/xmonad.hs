@@ -121,10 +121,8 @@ myManageHook = composeAll . concat $
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "] -- $ def { withScreens 2 ["web"] }
--- Offset:      "   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "         Offset=n-1
-
---myConfig = def { workspaces = withScreens 2 ["web", "media"] }
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "]
+-- Offset:     ["   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "]
 
 -------------------------------------------------------------------
 
@@ -160,8 +158,6 @@ myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
 -- [ Fade Inactive Windows ]
 -- Currently set to one, but is here in case I want to change it;
 -- In the future.
-
-
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
