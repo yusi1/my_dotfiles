@@ -117,6 +117,7 @@ myManageHook = composeAll . concat $
     , [className =? (generalApps !! 0) --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps]
     , [className =? (customClasses !! 0) --> doShiftWS 8]
+    , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
     , [isFullscreen --> doFullFloat]
     ]
 
