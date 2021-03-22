@@ -222,7 +222,7 @@ main = do
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "alacritty -e amfora")  -- spawn app (CTRL F3)
-            --, ((controlMask .|. mod4Mask, xK_F3), spawn "qutebrowser") -- spawn optional app (CTRL + WIN + F3)
+            , ((controlMask .|. mod4Mask, xK_F3), spawn "notify-send 'Started Running Private Jailed Firefox Process (DNS = AdGuard 94.140.14.14)'; firejail --private --dns=94.140.14.14 /usr/bin/firefox; notify-send 'Finished Running Private Jailed Firefox Process'") -- spawn optional app (CTRL + WIN + F3)
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
             , ((mod1Mask .|. shiftMask, xK_b), spawn "bitwarden-dmenu --dmenu-args='-nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'Ubuntu:style=Bold:size=11''")
             , ((mod1Mask, xK_p), spawn "dmenu_run -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
