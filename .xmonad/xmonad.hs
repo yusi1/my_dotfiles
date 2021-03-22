@@ -100,8 +100,13 @@ customClasses = ["sandboxed"]
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 
+
 viewShift = doF . liftM2 (.) W.greedyView W.shift
+
+doShiftWS :: Int -> ManageHook
 doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
+
+doWSNoShift :: Int -> ManageHook
 doWSNoShift a = doShift ( myWorkspaces !! a )
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -123,15 +128,19 @@ myManageHook = composeAll . concat $
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
+myWorkspaces :: [String]
 myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:osint ", " 9:sbox "]
 -- Offset:     ["   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "]
 
 -------------------------------------------------------------------
 
+mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
+tiled :: ModifiedLayout Rename ResizableTall a
 tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
 
+defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
