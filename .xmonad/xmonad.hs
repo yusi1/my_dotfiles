@@ -80,7 +80,7 @@ gameApps = ["Steam","powder-toy","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 
-webApps = ["IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
+webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
 systemApps = ["qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 
@@ -90,6 +90,7 @@ osintApps = ["Maltego"]
 
 otherApps = ["Progress","Xmessage"]
 floatApps = ["Dialog"]
+customClasses = ["sandboxed"]
 
 
 -- [ Manipulate windows as they are created.
@@ -115,13 +116,14 @@ myManageHook = composeAll . concat $
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
     , [className =? (generalApps !! 0) --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps]
+    , [className =? (customClasses !! 0) --> doShiftWS 8]
     , [isFullscreen --> doFullFloat]
     ]
 
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:rec ", " 9:osint "]
+myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:osint ", " 9:sbox "]
 -- Offset:     ["   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "]
 
 -------------------------------------------------------------------
@@ -222,7 +224,7 @@ main = do
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "alacritty -e amfora")  -- spawn app (CTRL F3)
-            , ((controlMask .|. mod4Mask, xK_F3), spawn "notify-send 'Started Running Private Jailed Firefox Process (DNS = AdGuard 94.140.14.14)'; firejail --private --dns=94.140.14.14 /usr/bin/firefox; notify-send 'Finished Running Private Jailed Firefox Process'") -- spawn optional app (CTRL + WIN + F3)
+            , ((controlMask .|. mod4Mask, xK_F3), spawn "notify-send 'Started Running Private Jailed Firefox Process (DNS = FDNS 127.1.1.1)'; alacritty --class Alacritty,sandboxed -e fdns --monitor & disown && alacritty --class Alacritty,sandboxed -e firejail --private --dns=127.1.1.1 /usr/bin/firefox; notify-send 'Finished Running Private Jailed Firefox Process'") -- spawn optional app (CTRL + WIN + F3)
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
             , ((mod1Mask .|. shiftMask, xK_b), spawn "bitwarden-dmenu --dmenu-args='-nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'Ubuntu:style=Bold:size=11''")
             , ((mod1Mask, xK_p), spawn "dmenu_run -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")

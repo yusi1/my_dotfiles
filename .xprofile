@@ -6,6 +6,9 @@
 ### Sync system time at startup
 #/usr/bin/ntpdate 0.uk.pool.ntp.org
 
+### Run FDNS Daemon
+pkexec sudo fdns --daemonize & disown
+
 ### Run Polkit Agent at Startup in the Background (IMPORTANT) Needed for privilege escalation in apps
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & disown
 
