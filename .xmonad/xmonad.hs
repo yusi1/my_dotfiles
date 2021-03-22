@@ -107,16 +107,15 @@ doWSNoShift a = doShift ( myWorkspaces !! a )
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
-    [className =? (gameApps !! 0) --> doShiftWS 6]
-    , [className =? gA --> doShiftWS 6 | gA <- gameApps]
+    [className =? gA --> doShiftWS 6 | gA <- gameApps]
     , [className =? sA --> doShiftWS 2 | sA <- systemApps]
     , [className =? dA --> doShiftWS 0 | dA <- devApps]
     , [resource =? flA --> doFloat | flA <- floatApps]
     , [className =? otA --> doFloat | otA <- otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
-    , [className =? (generalApps !! 0) --> doShiftWS 1]
+    , [className =? head generalApps --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps]
-    , [className =? (customClasses !! 0) --> doShiftWS 8]
+    , [className =? head customClasses --> doShiftWS 8]
     , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
     , [isFullscreen --> doFullFloat]
     ]
@@ -135,15 +134,13 @@ tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Ren
 
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing (tiled)       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
+tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 
 ---- Add Some Modifiers To The Layouts ----
 
-tiled' = avoidStruts $ smartBorders (
-              tiled)
+tiled' = avoidStruts $ smartBorders tiled
 
-tiledSp' = avoidStruts $ smartBorders (
-              tiledSp)
+tiledSp' = avoidStruts $ smartBorders tiledSp
 
 --------------------------------------------
 
@@ -153,8 +150,8 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 --------------------------------------------------------------------
 
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
-                (tiled')
-                ||| (tiledSp')
+                tiled'
+                ||| tiledSp'
               )
 
 --------------------------------------------------------------------
@@ -257,10 +254,10 @@ main = do
             , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
             
             -- Window Resizing
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Up), sendMessage $ MirrorExpand)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Down), sendMessage $ MirrorShrink)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Left), sendMessage $ Shrink)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Right), sendMessage $ Expand)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Up), sendMessage MirrorExpand)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Down), sendMessage MirrorShrink)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Left), sendMessage Shrink)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Right), sendMessage Expand)
 
             -------------------------------------------------
             -- Switch focus to different screens easily
