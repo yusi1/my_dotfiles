@@ -6,6 +6,9 @@
 ### Sync system time at startup
 #/usr/bin/ntpdate 0.uk.pool.ntp.org
 
+## Run Firetools (Firejail Tools)
+firetools --minimize & disown
+
 ### Run FDNS Daemon
 pkexec sudo fdns --daemonize & disown
 
