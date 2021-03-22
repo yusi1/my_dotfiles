@@ -221,7 +221,7 @@ main = do
             ((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
-            --, ((controlMask, xK_F3), spawn "icecat")  -- spawn app (CTRL F3)
+            , ((controlMask, xK_F3), spawn "alacritty -e amfora")  -- spawn app (CTRL F3)
             --, ((controlMask .|. mod4Mask, xK_F3), spawn "qutebrowser") -- spawn optional app (CTRL + WIN + F3)
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
             , ((mod1Mask .|. shiftMask, xK_b), spawn "bitwarden-dmenu --dmenu-args='-nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'Ubuntu:style=Bold:size=11''")
