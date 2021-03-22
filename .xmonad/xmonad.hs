@@ -62,7 +62,7 @@ import XMonad.Layout.MultiToggle as MT (Toggle(..))
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
 --import XMonad.Actions.CycleSelectedLayouts
---import XMonad.Actions.Promote -- Promote selected window to master pane
+import XMonad.Actions.Promote -- Promote selected window to master pane
 --import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
 --import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
@@ -244,7 +244,7 @@ main = do
             , ((mod4Mask, xK_r), spawn "jgmenu_run") -- Open application menu Windows Key+r
 
             , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
-            --, ((mod1Mask, xK_Return), promote)                          -- Promote selected window to master pane (ALT ENTER)
+            , ((mod1Mask .|. mod4Mask, xK_Return), promote)                          -- Promote selected window to master pane
             , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
             , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
