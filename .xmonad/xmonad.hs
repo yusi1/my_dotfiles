@@ -113,14 +113,14 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
     [className =? gA --> doShiftWS 6 | gA <- gameApps]
+    , [className =? head customClasses --> doShiftWS 8]
     , [className =? sA --> doShiftWS 2 | sA <- systemApps]
     , [className =? dA --> doShiftWS 0 | dA <- devApps]
     , [resource =? flA --> doFloat | flA <- floatApps]
     , [className =? otA --> doFloat | otA <- otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
     , [className =? head generalApps --> doShiftWS 1]
-    , [className =? floA --> doFloat | floA <- take 2 officeApps]
-    , [className =? head customClasses --> doShiftWS 8]
+    , [className =? floA --> doFloat | floA <- take 2 officeApps] 
     , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
     , [isFullscreen --> doFullFloat]
     ]
