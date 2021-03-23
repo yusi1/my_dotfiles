@@ -76,7 +76,7 @@ import System.IO
 -- To help with mass editing of how application windows are manipulated
 -- Got this idea from (https://wiki.haskell.org/Xmonad/Using_xmonad_in_KDE)
 
-gameApps = ["Steam","powder-toy","Lutris"]
+gameApps = ["Minecraft Launcher","minecraft-launcher","Steam","powder-toy","Lutris"]
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 
