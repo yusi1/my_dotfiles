@@ -231,7 +231,7 @@ main = do
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "alacritty -e amfora")  -- spawn app (CTRL F3)
-            , ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
+            , ((mod1Mask, xK_r), spawn "alacritty --class=Alacritty,sandboxed -e ~/spawnjailedapps.sh")
             , ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedfirefox.sh")
             , ((controlMask, xK_F6), spawn "~/./spawnjailedbravebrowser.sh")
             , ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
