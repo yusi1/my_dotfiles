@@ -37,8 +37,11 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
+import XMonad.Util.NamedScratchpad
+--import XMonad.Util.Scratchpad
 
 import XMonad.Layout
+--import XMonad.Layout.Combo
 --import XMonad.Layout.LayoutCombinators ((|||))
 --import XMonad.Layout.Fullscreen (fullscreenFull, fullscreenSupport)
 --import XMonad.Layout.NoBorders(OnlyFloat)
@@ -72,16 +75,27 @@ import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow k
 import System.IO
 
 ---------------------------------------------------------------------
+-- App defaults names
+
+myTerminal = "alacritty"
+myFallBackTerminal = "xterm"
+
+---------------------------------------------------------------------
 -- Define some variables for the manageHook, which contain application names
 -- To help with mass editing of how application windows are manipulated
 -- Got this idea from (https://wiki.haskell.org/Xmonad/Using_xmonad_in_KDE)
 
-gameApps = ["Minecraft Launcher","minecraft-launcher","Steam","powder-toy","Lutris"]
+gameApps = [
+            --"Minecraft* 1.16.5",
+            --"Minecraft Launcher","minecraft-launcher",
+            "Steam","powder-toy","Lutris"
+           ]
+
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
-systemApps = ["qnvsm","Gnome-disks","Pavucontrol","Nvidia-settings","ckb-next","openrgb"]
+systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 
 generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
@@ -90,7 +104,10 @@ osintApps = ["Maltego"]
 
 otherApps = ["Progress","Xmessage"]
 floatApps = ["Dialog"]
-customClasses = ["sandboxed"]
+customClasses = ["sandboxed","scratchpad"]
+
+-- # [ excluded apps: ]
+-- [*] Pavucontrol
 
 
 -- [ Manipulate windows as they are created.
@@ -133,6 +150,83 @@ myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:medi
 -- Offset:     ["   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "]
 
 -------------------------------------------------------------------
+-- [ Scratchpad config ]
+
+--manageScratchpad :: ManageHook
+--manageScratchpad = scratchpadManageHook (W.RationalRect l t w h)    
+                   --where
+                        --h = 0.4    -- terminal height
+                        --w = 0.3       -- terminal width
+                        --t = 0.6   -- distance from top edge
+                        --l = 0.7 -- distance from left edge
+
+-- ^- for util.scratchpad, below is for util.namedscratchpad
+
+myScratchPads :: [NamedScratchpad]
+myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "volumectl" spawnMixer findMixer manageMixer
+                , NS "dnsmon" spawnDnsMon findDnsMon manageDnsMon
+                , NS "notes" spawnNotes findNotes manageNotes
+                , NS "emacs" spawnEmacs findEmacs manageEmacs
+                ]
+        where
+        -- [Alacritty]
+            spawnTerm = myTerminal ++ " --class Alacritty,scratchpad"
+            findTerm = className =? "scratchpad"
+            manageTerm = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+            
+        -- [Pavucontrol]
+            spawnMixer = "pavucontrol"
+            findMixer = className =? "Pavucontrol"
+            manageMixer = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
+        -- [Firejail DNS Monitoring]
+            spawnDnsMon = myTerminal ++ " --class Alacritty,scratchdnsmon -e fdns --monitor"
+            findDnsMon = className =? "scratchdnsmon"
+            manageDnsMon = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.4
+                    w = 0.4
+                    t = 1 - h
+                    l = 0.6
+
+        -- [Quick Notes]
+            spawnNotes = "mousepad"
+            findNotes = className =? "Mousepad"
+            manageNotes = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.4
+                    w = 0.4
+                    t = 1 - h
+                    l = 0.0
+
+        -- [Emacs]
+            spawnEmacs = "emacs"
+            findEmacs = className =? "Emacs"
+            manageEmacs = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
+scratchTerm = namedScratchpadAction myScratchPads "terminal"
+scratchMixer = namedScratchpadAction myScratchPads "volumectl"
+scratchDnsMon = namedScratchpadAction myScratchPads "dnsmon"
+scratchNotes = namedScratchpadAction myScratchPads "notes"
+scratchEmacs = namedScratchpadAction myScratchPads "emacs"
+
+-------------------------------------------------------------------
 
 mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -144,6 +238,8 @@ defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
+
+--combineTwo (tiled) (tiledSp)
 
 ---- Add Some Modifiers To The Layouts ----
 
@@ -188,7 +284,6 @@ myStartupHook = do
 
 -------------------------------------------------------------------
 
-
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
@@ -196,18 +291,18 @@ main = do
     xmonad $ ewmh $ docks def
       {
           borderWidth         = 3
-          , terminal          = "alacritty"
+          , terminal          = myTerminal
           --, layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
           , startupHook = myStartupHook
           , workspaces  = myWorkspaces
-          , manageHook  = myManageHook
+          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" ""  -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
@@ -231,7 +326,7 @@ main = do
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "alacritty -e amfora")  -- spawn app (CTRL F3)
-            , ((mod1Mask, xK_r), spawn "alacritty --class=Alacritty,sandboxed -e ~/spawnjailedapps.sh")
+            , ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
             , ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedfirefox.sh")
             , ((controlMask, xK_F6), spawn "~/./spawnjailedbravebrowser.sh")
             , ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
@@ -241,18 +336,23 @@ main = do
             , ((mod1Mask, xK_c), spawn "clipmenu -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
             , ((controlMask .|. mod1Mask, xK_b), spawn "bitwarden")
             , ((controlMask, xK_F4), spawn "emacs")        -- spawn app (CTRL F4)
-
             --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
             , ((mod4Mask, xK_r), spawn "jgmenu_run") -- Open application menu Windows Key+r
-
-            , ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
+            -- [Scratchpads]
+            , ((mod1Mask, xK_a), scratchTerm)
+            , ((mod1Mask, xK_v), scratchMixer)
+            , ((mod1Mask, xK_m), scratchDnsMon)
+            , ((mod1Mask, xK_n), scratchNotes)
+            , ((mod1Mask, xK_e), scratchEmacs)
+            ----
+            --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask .|. mod4Mask, xK_Return), promote)                          -- Promote selected window to master pane
             , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
             , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
             --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
-            --, ((mod1Mask .|. controlMask, xK_Up),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
-            --, ((mod1Mask .|. controlMask, xK_Down),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_n),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
+            , ((mod1Mask .|. controlMask .|. shiftMask, xK_p),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
             --------------------------------------------------
             -- Manage Windows Easily Using Arrowkeys
             , ((mod1Mask,                 xK_Right), sendMessage $ Go R)
@@ -335,3 +435,4 @@ main = do
                   --do t <- findWorkspace getSortByXineramaRule Next NonEmptyWS 2
                     --windows . view $ t )
            ]
+                
