@@ -19,6 +19,7 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import Data.Monoid
 import Control.Monad (liftM2)
+import Data.Ratio ((%))
 
 --import Text.Printf
 
@@ -104,6 +105,7 @@ generalApps = ["firetools","qBittorrent","calibre","Pcmanfm","Mailspring","KeePa
 devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 
+socialApps = ["Microsoft Teams"]
 otherApps = ["Progress","Xmessage"]
 floatApps = ["Dialog"]
 customClasses = ["sandboxed","scratchpad"]
@@ -242,7 +244,7 @@ defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 
----- Add Some Modifiers To The Layouts ----
+---- Add Some More Modifiers To The Layouts ----
 
 tiled' = avoidStruts $ smartBorders tiled
 
