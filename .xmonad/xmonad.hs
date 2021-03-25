@@ -19,7 +19,7 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import Data.Monoid
 import Control.Monad (liftM2)
-import Data.Ratio ((%))
+--import Data.Ratio ((%))
 
 --import Text.Printf
 
