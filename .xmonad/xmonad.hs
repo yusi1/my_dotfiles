@@ -141,7 +141,6 @@ myManageHook = composeAll . concat $
     , [className =? otA --> doFloat | otA <- otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
     , [className =? head generalApps --> doFloat]
-    , [className =? (generalApps !! 1) --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps] 
     , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
     , [isFullscreen --> doFullFloat]
@@ -173,6 +172,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "dnsmon" spawnDnsMon findDnsMon manageDnsMon
                 , NS "notes" spawnNotes findNotes manageNotes
                 , NS "emacs" spawnEmacs findEmacs manageEmacs
+                , NS "torrent" spawnqB findqB manageqB
                 ]
         where
         -- [Alacritty]
@@ -225,11 +225,22 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
+        -- [QBittorent]
+            spawnqB = "qbittorrent"
+            findqB = className =? "qBittorrent"
+            manageqB = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
 scratchTerm = namedScratchpadAction myScratchPads "terminal"
 scratchMixer = namedScratchpadAction myScratchPads "volumectl"
 scratchDnsMon = namedScratchpadAction myScratchPads "dnsmon"
 scratchNotes = namedScratchpadAction myScratchPads "notes"
 scratchEmacs = namedScratchpadAction myScratchPads "emacs"
+scratchqB = namedScratchpadAction myScratchPads "torrent"
 
 -------------------------------------------------------------------
 
@@ -347,6 +358,7 @@ main = do
             , ((mod1Mask, xK_m), scratchDnsMon)
             , ((mod1Mask, xK_n), scratchNotes)
             , ((mod1Mask, xK_e), scratchEmacs)
+            , ((mod1Mask .|. mod4Mask, xK_t), scratchqB)
             ----
             --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ((mod1Mask .|. mod4Mask, xK_Return), promote)                          -- Promote selected window to master pane
