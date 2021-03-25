@@ -87,7 +87,8 @@ myFallBackTerminal = "xterm"
 
 gameApps = [
             --"Minecraft* 1.16.5",
-            --"Minecraft Launcher","minecraft-launcher",
+            "Minecraft Launcher",
+            --,"minecraft-launcher",
             "Steam","powder-toy","Lutris"
            ]
 
@@ -98,7 +99,7 @@ webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowse
 systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 
-generalApps = ["qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
+generalApps = ["firetools","qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
 devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 
@@ -136,7 +137,8 @@ myManageHook = composeAll . concat $
     , [resource =? flA --> doFloat | flA <- floatApps]
     , [className =? otA --> doFloat | otA <- otherApps]
     , [className =? vA --> doShiftWS 3 | vA <- virtApps]
-    , [className =? head generalApps --> doShiftWS 1]
+    , [className =? head generalApps --> doFloat]
+    , [className =? (generalApps !! 1) --> doShiftWS 1]
     , [className =? floA --> doFloat | floA <- take 2 officeApps] 
     , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
     , [isFullscreen --> doFullFloat]
