@@ -61,6 +61,7 @@ import XMonad.Layout.AvoidFloats
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 import XMonad.Layout.Renamed -- Rename Layouts
 import XMonad.Layout.MultiToggle as MT (Toggle(..))
+--import XMonad.Layout.Drawer
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -241,8 +242,6 @@ defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 
---combineTwo (tiled) (tiledSp)
-
 ---- Add Some Modifiers To The Layouts ----
 
 tiled' = avoidStruts $ smartBorders tiled
@@ -259,7 +258,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
                 tiled'
                 ||| tiledSp'
-              )
+                )
 
 --------------------------------------------------------------------
 -- [ Fade Inactive Windows ]
