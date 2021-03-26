@@ -282,10 +282,10 @@ bsp = renamed [Replace "BSP"] $ emptyBSP
 accordion = renamed [Replace "Accordion"] $ Accordion
 
 -- Toggle Layouts in "Pairs" (Very Useful)
-tiledToggle = toggleLayouts tiled (tiledSp)
-bspToggle = toggleLayouts bsp (bspSp)
-threecolToggle = toggleLayouts threecol (threecolSp)
-threecolToggle' = toggleLayouts threecolmid (threecolMSp)
+tiledToggle = toggleLayouts tiledSp (tiled)
+bspToggle = toggleLayouts bspSp (bsp)
+threecolToggle = toggleLayouts threecolSp (threecol)
+threecolToggle' = toggleLayouts threecolMSp (threecolmid)
 
 ---- Add Some More Modifiers To The Layouts ----
 
