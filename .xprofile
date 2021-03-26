@@ -34,3 +34,6 @@ pkexec sudo fdns --daemonize & disown
 
 ## Start clipmenud for clipboard history
 /usr/bin/clipmenud & disown
+
+# Run xscreesaver
+/usr/bin/xscreensaver & disown

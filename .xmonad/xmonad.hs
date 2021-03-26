@@ -177,6 +177,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "notes" spawnNotes findNotes manageNotes
                 , NS "emacs" spawnEmacs findEmacs manageEmacs
                 , NS "torrent" spawnqB findqB manageqB
+                , NS "fileman" spawnfileMan findfileMan managefileMan
                 ]
         where
         -- [Alacritty]
@@ -239,12 +240,23 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
+        -- [PcManFM] File Manager
+            spawnfileMan = "pcmanfm"
+            findfileMan = className =? "Pcmanfm"
+            managefileMan = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
 scratchTerm = namedScratchpadAction myScratchPads "terminal"
 scratchMixer = namedScratchpadAction myScratchPads "volumectl"
 scratchDnsMon = namedScratchpadAction myScratchPads "dnsmon"
 scratchNotes = namedScratchpadAction myScratchPads "notes"
 scratchEmacs = namedScratchpadAction myScratchPads "emacs"
 scratchqB = namedScratchpadAction myScratchPads "torrent"
+scratchfileMan = namedScratchpadAction myScratchPads "fileman"
 
 -------------------------------------------------------------------
 
@@ -361,8 +373,8 @@ main = do
       }
           `additionalKeys`
            [
-            ((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
-            , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
+            --((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
+            ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
@@ -382,6 +394,7 @@ main = do
             , ((mod1Mask, xK_m), scratchDnsMon)
             , ((mod1Mask, xK_n), scratchNotes)
             , ((mod1Mask, xK_e), scratchEmacs)
+            , ((mod1Mask .|. mod4Mask, xK_f), scratchfileMan)
             , ((mod1Mask .|. mod4Mask, xK_t), scratchqB)
             ----
             --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
