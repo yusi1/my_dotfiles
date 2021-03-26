@@ -56,7 +56,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
---import XMonad.Layout.ToggleLayouts
+import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.AvoidFloats
 import XMonad.Layout.ResizableTile -- Resizable Tall Layout
@@ -258,13 +258,22 @@ defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
+bspSp = defSpacing bsp
 
 threecol = renamed [Replace "ThreeCol"] $ ThreeCol 1 (3/100) (1/2)
 threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
+threecolSp = defSpacing threecol
+threecolMSp = defSpacing threecolmid
 
 bsp = renamed [Replace "BSP"] $ emptyBSP
 
 accordion = renamed [Replace "Accordion"] $ Accordion
+
+-- Toggle Layouts in "Pairs" (Very Useful)
+tiledToggle = toggleLayouts tiled (tiledSp)
+bspToggle = toggleLayouts bsp (bspSp)
+threecolToggle = toggleLayouts threecol (threecolSp)
+threecolToggle' = toggleLayouts threecolmid (threecolMSp)
 
 ---- Add Some More Modifiers To The Layouts ----
 
@@ -283,8 +292,10 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 --------------------------------------------------------------------
 
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders (
-                tiled
-                ||| tiledSp ||| threecol ||| threecolmid ||| bsp ||| accordion
+                --tiled
+                -- ||| tiledSp 
+                tiledToggle 
+                ||| threecolToggle ||| threecolToggle' ||| bspToggle ||| accordion
                 )
 
 --------------------------------------------------------------------
@@ -454,7 +465,7 @@ main = do
             
             --, ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
 
-            --, ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
+            , ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
             --, ((mod1Mask .|. controlMask, xK_f), moveTo Next NonEmptyWS)  -- (ALT + SHIFT F) cycle between non-empty workspaces (application opened in them)
