@@ -4,13 +4,15 @@
 
 Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:Iosevka Term:weight=bold:pixelsize:10:antialias=true:hinting=true"
-        --font = "xft:Terminus:weight=regular:pixelsize=9.5:antialias=true:hinting=true"
+        --font = "xft:xos4 Terminus:weight=regular:pixelsize=10:antialias=false:hinting=false"
+        --font = "-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
+        --font = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-iso8859-1"
         font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true" 
         --font = "montecarlo:weight=bold:pixelsize=11:antialias=true:hinting=true"
         --font = "cherry:weight=regular:pixelsize=0.1"
         --font = "xft:Consolas:weight=bold:pixelsize=10:antialias=true:hinting=true"
         --font = "xft:mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-        --font = "xft:TerminessTTF Nerd Font:pixelsize=12:antialias=true:hinting=true"
+        --font = "TerminessTTF Nerd Font:pixelsize=12:antialias=true:hinting=true"
         --font = "xft:MesloLGS NF:pixelsize=11:antialias=true:hinting=true"
         --font = "xft:Hack Nerd Font:pixelsize=11:antialias=true;hinting=true"
         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
