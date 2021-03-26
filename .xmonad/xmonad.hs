@@ -63,6 +63,10 @@ import XMonad.Layout.ResizableTile -- Resizable Tall Layout
 import XMonad.Layout.Renamed -- Rename Layouts
 import XMonad.Layout.MultiToggle as MT (Toggle(..))
 --import XMonad.Layout.Drawer
+import XMonad.Layout.ThreeColumns
+--import XMonad.Layout.IfMax
+import XMonad.Layout.BinarySpacePartition hiding (Swap) -- unambiguise (Swap)
+import XMonad.Layout.Accordion
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -255,11 +259,21 @@ defSpacing = mySpacing 8            -- Default Spacing
 
 tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 
+threecol = renamed [Replace "ThreeCol"] $ ThreeCol 1 (3/100) (1/2)
+threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
+
+bsp = renamed [Replace "BSP"] $ emptyBSP
+
+accordion = renamed [Replace "Accordion"] $ Accordion
+
 ---- Add Some More Modifiers To The Layouts ----
 
-tiled' = avoidStruts $ smartBorders tiled
+--tiled' = avoidStruts $ smartBorders tiled
 
-tiledSp' = avoidStruts $ smartBorders tiledSp
+--tiledSp' = avoidStruts $ smartBorders tiledSp
+
+--threecol' = avoidStruts $ smartBorders threecol
+--threecolmid' = avoidStruts $ smartBorders threecolmid
 
 --------------------------------------------
 
@@ -268,9 +282,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 --------------------------------------------------------------------
 
-myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) (
-                tiled'
-                ||| tiledSp'
+myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders (
+                tiled
+                ||| tiledSp ||| threecol ||| threecolmid ||| bsp ||| accordion
                 )
 
 --------------------------------------------------------------------
@@ -340,7 +354,7 @@ main = do
             , ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
-            , ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
+            --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
             , ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
             , ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
@@ -377,13 +391,23 @@ main = do
             , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
             , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
             , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
-            
+            -- [Specific window manipulations keys for BSP layout]
+            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Up), sendMessage $ ShrinkFrom U)
+            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Down), sendMessage $ ShrinkFrom D)
+            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Left), sendMessage $ ShrinkFrom L)
+            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Right), sendMessage $ ShrinkFrom R)
+            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Up), sendMessage $ ExpandTowards U)
+            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Down), sendMessage $ ExpandTowards D)
+            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Left), sendMessage $ ExpandTowards L)
+            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Right), sendMessage $ ExpandTowards R)
+            , ((mod1Mask, xK_r), sendMessage Rotate)
+            , ((mod1Mask .|. mod4Mask, xK_a), sendMessage Balance)
+            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_a), sendMessage Equalize)
             -- Window Resizing
             , ((mod1Mask .|. controlMask .|. shiftMask, xK_Up), sendMessage MirrorExpand)
             , ((mod1Mask .|. controlMask .|. shiftMask, xK_Down), sendMessage MirrorShrink)
             , ((mod1Mask .|. controlMask .|. shiftMask, xK_Left), sendMessage Shrink)
             , ((mod1Mask .|. controlMask .|. shiftMask, xK_Right), sendMessage Expand)
-
             -------------------------------------------------
             -- Switch focus to different screens easily
             -- Default: ALT (W,E,R)
