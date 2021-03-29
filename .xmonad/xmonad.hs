@@ -273,7 +273,7 @@ tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Ren
 defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
+tiledSp = defSpacing tiled
 bspSp = defSpacing bsp
 threecolSp = defSpacing threecol
 threecolMSp = defSpacing threecolmid
