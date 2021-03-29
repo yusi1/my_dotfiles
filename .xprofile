@@ -36,4 +36,4 @@ pkexec sudo fdns --daemonize & disown
 /usr/bin/clipmenud & disown
 
 # Run xscreesaver
-/usr/bin/xscreensaver & disown
+/usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown

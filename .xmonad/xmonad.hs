@@ -67,6 +67,7 @@ import XMonad.Layout.ThreeColumns
 --import XMonad.Layout.IfMax
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- unambiguise (Swap)
 import XMonad.Layout.Accordion
+import XMonad.Layout.AvoidFloats
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -221,8 +222,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     l = 0.0
 
         -- [Emacs]
-            spawnEmacs = "emacs"
-            findEmacs = className =? "Emacs"
+            spawnEmacs = "emacs -T 'scratchemacs'"
+            findEmacs = title =? "scratchemacs"
             manageEmacs = customFloating $ W.RationalRect l t w h
                 where
                     h = 0.9
@@ -230,7 +231,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
-        -- [QBittorent]
+        -- [QBittorrent]
             spawnqB = "qbittorrent"
             findqB = className =? "qBittorrent"
             manageqB = customFloating $ W.RationalRect l t w h
@@ -249,6 +250,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     w = 0.9
                     t = 0.95 - h
                     l = 0.95 - w
+
+-- Hide scratchpad workspace
+noScratchPad ws = if ws == "NSP" then "" else ws
 
 scratchTerm = namedScratchpadAction myScratchPads "terminal"
 scratchMixer = namedScratchpadAction myScratchPads "volumectl"
@@ -269,17 +273,16 @@ tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Ren
 defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
-tiledSp = renamed [Replace "Spacing Tall"] $ defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
+tiledSp = defSpacing tiled       -- Rename Resizable Spacing Tall to Spacing Tall. For not needing to define spacing for Tall Layout The Long Way
 bspSp = defSpacing bsp
-
-threecol = renamed [Replace "ThreeCol"] $ ThreeCol 1 (3/100) (1/2)
-threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
 threecolSp = defSpacing threecol
 threecolMSp = defSpacing threecolmid
 
-bsp = renamed [Replace "BSP"] $ emptyBSP
-
+threecol = renamed [Replace "ThreeCol"] $ ThreeCol 1 (3/100) (1/2)
+threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
+bsp = renamed [Replace "BSP"] $ emptyBSP 
 accordion = renamed [Replace "Accordion"] $ Accordion
+avoidfloats = renamed [Replace "AvoidFloats"] $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
 tiledToggle = toggleLayouts tiledSp (tiled)
@@ -303,11 +306,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 --------------------------------------------------------------------
 
-myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders (
-                --tiled
-                -- ||| tiledSp 
+myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders ( 
                 tiledToggle 
-                ||| threecolToggle ||| threecolToggle' ||| bspToggle ||| accordion
+                ||| threecolToggle ||| threecolToggle' ||| bspToggle ||| avoidfloats ||| accordion
                 )
 
 --------------------------------------------------------------------
@@ -353,8 +354,8 @@ main = do
                                 ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" ""  -- Hidden workspaces in xmobar
-                              , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" "" . noScratchPad -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad       -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
@@ -378,6 +379,11 @@ main = do
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
+            -- [Toggle AvoidFloats]
+            , ((mod1Mask .|. shiftMask, xK_equal), sendMessage AvoidFloatToggle)
+            , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)
+            , ((mod1Mask .|. shiftMask .|. controlMask, xK_equal), sendMessage (AvoidFloatSet False) >> sendMessage AvoidFloatClearItems)
+            ------
             , ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
             , ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
