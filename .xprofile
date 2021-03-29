@@ -37,3 +37,6 @@ pkexec sudo fdns --daemonize & disown
 
 # Run xscreesaver
 /usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown
+
+# Run Bluetooth systray applet
+/usr/bin/blueman-tray & disown
