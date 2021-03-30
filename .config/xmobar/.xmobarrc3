@@ -1,0 +1,21 @@
+-- xmobar (bottom of screen 0 ) config
+
+Config { font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"
+         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
+         , bgColor = "#1A1C21"
+         , fgColor = "#FF6C6B"
+         , position = Static { xpos = 0, ypos = 1056, width = 1920, height = 24}
+         , iconRoot = "/home/yusef/.xmonad/xpm"
+         , commands = [ Run Weather "EGPD"
+                        ["-t","<fn=1>\xe302 </fn> Weather: (<tempC>°C) (<fn=1>\xe373 </fn><rh>%) (<fn=1>\xfa9c </fn><windMph>MPH) (at: <hour>)"
+                        ,"-L","5","-H","13"
+                        ,"--high","orange","--low","#268BD2"
+                        ] 36000
+                        , Run Com "/home/yusef/xmobar-tools/music" [] "music" 10
+                      ]
+         , sepChar = "%"
+         , alignSep = "}{"
+         , textOffset = 15
+         , template = " %EGPD% }%music%{ <action=`~/Documents/powermenu.sh` button=1><fc=#46D9FF><fn=1> </fn></fc></action>"
+        }
+

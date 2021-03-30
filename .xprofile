@@ -18,6 +18,9 @@ pkexec sudo fdns --daemonize & disown
 /usr/bin/picom -b & disown   # Start Compositor
 /usr/bin/dunst & disown     # Start notification agent
 
+# Run Bluetooth systray applet
+#/usr/bin/blueman-tray & disown
+
 #stalonetray & disown
 #trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown
 
@@ -37,6 +40,3 @@ pkexec sudo fdns --daemonize & disown
 
 # Run xscreesaver
 /usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown
-
-# Run Bluetooth systray applet
-/usr/bin/blueman-tray & disown

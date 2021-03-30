@@ -99,7 +99,7 @@ gameApps = [
             "Steam","powder-toy","Lutris"
            ]
 
-mediaApps = ["Audacity","mpv","vlc","LBRY","obs"]
+mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
@@ -111,7 +111,7 @@ devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 
 socialApps = ["Microsoft Teams"]
-otherApps = ["Progress","Xmessage","XClock"]
+otherApps = ["Progress","Xmessage","XClock","Zenity"]
 floatApps = ["Dialog"]
 customClasses = ["sandboxed","scratchpad"]
 
@@ -349,12 +349,12 @@ myStartupHook = do
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
+    xmprocbtm <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc3"
     --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
     xmonad $ ewmh $ docks def
       {
           borderWidth         = 3
           , terminal          = myTerminal
-          --, layoutHook        = smartBorders . avoidStruts . spacingRaw True (Border 0 10 10 10) True (Border 10 10 10 10) True $ layoutHook defaultConfig
           , startupHook = myStartupHook
           , workspaces  = myWorkspaces
           , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads
@@ -366,7 +366,7 @@ main = do
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
                               , ppHidden = xmobarColor "#98be65" "" . wrap "*" "" . noScratchPad -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad       -- Hidden workspaces (no windows)
-                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 35    -- Title of active window in xmobar
+                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 60    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                               , ppExtras  = [windowCount]   -- # of windows current workspace
@@ -389,6 +389,8 @@ main = do
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
+            -- [Recompile XMonad Properly and restart xmobar(s)
+            , ((mod1Mask, xK_q), spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
             -- [Turn off pc using script]
             , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
             -- [Toggle AvoidFloats]
