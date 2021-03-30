@@ -1,2 +1,2 @@
 #!/bin/bash
-rofi -show p -modi p:rofi-power-menu -theme slate
+rofi -show p -modi p:rofi-power-menu -theme onedark

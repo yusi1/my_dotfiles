@@ -379,6 +379,8 @@ main = do
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
             , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
+            -- [Turn off pc using script]
+            , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
             -- [Toggle AvoidFloats]
             , ((mod1Mask .|. shiftMask, xK_equal), sendMessage AvoidFloatToggle)
             , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)
