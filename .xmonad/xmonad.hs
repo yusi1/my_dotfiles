@@ -111,7 +111,7 @@ devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 
 socialApps = ["Microsoft Teams"]
-otherApps = ["Progress","Xmessage"]
+otherApps = ["Progress","Xmessage","XClock"]
 floatApps = ["Dialog"]
 customClasses = ["sandboxed","scratchpad"]
 
@@ -154,9 +154,19 @@ myManageHook = composeAll . concat $
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
+-- For clickable workspaces
+xmobarEscape = concatMap doubleLts
+    where doubleLts '<' = "<<"
+          doubleLts x   = [x] 
+
 myWorkspaces :: [String]
-myWorkspaces = [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:osint ", " 9:sbox "]
--- Offset:     ["   0   ", "   1   ", "   2   ", "    3   ", "    4    ", "   5   ", "    6   ", "   7   ", "    8    "]
+myWorkspaces = clickable . (map xmobarEscape) $ [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:osint ", " 9:sbox "]
+-- Offset:                                      ["   0   ", "   1   ", "   2   ", "    3   ", "    4  ", "   5     ", "    6   ", "   7     ", "    8   "]
+    where
+        clickable l = [ "<action=xdotool key alt+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
+                        (i,ws) <- zip [1..9] l,
+                        let n = i
+                      ]
 
 -------------------------------------------------------------------
 -- [ Scratchpad config ]

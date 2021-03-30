@@ -26,9 +26,10 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         , position = Static { xpos = 0, ypos = 0, width = 1920, height = 24 }
         , iconRoot = "/home/yusef/.xmonad/xpm/" -- default: "."
         , commands = [ 
-                    Run Weather "EGPD" ["-t","<fn=1>\xe302 </fn> (<tempC>°C)","-L","5","-H","9"
-                    ,"--high","orange"
-                    ,"--low","#268bd2"
+                    Run Weather "EGPD"
+                    ["-t","<fn=1>\xe302 </fn> (<tempC>°C) (<fn=1>\xe373 </fn><rh>%) (<fn=1>\xfa9c </fn><windMph>MPH) (at: <hour>)"
+                    ,"-L","5","-H","13"
+                    ,"--high","orange" ,"--low","#268bd2"
                     ] 36000     -- Update Time
                     , Run Cpu ["-t", "<fn=1>\xf108 </fn> cpu: (<total>%)","-L","3","-H","50","--high","#dc322f"] 10
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
@@ -48,10 +49,10 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 3000
                     , Run Com "/home/yusef/.local/bin/new" [] "vol" 3
                     , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 5
-                    , Run StdinReader
+                    , Run UnsafeStdinReader
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  <fc=#666666>|</fc>  %StdinReader% }{ <fc=#666666>|</fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc>  <fc=#666666>|</fc>  <fc=#ecbe7b>%cpu%</fc>  <fc=#666666>|</fc>  <fc=#ff6c6b>%memory% * %swap%</fc>  <fc=#666666>|</fc>  <fc=#98be65><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc>  <fc=#666666>|</fc>  <fc=#c678dd>%EGPD%</fc>  <fc=#666666>|</fc>  <fc=#c678dd><fn=1> </fn>%upd%</fc>  <fc=#666666>|</fc>  <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action> <fc=#666666>|</fc>  <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action>  <fc=#666666>|</fc>  <action=`~/Documents/powermenu.sh` button=1><fc=#46d9ff><fn=1> </fn></fc></action><fc=#666666>|</fc> %trayerpad%"
+        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action>  <fc=#666666>|</fc>  %UnsafeStdinReader% }{ <fc=#666666>|</fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc>  <fc=#666666>|</fc>  <fc=#ecbe7b>%cpu%</fc>  <fc=#666666>|</fc>  <fc=#ff6c6b>%memory% * %swap%</fc>  <fc=#666666>|</fc>  <fc=#98be65><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc>  <fc=#666666>|</fc>  <fc=#c678dd>%EGPD%</fc>  <fc=#666666>|</fc>  <fc=#c678dd><fn=1> </fn>%upd%</fc>  <fc=#666666>|</fc>  <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action> <fc=#666666>|</fc>  <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action>  <fc=#666666>|</fc>  <action=`~/Documents/powermenu.sh` button=1><fc=#46d9ff><fn=1> </fn></fc></action><fc=#666666>|</fc> %trayerpad%"
 
         }
