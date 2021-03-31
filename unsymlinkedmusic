@@ -1,0 +1,26 @@
+#! /bin/bash
+# 
+# This script is from https://github.com/asayers/xmobar-tools/
+# I have changed some colourschemes and commands to fit my needs
+
+TCOL="#46D9FF"         # The colour to be used to draw the song title when playing
+ACOL="#C678DD"    # The colour to be used to draw the song artist when playing
+PCOL="#FF6C6B"      # The colour to be used to draw both the song title and artist when paused
+
+cmd1=$(mocp --info | grep "Title" | sed '2d;s/Title:\ //')
+cmd2=$(mocp --info | grep "TimeLeft" | sed 's/TimeLeft:\ //')
+pcmd1=$(mocp --info | grep -e "CurrentTime" | sed 's/CurrentTime:\ //')
+
+titleformat="<fc=$TCOL>$cmd1</fc>"
+ptitleformat="<fc=$PCOL>$cmd1</fc>"
+
+MOCSTATE=$(mocp --info | grep "State" | sed 's/State://; s/\ //')
+
+if [ $MOCSTATE == "PLAY" ]; then
+  # MOC is playing
+  echo "<fc=$ACOL><action="mocp -G" button=1><fn=1> </fn>$titleformat</action> <fc=#ff6c6b>[Total Progress: $pcmd1]</fc> <fc=#98be65>[Time Left: $cmd2]</fc> <fc=#ecbe7b>[Playing]</fc> <action="mocp --previous" button=1><fc=#46d9ff>[Previous 玲]</fc></action> <action="mocp --next" button=1><fc=#46d9ff>[Next 怜]</fc></action></fc>"
+
+elif [ $MOCSTATE == "PAUSE" ]; then
+  # MOC is paused
+  echo "<fc=$PCOL><action="mocp -G" button=1><fn=1> </fn>$ptitleformat</action> [Total Progress: $pcmd1] [Paused]</fc>"
+fi
