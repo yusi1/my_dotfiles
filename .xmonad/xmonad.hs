@@ -99,7 +99,7 @@ gameApps = [
             "Steam","powder-toy","Lutris"
            ]
 
-mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine"]
+mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine","music"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
@@ -393,6 +393,8 @@ main = do
             , ((mod1Mask, xK_q), spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
             -- [Turn off pc using script]
             , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
+            -- [Music Player (MOCP)]
+            , ((mod1Mask .|. controlMask, xK_m), spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh")
             -- [Toggle AvoidFloats]
             , ((mod1Mask .|. shiftMask, xK_equal), sendMessage AvoidFloatToggle)
             , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)

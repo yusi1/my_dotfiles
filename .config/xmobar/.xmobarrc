@@ -8,6 +8,8 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         --font = "-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
         --font = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-iso8859-1"
         --font = "xft:Terminus:size=10"
+        --font = "-terminus-*-*-*-*-5-*-*-*-*-*-*-*"
+        --font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"
         font = "xft:Ubuntu Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true" 
         --font = "montecarlo:weight=bold:pixelsize=11:antialias=true:hinting=true"
         --font = "cherry:weight=regular:pixelsize=0.1"
