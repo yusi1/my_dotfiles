@@ -16,9 +16,9 @@ Config { font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=true:
                         , ("cloudy", " ")
                         , ("overcast", " ")
                         , ("partly cloudy", "杖")
-                        , ("mostly cloudy", " ") 
+                        , ("mostly cloudy", " ") 
                         , ("considerable cloudiness", "摒") ]
-                        ["-t","<fc=#46D9FF>Weather: <fn=1><skyConditionS></fn> (Sky: <skyCondition>) (<fn=1>\xf2c7 </fn><tempC>°C) (<fn=1>\xe373 </fn><rh>%) (<fn=1>\xfa9c </fn><windMph> MPH) (at: <hour>)</fc>"
+                        ["-t","<fc=#46D9FF><fn=1><skyConditionS></fn> (Sky: <skyCondition>) (<fn=1>\xf2c7 </fn><tempC>°C) (<fn=1>\xe373 </fn><rh>%) (<fn=1>\xfa9c </fn><windMph> MPH) (at: <hour>)</fc>"
                         ,"-L","5","-H","13"
                         ,"--high","orange","--low","#268BD2"
                         ] 36000
