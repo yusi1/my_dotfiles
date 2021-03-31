@@ -138,16 +138,16 @@ doWSNoShift a = doShift ( myWorkspaces !! a )
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
-    [className =? gA --> doShiftWS 6 | gA <- gameApps]
+    [className =? c --> doShiftWS 6 | c <- gameApps]
     , [className =? head customClasses --> doShiftWS 8]
-    , [className =? sA --> doShiftWS 2 | sA <- systemApps]
-    , [className =? dA --> doShiftWS 0 | dA <- devApps]
-    , [resource =? flA --> doFloat | flA <- floatApps]
-    , [className =? otA --> doFloat | otA <- otherApps]
-    , [className =? vA --> doShiftWS 3 | vA <- virtApps]
+    , [className =? c --> doShiftWS 2 | c <- systemApps]
+    , [className =? c --> doShiftWS 0 | c <- devApps]
+    , [resource =? r --> doFloat | r <- floatApps]
+    , [className =? c --> doFloat | c <- otherApps]
+    , [className =? c --> doShiftWS 3 | c <- virtApps]
     , [className =? head generalApps --> doFloat]
-    , [className =? floA --> doFloat | floA <- take 2 officeApps] 
-    , [className =? mA --> doShiftWS 5 | mA <- mediaApps]
+    , [className =? c --> doFloat | c <- take 2 officeApps] 
+    , [className =? c --> doShiftWS 5 | c <- mediaApps]
     , [isFullscreen --> doFullFloat]
     ]
 
