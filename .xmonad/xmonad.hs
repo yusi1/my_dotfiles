@@ -317,8 +317,8 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 --------------------------------------------------------------------
 
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders ( 
-                tiledToggle 
-                ||| threecolToggle ||| threecolToggle' ||| bspToggle ||| avoidfloats ||| accordion
+                tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
+                ||| threecolToggle ||| accordion
                 )
 
 --------------------------------------------------------------------
@@ -394,7 +394,7 @@ main = do
             -- [Turn off pc using script]
             , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
             -- [Music Player (MOCP)]
-            , ((mod1Mask .|. controlMask, xK_m), spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh")
+            , ((mod1Mask .|. controlMask, xK_m), spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh -A")
             -- [Toggle AvoidFloats]
             , ((mod1Mask .|. shiftMask, xK_equal), sendMessage AvoidFloatToggle)
             , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)
