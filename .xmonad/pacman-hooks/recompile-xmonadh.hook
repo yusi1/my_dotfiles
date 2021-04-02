@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = haskell*
+
+[Action]
+Description = Recompile XMonad after any haskell module has been updated...
+Exec = /bin/bash -c "runuser -l yusef -c 'xmonad --recompile'"
+When = PostTransaction
+Depends = xmonad

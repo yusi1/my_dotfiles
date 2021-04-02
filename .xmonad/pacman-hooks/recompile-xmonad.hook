@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = xmonad
+Target = xmobar
+
+[Action]
+Description = Recompile XMonad and XMobar after update of XMonad or XMobar...
+Exec = /bin/bash -c "runuser -l yusef -c 'xmonad --recompile'"
+When = PostTransaction
+Depends = xmonad
