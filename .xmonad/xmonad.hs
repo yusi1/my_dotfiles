@@ -155,18 +155,9 @@ myManageHook = composeAll . concat $
 -- [ My Workspaces ]
 
 -- For clickable workspaces
-xmobarEscape = concatMap doubleLts
-    where doubleLts '<' = "<<"
-          doubleLts x   = [x] 
-
 myWorkspaces :: [String]
-myWorkspaces = clickable . (map xmobarEscape) $ [" 1:dev ", " 2:www ", " 3:sys ", " 4:virt ", " 5:doc ", " 6:media ", " 7:game ", " 8:osint ", " 9:sbox "]
+myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>", "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>", "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>", "9:<fn=1>\xfb36 </fn>"]
 -- Offset:                                      ["   0   ", "   1   ", "   2   ", "    3   ", "    4  ", "   5     ", "    6   ", "   7     ", "    8   "]
-    where
-        clickable l = [ "<action=xdotool key alt+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                        (i,ws) <- zip [1..9] l,
-                        let n = i
-                      ]
 
 -------------------------------------------------------------------
 -- [ Scratchpad config ]
@@ -362,12 +353,12 @@ main = do
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 ppOutput = hPutStrLn xmproc
-                              , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
+                              , ppCurrent = xmobarColor "#98be65" "" . wrap "[+] " "" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#98be65" "" . wrap "*" "" . noScratchPad -- Hidden workspaces in xmobar
+                              , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad       -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
-                              , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
+                              , ppSep =  "<fc=#666666><fn=1> | </fn></fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                               , ppExtras  = [windowCount]   -- # of windows current workspace
                               --, ppSort = getSortByXineramaRule

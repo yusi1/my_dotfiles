@@ -19,7 +19,7 @@ Config { --font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=tru
                         , ("partly cloudy", "杖")
                         , ("mostly cloudy", " ") 
                         , ("considerable cloudiness", "摒") ]
-                        ["-t","<fc=#46D9FF><fn=1><skyConditionS></fn> <skyCondition> (<fn=1>\xf2c7 </fn><tempC>°C) (<fn=1>\xe373 </fn><rh>%) (<fn=1>\xfa9c </fn><windMph> MPH) (at: <hour>)</fc>"
+                        ["-t","<fc=#46D9FF><fn=1><skyConditionS></fn> <skyCondition> <fn=1>\xf2c7 </fn><tempC>°C <fn=1>\xe373 </fn><rh>% <fn=1>\xfa9c </fn><windMph> MPH at: <hour></fc>"
                         ,"-L","5","-H","13"
                         ,"--high","orange","--low","#268BD2"
                         ] 36000
@@ -28,6 +28,7 @@ Config { --font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=tru
          , sepChar = "%"
          , alignSep = "}{"
          , textOffset = 15
-         , template = " %EGPD% }%music%{ <action=`~/Documents/powermenu.sh` button=1><fc=#46D9FF><fn=1> </fn></fc></action>"
+         , textOffsets = [15]
+         , template = " %EGPD% <fc=#666666><fn=1>|</fn></fc>}%music%{ <action=`~/Documents/powermenu.sh` button=1><fc=#46D9FF><fn=1> </fn></fc></action>"
         }
 
