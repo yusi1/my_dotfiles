@@ -10,12 +10,12 @@ Config { --font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=tru
          , commands = [ Run WeatherX "EGPD"
                         [ ("clear", "<icon=weather_sunny.xpm/>")
                         , ("sunny", "<icon=weather_sunny.xpm/>")
-                        , ("mostly clear", "<fc=#494949> </fc>")
+                        , ("mostly clear", "<fc=#8b8b8b> </fc>")
                         , ("mostly sunny", "<icon=weather_mostly_sunny.xpm/>")
-                        , ("partly sunny", "<fc=#494949> </fc>")
+                        , ("partly sunny", "<fc=#8b8b8b> </fc>")
                         , ("fair", "<icon=weather_cloudy.xpm/>")
                         , ("cloudy", "<icon=weather_cloudy.xpm/>")
-                        , ("overcast", "<fc=#494949> </fc>")
+                        , ("overcast", "<fc=#8b8b8b> </fc>")
                         , ("partly cloudy", "<icon=weather_obscured.xpm/>")
                         , ("mostly cloudy", "<icon=weather_mostly_cloudy.xpm/>") 
                         , ("considerable cloudiness", "<icon=weather_cloudy.xpm/>") ]

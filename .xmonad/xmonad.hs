@@ -227,10 +227,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
             findEmacs = title =? "scratchemacs"
             manageEmacs = customFloating $ W.RationalRect l t w h
                 where
-                    h = 0.9
-                    w = 0.9
-                    t = 0.95 - h
-                    l = 0.95 - w
+                    h = 0.4
+                    w = 0.4
+                    t = 1 - h
+                    l = 0.0
 
         -- [QBittorrent]
             spawnqB = "qbittorrent"
@@ -405,8 +405,8 @@ main = do
             , ((mod1Mask, xK_a), scratchTerm)
             , ((mod1Mask, xK_v), scratchMixer)
             , ((mod1Mask, xK_m), scratchDnsMon)
-            , ((mod1Mask, xK_n), scratchNotes)
-            , ((mod1Mask, xK_e), scratchEmacs)
+            , ((mod1Mask, xK_e), scratchNotes)
+            , ((mod1Mask, xK_n), scratchEmacs)
             , ((mod1Mask .|. mod4Mask, xK_f), scratchfileMan)
             , ((mod1Mask .|. mod4Mask, xK_t), scratchqB)
             ----
