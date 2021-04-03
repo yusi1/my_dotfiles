@@ -2,4 +2,4 @@
 
 
 a=$(checkupdates | wc -l)
-echo "$a updates"
+echo "$a Updates"

@@ -84,8 +84,15 @@ import System.IO
 ---------------------------------------------------------------------
 -- App defaults names
 
+myTerminal :: String
 myTerminal = "alacritty"
+
+myFallBackTerminal :: String
 myFallBackTerminal = "xterm"
+
+-- Other good variables
+myFont :: String
+myFont = "xft:Terminus:pixelsize=11"
 
 ---------------------------------------------------------------------
 -- Define some variables for the manageHook, which contain application names
@@ -284,6 +291,17 @@ threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
 bsp = renamed [Replace "BSP"] $ emptyBSP 
 accordion = renamed [Replace "Accordion"] $ Accordion
 avoidfloats = renamed [Replace "AvoidFloats"] $ avoidFloats Full
+--tabs = renamed [Replace "Tabbed"] $ tabbed shrinkText myTabTheme
+
+-- [ myTabTheme (Tabbed Layout Theme) ]
+--myTabTheme = def { fontName = myFont
+                 --, activeColor = "#46d9ff"
+                 --, inactiveColor = "#313846"
+                 --, activeBorderColor = "#46d9ff"
+                 --, inactiveBorderColor = "#282c34"
+                 --, activeTextColor = "#282c34"
+                 --, inactiveTextColor = "#d0d0d0"
+                 --}
 
 -- Toggle Layouts in "Pairs" (Very Useful)
 tiledToggle = toggleLayouts tiledSp (tiled)
@@ -344,7 +362,7 @@ main = do
     --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
     xmonad $ ewmh $ docks def
       {
-          borderWidth         = 3
+          borderWidth         = 2
           , terminal          = myTerminal
           , startupHook = myStartupHook
           , workspaces  = myWorkspaces
