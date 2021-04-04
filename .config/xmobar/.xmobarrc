@@ -33,7 +33,7 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     -- ,"-L","5","-H","13"
                     -- ,"--high","orange" ,"--low","#268bd2"
                     -- ] 36000     -- Update Time
-                    Run Cpu ["-t", "<icon=cpu_0.xpm/> Cpu: (<total>%)","-L","3","-H","50","--high","#dc322f"] 10
+                    Run Cpu ["-t", "<icon=cpu_0.xpm/> Cpu: (<total>%)","-L","3","-H","50","--high","#FF1E1E"] 10
                     -- , Run CoreTemp ["-t", "Temp:<core0>|<core1>C"] 50
                     --, Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx> <fn=1>\xf0ab </fn><rx>"] 20
                     --, Run Network "enp2s0" ["-t"," <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
@@ -52,12 +52,12 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 3000
                     , Run Com "/home/yusef/.local/bin/new" [] "vol" 3
                     , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 5
-                    , Run UnsafeStdinReader
+                    , Run StdinReader
                     ]
         , sepChar = "%"
         , alignSep = "}{"
         , textOffset = 15
         , textOffsets = [16]
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action> <fc=#666666><fn=1>|</fn></fc> %UnsafeStdinReader% }{ <fc=#666666><fn=1>|</fn></fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ecbe7b>%cpu%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ff6c6b>%memory% [%swap%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#98be65><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#c678dd><fn=1> </fn>%upd%</fc> <fc=#666666><fn=1>|</fn></fc> <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action><fc=#666666><fn=1>|</fn></fc> <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action> <action=`xclock` button=1><fc=#46d9ff>%date'%</fc></action> <fc=#666666><fn=1>|</fn></fc> %trayerpad%"
+        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action> <fc=#666666><fn=1>|</fn></fc> %StdinReader% }{ <fc=#666666><fn=1>|</fn></fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ecbe7b>%cpu%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ff6c6b>%memory% [%swap%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#98be65><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#c678dd><fn=1> </fn>%upd%</fc> <fc=#666666><fn=1>|</fn></fc> <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action><fc=#666666><fn=1>|</fn></fc> <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action> <action=`xclock` button=1><fc=#46d9ff>%date'%</fc></action> <fc=#666666><fn=1>|</fn></fc> %trayerpad%"
 
         }

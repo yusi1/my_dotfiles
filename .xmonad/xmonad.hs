@@ -41,6 +41,16 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.NamedScratchpad
 --import XMonad.Util.Scratchpad
 
+-- Prompt Libs
+import XMonad.Prompt
+import XMonad.Prompt.FuzzyMatch
+
+-- Prompts
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Man
+--import XMonad.Prompt.RunOrRaise
+import XMonad.Prompt.AppendFile
+
 import XMonad.Layout
 --import XMonad.Layout.Combo
 --import XMonad.Layout.LayoutCombinators ((|||))
@@ -49,7 +59,7 @@ import XMonad.Layout
 import XMonad.Layout.NoBorders
 --import XMonad.Layout.Grid
 --import XMonad.Layout.TwoPane (TwoPane(..))
---import XMonad.Layout.Tabbed
+import XMonad.Layout.Tabbed
 -- import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 --import XMonad.Layout.Maximize
@@ -161,11 +171,9 @@ myManageHook = composeAll . concat $
 --------------------------------------------------------------------
 -- [ My Workspaces ]
 
--- For clickable workspaces
 myWorkspaces :: [String]
 myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>", "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>", "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>", "9:<fn=1>\xfb36 </fn>"]
--- Offset:                                      ["   0   ", "   1   ", "   2   ", "    3   ", "    4  ", "   5     ", "    6   ", "   7     ", "    8   "]
-
+       
 -------------------------------------------------------------------
 -- [ Scratchpad config ]
 
@@ -275,8 +283,10 @@ scratchfileMan = namedScratchpadAction myScratchPads "fileman"
 mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
+---------------------
+
 tiled :: ModifiedLayout Rename ResizableTall a
-tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) []       -- Rename Resizable Tall to Tall. Easier Tall layout assignment & changing
+tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) [] 
 
 defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
@@ -291,17 +301,6 @@ threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
 bsp = renamed [Replace "BSP"] $ emptyBSP 
 accordion = renamed [Replace "Accordion"] $ Accordion
 avoidfloats = renamed [Replace "AvoidFloats"] $ avoidFloats Full
---tabs = renamed [Replace "Tabbed"] $ tabbed shrinkText myTabTheme
-
--- [ myTabTheme (Tabbed Layout Theme) ]
---myTabTheme = def { fontName = myFont
-                 --, activeColor = "#46d9ff"
-                 --, inactiveColor = "#313846"
-                 --, activeBorderColor = "#46d9ff"
-                 --, inactiveBorderColor = "#282c34"
-                 --, activeTextColor = "#282c34"
-                 --, inactiveTextColor = "#d0d0d0"
-                 --}
 
 -- Toggle Layouts in "Pairs" (Very Useful)
 tiledToggle = toggleLayouts tiledSp (tiled)
@@ -309,16 +308,27 @@ bspToggle = toggleLayouts bspSp (bsp)
 threecolToggle = toggleLayouts threecolSp (threecol)
 threecolToggle' = toggleLayouts threecolMSp (threecolmid)
 
----- Add Some More Modifiers To The Layouts ----
+-- Prompts & Configuration
+myXPConfig :: XPConfig
+myXPConfig = def 
+        { font = myFont 
+        , bgColor = "#1a1c21"
+        , fgColor = "#46d9ff"
+        , borderColor = "#46d9ff"
+        , position = Top
+        , height = 23
+        , promptBorderWidth = 1
+        , defaultText = ""
+        , historySize = 256
+        , historyFilter = id
+        , bgHLight = "#ff6c6b"
+        , searchPredicate = fuzzyMatch
+        -- , sorter = fuzzySort
+        --, autoComplete = Just 1000000
+        }
 
---tiled' = avoidStruts $ smartBorders tiled
 
---tiledSp' = avoidStruts $ smartBorders tiledSp
-
---threecol' = avoidStruts $ smartBorders threecol
---threecolmid' = avoidStruts $ smartBorders threecolmid
-
---------------------------------------------
+-------------------------------------------
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -357,9 +367,10 @@ myStartupHook = do
 
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc"
-    xmprocbtm <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc3"
-    --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2"
+    xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc" -- top scr1
+    xmprocbtm <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc3" -- btm scr1
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2" -- top scr2
+    xmproc2 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc4scr2" --btm scr2
     xmonad $ ewmh $ docks def
       {
           borderWidth         = 2
@@ -369,8 +380,8 @@ main = do
           , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
-                                --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
-                                ppOutput = hPutStrLn xmproc
+                                ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
+                                --ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[+] " "" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
                               , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- Hidden workspaces in xmobar
@@ -409,8 +420,17 @@ main = do
             , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)
             , ((mod1Mask .|. shiftMask .|. controlMask, xK_equal), sendMessage (AvoidFloatSet False) >> sendMessage AvoidFloatClearItems)
             ------
-            , ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
-            , ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
+            --, ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
+            --, ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
+            
+            -- [Prompts]
+            , ((mod1Mask, xK_F1), shellPrompt myXPConfig)
+            , ((mod1Mask, xK_F2), manPrompt myXPConfig)
+            , ((mod1Mask .|. controlMask, xK_n), do
+                         spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
+                         appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt"
+                         )
+            ----
             , ((mod1Mask, xK_b), spawn "buku-dmenu")
             , ((mod1Mask .|. shiftMask, xK_b), spawn "blueman-manager & disown")
             , ((mod1Mask, xK_p), spawn "dmenu_run -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
