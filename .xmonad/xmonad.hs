@@ -111,6 +111,7 @@ myFont = "xft:Terminus:pixelsize=11"
 
 myBrowser = "/usr/bin/librewolf"
 myBrowser' = "/usr/bin/brave"
+
 myDDG = intelligent duckduckgo
 myHak = intelligent hackage
 
@@ -396,7 +397,7 @@ myAppGrid = [("LibreWolf", "librewolf")
             , ("LightDM GTK Greeter Settings", "lightdm-gtk-greeter-settings-pkexec")
             , ("LXAppearance", "lxappearance")
             , ("MOCP (Music-On-Console)", "alacritty --class=Alacritty,music -e mocp --theme=dylanwh")
-            , ("Netflix (Brave Browser)", "brave https://netflix.com")
+            , ("Netflix", ((myBrowser') ++ " https://netflix.com"))
             --, ("LightDM GTK Greeter Settings", "lightdm-gtk-greeter-settings-pkexec")
             , ("OpenRGB", "openrgb")
             , ("Ckb-Next", "ckb-next")
@@ -409,9 +410,11 @@ myAppGrid = [("LibreWolf", "librewolf")
             , ("Libreoffice", "libreoffice")
             , ("K3B (KDE Disk Application)", "k3b")
             , ("Audacity", "audacity")
+            , ("My Dotfiles", ((myBrowser) ++ " https://github.com/newyusi01/dotfiles"))
             ]
 
 -- [TreeSelect Config]
+-- Define Some Functions
 nodehead a b = Node (TS.TSNode a b (return ()))
 nodesub a b c d = Node (TS.TSNode a b c) d
 
@@ -422,6 +425,10 @@ treeselectAction a = TS.treeselectAction a
         , nodesub "Tclip" "Clipboard Manager" (spawn "tclip") [] 
         , nodesub "ClipMan" "Dmenu Clipboard Manager" (spawn "xdotool key alt+c") [] 
         , nodesub "Variety" "Wallpaper switcher" (spawn "variety") []
+        ]
+    , nodehead "+ OSINT" "Open-Source Intelligence Applications"
+        [ nodesub "Maltego" "Maltego is an open source intelligence (OSINT) and graphical link analysis tool for any investigative task" (spawn "maltego") [] 
+        , nodesub "Sherlock" "Hunt down social media accounts by username across social networks" (spawn (myTerminal))  []
         ]
     , nodehead "+ Gaming" "Gaming Applications"
         [ nodesub "Steam" "Gaming library" (spawn "steam") []
@@ -434,7 +441,7 @@ treeselectAction a = TS.treeselectAction a
             [ nodesub "QBittorrent" "C++ Bittorrent client" (spawn "qbittorrent") [] ]
         , nodesub "LibreWolf" "Privacy focused web browser, based on Firefox and GNU Icecat" (spawn "librewolf") []
         , nodesub "Brave Browser" "Chromium based web browser" (spawn "brave") []
-        , nodesub "Amfora" "Gemini web protocol based web browser" (spawn "alacritty -e amfora") [] 
+        , nodesub "Amfora" "Gemini web protocol based web browser" (spawn ((myTerminal) ++ " -e amfora")) [] 
         , nodehead "+ Bookmarks" "Web bookmarks & useful websites"
             [ nodesub "My Dotfiles" "View my dotfiles on Github" (spawn ((myBrowser) ++ " https://github.com/newyusi01/dotfiles")) []
             , nodesub "Hackage XMonad-Contrib" "XMonad-Contrib documentation" (spawn ((myBrowser) ++ " https://hackage.haskell.org/package/xmonad%2Dcontrib")) []
