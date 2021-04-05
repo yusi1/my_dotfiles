@@ -55,6 +55,7 @@ import XMonad.Prompt.Man
 --import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.AppendFile
 import XMonad.Prompt.Ssh
+--import XMonad.Prompt.Pass
 
 import XMonad.Layout
 --import XMonad.Layout.Combo
@@ -566,8 +567,8 @@ myStartupHook = do
             setWMName "LG3D"    -- For java application support
             spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown"
             spawnOnce "ckb-next -b & disown"
-            spawnOnce "openrgb --startminimized & disown; openrgb -p new.orp & disown"
-            spawnOnce "protonvpn-applet & disown"
+            --spawnOnce "openrgb --startminimized & disown; openrgb -p new.orp & disown"
+            --spawnOnce "protonvpn-applet & disown"
 
 -------------------------------------------------------------------
 
@@ -636,16 +637,16 @@ main = do
             --, ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
             
             -- [Prompts]
-            , ("M1-p", shellPrompt myXPConfig)
-            , ("M1-m", manPrompt myXPConfig)
-            , ("M1-C-n", do
+            , ("M1-p r", shellPrompt myXPConfig)
+            , ("M1-p m", manPrompt myXPConfig)
+            , ("M1-p n", do
                          spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
                          appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt"
                          )
-            , ("M1-s b", promptSearchBrowser myXPConfig myBrowser myDDG)
-            , ("M1-x", promptSearchBrowser myXPConfig myBrowser myHak) 
-            , ("M1-S-s", selectSearchBrowser myBrowser myDDG)
-            , ("M1-s c", sshPrompt myXPConfig)
+            , ("M1-p b", promptSearchBrowser myXPConfig myBrowser myDDG)
+            , ("M1-p h", promptSearchBrowser myXPConfig myBrowser myHak) 
+            , ("M1-p c", selectSearchBrowser myBrowser myDDG)
+            , ("M1-p s", sshPrompt myXPConfig)
             -- -[GridSelect (Using Actions)]
             , ("M1-g", spawnSelected' myAppGrid)
             , ("M1-w", goToSelected $ myGridConfig myColourizer)
