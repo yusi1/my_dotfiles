@@ -659,13 +659,13 @@ main = do
             , ("C-<F4>", spawn "emacs")        -- spawn app (CTRL F4)
             --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
             -- [Scratchpads]
-            , ("M1-a", scratchTerm)
-            , ("M1-v", scratchMixer)
-            , ("M1-<F2>", scratchDnsMon)
-            , ("M1-e", scratchNotes)
-            , ("M1-n", scratchEmacs)
-            , ("M1-M4-f", scratchfileMan)
-            , ("M1-M4-t", scratchqB)
+            , ("M1-s t", scratchTerm)
+            , ("M1-s v", scratchMixer)
+            , ("M1-s m", scratchDnsMon)
+            , ("M1-s e", scratchNotes)
+            , ("M1-s n", scratchEmacs)
+            , ("M1-s f", scratchfileMan)
+            , ("M1-s q", scratchqB)
             ----
             --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ("M1-M4-<Return>", promote)                          -- Promote selected window to master pane
