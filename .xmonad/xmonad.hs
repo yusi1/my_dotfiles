@@ -110,6 +110,7 @@ myFont :: String
 myFont = "xft:Terminus:pixelsize=11"
 
 myBrowser = "/usr/bin/librewolf"
+myBrowser' = "/usr/bin/brave"
 myDDG = intelligent duckduckgo
 myHak = intelligent hackage
 
@@ -433,7 +434,12 @@ treeselectAction a = TS.treeselectAction a
             [ nodesub "QBittorrent" "C++ Bittorrent client" (spawn "qbittorrent") [] ]
         , nodesub "LibreWolf" "Privacy focused web browser, based on Firefox and GNU Icecat" (spawn "librewolf") []
         , nodesub "Brave Browser" "Chromium based web browser" (spawn "brave") []
-        , nodesub "Amfora" "Gemini web protocol based web browser" (spawn "alacritty -e amfora") []  
+        , nodesub "Amfora" "Gemini web protocol based web browser" (spawn "alacritty -e amfora") [] 
+        , nodehead "+ Bookmarks" "Web bookmarks & useful websites"
+            [ nodesub "My Dotfiles" "View my dotfiles on Github" (spawn ((myBrowser) ++ " https://github.com/newyusi01/dotfiles")) []
+            , nodesub "Hackage XMonad-Contrib" "XMonad-Contrib documentation" (spawn ((myBrowser) ++ " https://hackage.haskell.org/package/xmonad%2Dcontrib")) []
+            , nodesub "Netflix" "Web content streaming" (spawn ((myBrowser') ++ " https://netflix.com")) []
+            ]
         ]
     , nodehead "+ Virtualization" "Virtualization Tools"
         [ nodesub "VMware" "VMware virtualization software" (spawn "vmware") [] 
