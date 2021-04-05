@@ -42,10 +42,10 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     --, Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 12000
                     , Run Com "/home/yusef/.local/bin/new" [] "vol" 3
                     --, Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 5
-                    , Run StdinReader
+                    , Run UnsafeStdinReader
                     ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "<fc=#FFFFFF><fn=1>   </fn>Screen 2</fc>   <fc=#666666><fn=1>|</fn></fc>   %StdinReader%   }{  <fc=#666666><fn=1>|</fn></fc>  <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action>  <fc=#666666><fn=1>|</fn></fc>  <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action>  "
+        , template = "<fc=#FFFFFF><fn=1>   </fn>Screen 2</fc>   <fc=#666666><fn=1>|</fn></fc>   %UnsafeStdinReader%   }{  <fc=#666666><fn=1>|</fn></fc>  <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action>  <fc=#666666><fn=1>|</fn></fc>  <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action>  "
 
         }

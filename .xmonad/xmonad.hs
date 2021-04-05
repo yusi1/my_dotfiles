@@ -11,6 +11,7 @@ module Main (main) where
 import XMonad
 
 import qualified Data.Map as M
+import Data.Maybe (fromJust)
 --import Data.Default
 --import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 --import System.Directory
@@ -19,6 +20,7 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import Data.Monoid
 import Control.Monad (liftM2)
+import Data.Tree
 --import Data.Ratio ((%))
 
 --import Text.Printf
@@ -32,6 +34,7 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 --import XMonad.Hooks.ToggleHook
 --import XMonad.Hooks.DynamicBars
+import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
@@ -59,7 +62,7 @@ import XMonad.Layout
 import XMonad.Layout.NoBorders
 --import XMonad.Layout.Grid
 --import XMonad.Layout.TwoPane (TwoPane(..))
-import XMonad.Layout.Tabbed
+-- import XMonad.Layout.Tabbed
 -- import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 --import XMonad.Layout.Maximize
@@ -83,11 +86,13 @@ import XMonad.Actions.UpdatePointer -- update pointer location to edge of new fo
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
 --import XMonad.Actions.CycleSelectedLayouts
 import XMonad.Actions.Promote -- Promote selected window to master pane
---import XMonad.Actions.Search -- use search engine in XMonad
+import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
 --import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
 -- import XMonad.Actions.WindowNavigation -- Experimental rewrite of layout with same name, allows window navigation with arrow keys
 --import XMonad.Actions.Volume
+import qualified XMonad.Actions.TreeSelect as TS
+import XMonad.Actions.GridSelect
 
 import System.IO
 
@@ -103,6 +108,12 @@ myFallBackTerminal = "xterm"
 -- Other good variables
 myFont :: String
 myFont = "xft:Terminus:pixelsize=11"
+
+myBrowser = "/usr/bin/librewolf"
+myDDG = intelligent duckduckgo
+myHak = intelligent hackage
+
+myServer = "/home/yusef/.xmonad/xmonadctl"
 
 ---------------------------------------------------------------------
 -- Define some variables for the manageHook, which contain application names
@@ -173,7 +184,11 @@ myManageHook = composeAll . concat $
 
 myWorkspaces :: [String]
 myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>", "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>", "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>", "9:<fn=1>\xfb36 </fn>"]
-       
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
+
+clickable ws = "<action=xdotool key alt+"++show i++">"++ws++"</action>"
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
+
 -------------------------------------------------------------------
 -- [ Scratchpad config ]
 
@@ -282,25 +297,33 @@ scratchfileMan = namedScratchpadAction myScratchPads "fileman"
 
 mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
-
----------------------
-
-tiled :: ModifiedLayout Rename ResizableTall a
-tiled = renamed [Replace "Tall"] $ ResizableTall 1 (3/100) (1/2) [] 
-
 defSpacing :: l a -> ModifiedLayout Spacing l a
 defSpacing = mySpacing 8            -- Default Spacing
 
+-- Add Spacing to layouts
 tiledSp = defSpacing tiled
 bspSp = defSpacing bsp
 threecolSp = defSpacing threecol
 threecolMSp = defSpacing threecolmid
 
-threecol = renamed [Replace "ThreeCol"] $ ThreeCol 1 (3/100) (1/2)
-threecolmid = renamed [Replace "ThreeColMid"] $ ThreeColMid 1 (3/100) (1/2)
-bsp = renamed [Replace "BSP"] $ emptyBSP 
-accordion = renamed [Replace "Accordion"] $ Accordion
-avoidfloats = renamed [Replace "AvoidFloats"] $ avoidFloats Full
+-- Rename layouts
+tiled           = renamed [Replace "Tall"]  
+                $ ResizableTall 1 (3/100) (1/2) []
+
+threecol        = renamed [Replace "ThreeCol"] 
+                $ ThreeCol 1 (3/100) (1/2)
+
+threecolmid     = renamed [Replace "ThreeColMid"] 
+                $ ThreeColMid 1 (3/100) (1/2)
+
+bsp             = renamed [Replace "BSP"] 
+                $ emptyBSP 
+
+accordion       = renamed [Replace "Accordion"] 
+                $ Accordion
+
+avoidfloats     = renamed [Replace "AvoidFloats"] 
+                $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
 tiledToggle = toggleLayouts tiledSp (tiled)
@@ -313,19 +336,180 @@ myXPConfig :: XPConfig
 myXPConfig = def 
         { font = myFont 
         , bgColor = "#1a1c21"
-        , fgColor = "#46d9ff"
-        , borderColor = "#46d9ff"
+        , fgColor = "#bbc2cf"
+        , bgHLight = "#c792ea"
+        , fgHLight = "#000000"
+        , borderColor = "#535974"
         , position = Top
         , height = 23
         , promptBorderWidth = 1
         , defaultText = ""
         , historySize = 256
         , historyFilter = id
-        , bgHLight = "#ff6c6b"
         , searchPredicate = fuzzyMatch
         -- , sorter = fuzzySort
         --, autoComplete = Just 1000000
         }
+
+-- [Grid Select Config]
+myColourizer :: Window -> Bool -> X (String, String)
+myColourizer = colorRangeFromClassName
+                   (0x28,0x2c,0x34) -- lowest inactive bg
+                   (0x28,0x2c,0x34) -- highest inactive bg
+                   (0xc7,0x92,0xea) -- active bg
+                   (0xc0,0xa7,0x9a) -- inactive fg
+                   (0x28,0x2c,0x34) -- active fg
+
+myGridConfig :: p -> GSConfig Window
+myGridConfig colorizer = (buildDefaultGSConfig myColourizer)
+        { gs_cellheight = 45
+        , gs_cellwidth = 200
+        , gs_cellpadding = 6
+        , gs_originFractX = 0.5
+        , gs_originFractY = 0.5
+        , gs_font = myFont }
+
+-- For shortcuts (GridSelect)
+spawnSelected' :: [(String, String)] -> X ()
+spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
+    where conf = def
+                   { gs_cellheight = 45
+                   , gs_cellwidth = 200
+                   , gs_cellpadding = 6
+                   , gs_originFractX = 0.5
+                   , gs_originFractY = 0.5
+                   , gs_font = myFont }
+
+-- App Grid for GridSelect
+myAppGrid = [("LibreWolf", "librewolf")
+            , ("Brave Browser", "brave")
+            , ("Doom Emacs", "emacs")
+            , ("Nvidia Settings [pkexec]", "pkexec sudo nvidia-settings")
+            , ("QBittorrent", "qbittorrent")
+            , ("Email (Thunderbird)", "thunderbird")
+            , ("OBS-Studio", "obs")
+            , ("VLC Media Player", "vlc")
+            , ("Terminal (Alacritty)", "alacritty")
+            , ("VMware", "vmware")
+            , ("Virtualbox", "virtualbox")
+            , ("LightDM GTK Greeter Settings", "lightdm-gtk-greeter-settings-pkexec")
+            , ("LXAppearance", "lxappearance")
+            , ("MOCP (Music-On-Console)", "alacritty --class=Alacritty,music -e mocp --theme=dylanwh")
+            , ("Netflix (Brave Browser)", "brave https://netflix.com")
+            --, ("LightDM GTK Greeter Settings", "lightdm-gtk-greeter-settings-pkexec")
+            , ("OpenRGB", "openrgb")
+            , ("Ckb-Next", "ckb-next")
+            --, ("QBittorrent", "qbittorrent")
+            , ("Handbrake", "handbrake")
+            , ("Steam", "steam")
+            , ("Powder Toy (TPT)", "powder-toy")
+            , ("Maltego (OSINT)", "maltego")
+            , ("Bluetooth Manager (Blueman)", "blueman-manager")
+            , ("Libreoffice", "libreoffice")
+            , ("K3B (KDE Disk Application)", "k3b")
+            , ("Audacity", "audacity")
+            ]
+
+-- [TreeSelect Config]
+nodehead a b = Node (TS.TSNode a b (return ()))
+nodesub a b c d = Node (TS.TSNode a b c) d
+
+treeselectAction :: TS.TSConfig (X ()) -> X ()
+treeselectAction a = TS.treeselectAction a
+    [ nodehead "+ Accessories" "Accessory Applications"
+        [ nodesub "Gnome Disks" "Tool for managing disks" (spawn "gnome-disks") []
+        , nodesub "Tclip" "Clipboard Manager" (spawn "tclip") [] 
+        , nodesub "ClipMan" "Dmenu Clipboard Manager" (spawn "xdotool key alt+c") [] 
+        , nodesub "Variety" "Wallpaper switcher" (spawn "variety") []
+        ]
+    , nodehead "+ Gaming" "Gaming Applications"
+        [ nodesub "Steam" "Gaming library" (spawn "steam") []
+        , nodesub "Lutris" "External Gaming Library" (spawn "lutris") []
+        , nodesub "Powder-Toy" "Classic falling sand sandbox" (spawn "powder-toy") []
+        , nodesub "Minecraft (Launcher)" "Open world block game" (spawn "xdotool key alt+7; minecraft-launcher") []
+        ]
+    , nodehead "+ Internet" "Internet Applications"
+        [ nodehead "+ Torrenting" "Torrenting Applications"
+            [ nodesub "QBittorrent" "C++ Bittorrent client" (spawn "qbittorrent") [] ]
+        , nodesub "LibreWolf" "Privacy focused web browser, based on Firefox and GNU Icecat" (spawn "librewolf") []
+        , nodesub "Brave Browser" "Chromium based web browser" (spawn "brave") []
+        , nodesub "Amfora" "Gemini web protocol based web browser" (spawn "alacritty -e amfora") []  
+        ]
+    , nodehead "+ Virtualization" "Virtualization Tools"
+        [ nodesub "VMware" "VMware virtualization software" (spawn "vmware") [] 
+        , nodesub "Virtualbox" "Virtualbox virtualization software" (spawn "virtualbox") [] 
+        ]
+    , nodesub "--------------------" "" (spawn "xdotools key Escape") [] 
+    , nodehead "+ XMonad Tools" "XMonad WM Commands" 
+        [ nodehead "+ Switch Workspaces" "Workspace switching commands"
+            [ nodesub "Move to WS 1" "" (spawn ((myServer) ++ " 1")) []
+            , nodesub "Move to WS 2" "" (spawn ((myServer) ++ " 3")) []
+            , nodesub "Move to WS 3" "" (spawn ((myServer) ++ " 5")) []
+            , nodesub "Move to WS 4" "" (spawn ((myServer) ++ " 7")) []
+            , nodesub "Move to WS 5" "" (spawn ((myServer) ++ " 9")) []
+            , nodesub "Move to WS 6" "" (spawn ((myServer) ++ " 11")) []
+            , nodesub "Move to WS 7" "" (spawn ((myServer) ++ " 13")) []
+            , nodesub "Move to WS 8" "" (spawn ((myServer) ++ " 15")) []
+            , nodesub "Move to WS 9" "" (spawn ((myServer) ++ " 17")) []
+            ]
+        , nodehead "+ Shift Window To Workspace" "Shift selected window to workspace"
+            [ nodesub "Shift to WS 1" "" (spawn ((myServer) ++ " 2")) []
+            , nodesub "Shift to WS 2" "" (spawn ((myServer) ++ " 4")) []
+            , nodesub "Shift to WS 3" "" (spawn ((myServer) ++ " 6")) []
+            , nodesub "Shift to WS 4" "" (spawn ((myServer) ++ " 8")) []
+            , nodesub "Shift to WS 5" "" (spawn ((myServer) ++ " 10")) []
+            , nodesub "Shift to WS 6" "" (spawn ((myServer) ++ " 12")) []
+            , nodesub "Shift to WS 7" "" (spawn ((myServer) ++ " 14")) []
+            , nodesub "Shift to WS 8" "" (spawn ((myServer) ++ " 16")) []
+            , nodesub "Shift to WS 9" "" (spawn ((myServer) ++ " 18")) [] 
+            ]
+        , nodesub "Next Layout" "Switch to next layout" (spawn ((myServer) ++ " next-layout")) []
+        , nodesub "Recompile" "Recompile XMonad" (spawn "xmonad --recompile") []
+        , nodesub "Restart" "Restart XMonad" (spawn "xmonad --restart; notify-send XMonad Restarted..") []
+        ]
+    , nodehead "+ Power Menu" "Power Commands"
+        [ nodesub "Shutdown" "Power the system off" (spawn "shutdown now") []
+        , nodesub "Restart" "Restart the system" (spawn "shutdown -r now") []
+        ]
+    ]
+
+-- TreeSelect (TS) Config For UI
+tsDefaultConfig :: TS.TSConfig a
+tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
+                             , TS.ts_background = 0xdd282c34
+                             , TS.ts_font = myFont
+                             , TS.ts_node = (0xffd0d0d0, 0xff1c1f24)
+                             , TS.ts_nodealt = (0xffd0d0d0, 0xff282c34)
+                             , TS.ts_highlight = (0xffffffff, 0xff755999)
+                             , TS.ts_extra = 0xffd0d0d0
+                             , TS.ts_node_width = 200
+                             , TS.ts_node_height = 20
+                             , TS.ts_originX = 100
+                             , TS.ts_originY = 100
+                             , TS.ts_indent = 40
+                             , TS.ts_navigate = myTreeNavigation
+                             }
+
+-- TreeSelect Navigation Keybinds
+myTreeNavigation = M.fromList
+    [ ((0, xK_Escape), TS.cancel)
+    , ((0, xK_Return), TS.select)
+    , ((0, xK_Up), TS.movePrev)
+    , ((0, xK_Down), TS.moveNext)
+    , ((0, xK_Left), TS.moveParent)
+    , ((0, xK_Right), TS.moveChild)
+    ]
+
+-- [Tabs Config]
+--myTabTheme = def { 
+            --fontName            = myFont
+            --, activeColor         = "#46d9ff"
+            --, inactiveColor       = "#313846"
+            --, activeBorderColor   = "#46d9ff"
+            --, inactiveBorderColor = "#282c34"
+            --, activeTextColor     = "#282c34"
+            --, inactiveTextColor   = "#d0d0d0"
+            --} 
 
 
 -------------------------------------------
@@ -383,9 +567,9 @@ main = do
                                 ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 --ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[+] " "" -- Current workspace in xmobar
-                              , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- Hidden workspaces in xmobar
-                              , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad       -- Hidden workspaces (no windows)
+                              , ppVisible = xmobarColor "#98be65" "" -- . clickable             -- Visible but not current workspace
+                              , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- . clickable -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad -- . clickable       -- Hidden workspaces (no windows)
                               , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
                               , ppSep =  "<fc=#666666><fn=1> | </fn></fc>"          -- Separators in xmobar
                               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
@@ -399,7 +583,11 @@ main = do
           --, focusedBorderColor = "#2aa198"
           , focusedBorderColor = "#46d9ff"
           , normalBorderColor = "#282c34"           
-          , handleEventHook    = handleEventHook def <+> fullscreenEventHook
+          , handleEventHook    = handleEventHook def 
+                                 <+> fullscreenEventHook 
+                                 <+> serverModeEventHook
+                                 <+> serverModeEventHookCmd
+                                 <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
           -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
       }
           `additionalKeys`
@@ -411,6 +599,8 @@ main = do
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
             -- [Recompile XMonad Properly and restart xmobar(s)
             , ((mod1Mask, xK_q), spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
+            , ((mod4Mask, xK_r), spawn "jgmenu_run")
+            , ((mod1Mask, xK_c), spawn "/home/yusef/launchdmenu.sh")
             -- [Turn off pc using script]
             , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
             -- [Music Player (MOCP)]
@@ -424,25 +614,30 @@ main = do
             --, ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
             
             -- [Prompts]
-            , ((mod1Mask, xK_F1), shellPrompt myXPConfig)
-            , ((mod1Mask, xK_F2), manPrompt myXPConfig)
+            , ((mod1Mask, xK_p), shellPrompt myXPConfig)
+            , ((mod1Mask, xK_m), manPrompt myXPConfig)
             , ((mod1Mask .|. controlMask, xK_n), do
                          spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
                          appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt"
                          )
-            ----
-            , ((mod1Mask, xK_b), spawn "buku-dmenu")
+            , ((mod1Mask, xK_s), promptSearchBrowser myXPConfig myBrowser myDDG)
+            , ((mod1Mask, xK_x), promptSearchBrowser myXPConfig myBrowser myHak) 
+            , ((mod1Mask .|. shiftMask, xK_s), selectSearchBrowser myBrowser myDDG)
+            -- -[GridSelect (Using Actions)]
+            , ((mod1Mask, xK_g), spawnSelected' myAppGrid)
+            , ((mod1Mask, xK_w), goToSelected $ myGridConfig myColourizer)
+            , ((mod1Mask, xK_b), bringSelected $ myGridConfig myColourizer)
+            -- -[TreeSelect (Using Actions)]
+            , ((mod1Mask, xK_t), treeselectAction tsDefaultConfig)
+            -----
             , ((mod1Mask .|. shiftMask, xK_b), spawn "blueman-manager & disown")
-            , ((mod1Mask, xK_p), spawn "dmenu_run -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
-            , ((mod1Mask, xK_c), spawn "clipmenu -nb '#1a1c21' -nf '#c792ea' -sb '#ff6c6b' -fn 'UbuntuMono Nerd Font Mono:style=Bold:size=11'")
             , ((controlMask .|. mod1Mask, xK_b), spawn "bitwarden")
             , ((controlMask, xK_F4), spawn "emacs")        -- spawn app (CTRL F4)
             --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
-            , ((mod4Mask, xK_r), spawn "jgmenu_run") -- Open application menu Windows Key+r
             -- [Scratchpads]
             , ((mod1Mask, xK_a), scratchTerm)
             , ((mod1Mask, xK_v), scratchMixer)
-            , ((mod1Mask, xK_m), scratchDnsMon)
+            , ((mod1Mask, xK_F2), scratchDnsMon)
             , ((mod1Mask, xK_e), scratchNotes)
             , ((mod1Mask, xK_n), scratchEmacs)
             , ((mod1Mask .|. mod4Mask, xK_f), scratchfileMan)
