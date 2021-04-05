@@ -30,6 +30,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops(fullscreenEventHook, ewmh)
 import XMonad.Hooks.ManageHelpers   -- Might take this out later (Improving Multi-mon support) #MM
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.WorkspaceByPos
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.SetWMName
 --import XMonad.Hooks.ToggleHook
@@ -37,7 +38,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
 
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
@@ -53,6 +54,7 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt.Man
 --import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.AppendFile
+import XMonad.Prompt.Ssh
 
 import XMonad.Layout
 --import XMonad.Layout.Combo
@@ -411,6 +413,7 @@ myAppGrid = [("LibreWolf", "librewolf")
             , ("K3B (KDE Disk Application)", "k3b")
             , ("Audacity", "audacity")
             , ("My Dotfiles", ((myBrowser) ++ " https://github.com/newyusi01/dotfiles"))
+            , ("MoviesJoy", ((myBrowser') ++ " https://moviesjoy.to"))
             ]
 
 -- [TreeSelect Config]
@@ -436,6 +439,10 @@ treeselectAction a = TS.treeselectAction a
         , nodesub "Powder-Toy" "Classic falling sand sandbox" (spawn "powder-toy") []
         , nodesub "Minecraft (Launcher)" "Open world block game" (spawn "xdotool key alt+7; minecraft-launcher") []
         ]
+    , nodehead "+ Development" "Programming / Chill Zone"
+        [ nodesub "Visual Studio Code" "Microsoft's coding IDE" (spawn "code") [] 
+        , nodesub "Doom Emacs" "Emacs DOOM configuration" (spawn "emacs") [] 
+        ]
     , nodehead "+ Internet" "Internet Applications"
         [ nodehead "+ Torrenting" "Torrenting Applications"
             [ nodesub "QBittorrent" "C++ Bittorrent client" (spawn "qbittorrent") [] ]
@@ -446,6 +453,7 @@ treeselectAction a = TS.treeselectAction a
             [ nodesub "My Dotfiles" "View my dotfiles on Github" (spawn ((myBrowser) ++ " https://github.com/newyusi01/dotfiles")) []
             , nodesub "Hackage XMonad-Contrib" "XMonad-Contrib documentation" (spawn ((myBrowser) ++ " https://hackage.haskell.org/package/xmonad%2Dcontrib")) []
             , nodesub "Netflix" "Web content streaming" (spawn ((myBrowser') ++ " https://netflix.com")) []
+            , nodesub "MoviesJoy" "Free movies & tv shows streaming" (spawn ((myBrowser') ++ " https://moviesjoy.to")) []
             ]
         ]
     , nodehead "+ Virtualization" "Virtualization Tools"
@@ -483,6 +491,7 @@ treeselectAction a = TS.treeselectAction a
     , nodehead "+ Power Menu" "Power Commands"
         [ nodesub "Shutdown" "Power the system off" (spawn "shutdown now") []
         , nodesub "Restart" "Restart the system" (spawn "shutdown -r now") []
+        , nodesub "Logout" "Logout of the system" (spawn "killall xmonad") []
         ]
     ]
 
@@ -574,7 +583,7 @@ main = do
           , terminal          = myTerminal
           , startupHook = myStartupHook
           , workspaces  = myWorkspaces
-          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads
+          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads <+> workspaceByPos
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
@@ -601,96 +610,97 @@ main = do
                                  <+> serverModeEventHook
                                  <+> serverModeEventHookCmd
                                  <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-          -- , modMask = mod1Mask    -- Rebind Mod (Default is ALT) to the Windows Key
+          -- , modMask = mod1Mask
       }
-          `additionalKeys`
+          `additionalKeysP`
            [
             --((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
-            ((controlMask, xK_F2), spawn "librewolf")    -- spawn app (CTRL F2)
+            ("C-<F2>", spawn "librewolf")    -- spawn app (CTRL F2)
             --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
-            , ((controlMask, xK_F3), spawn "brave")  -- spawn app (CTRL F3)
+            , ("C-<F3>", spawn "brave")  -- spawn app (CTRL F3)
             --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
             -- [Recompile XMonad Properly and restart xmobar(s)
-            , ((mod1Mask, xK_q), spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
-            , ((mod4Mask, xK_r), spawn "jgmenu_run")
-            , ((mod1Mask, xK_c), spawn "/home/yusef/launchdmenu.sh")
+            , ("M1-q", spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
+            , ("M4-r", spawn "jgmenu_run")
+            , ("M1-c", spawn "/home/yusef/launchdmenu.sh")
             -- [Turn off pc using script]
-            , ((mod1Mask .|. shiftMask, xK_q), spawn "~/Documents/powermenu.sh")
+            , ("M1-S-q", spawn "~/Documents/powermenu.sh")
             -- [Music Player (MOCP)]
-            , ((mod1Mask .|. controlMask, xK_m), spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh -A")
+            , ("M1-C-m", spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh -A")
             -- [Toggle AvoidFloats]
-            , ((mod1Mask .|. shiftMask, xK_equal), sendMessage AvoidFloatToggle)
-            , ((mod1Mask .|. controlMask, xK_equal), withFocused $ sendMessage . AvoidFloatToggleItem)
-            , ((mod1Mask .|. shiftMask .|. controlMask, xK_equal), sendMessage (AvoidFloatSet False) >> sendMessage AvoidFloatClearItems)
+            , ("M1-S-<KP_Equal>", sendMessage AvoidFloatToggle)
+            , ("M1-C-<KP_Equal>", withFocused $ sendMessage . AvoidFloatToggleItem)
+            , ("M1-S-C-<KP_Equal>", sendMessage (AvoidFloatSet False) >> sendMessage AvoidFloatClearItems)
             ------
             --, ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
             --, ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
             
             -- [Prompts]
-            , ((mod1Mask, xK_p), shellPrompt myXPConfig)
-            , ((mod1Mask, xK_m), manPrompt myXPConfig)
-            , ((mod1Mask .|. controlMask, xK_n), do
+            , ("M1-p", shellPrompt myXPConfig)
+            , ("M1-m", manPrompt myXPConfig)
+            , ("M1-C-n", do
                          spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
                          appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt"
                          )
-            , ((mod1Mask, xK_s), promptSearchBrowser myXPConfig myBrowser myDDG)
-            , ((mod1Mask, xK_x), promptSearchBrowser myXPConfig myBrowser myHak) 
-            , ((mod1Mask .|. shiftMask, xK_s), selectSearchBrowser myBrowser myDDG)
+            , ("M1-s b", promptSearchBrowser myXPConfig myBrowser myDDG)
+            , ("M1-x", promptSearchBrowser myXPConfig myBrowser myHak) 
+            , ("M1-S-s", selectSearchBrowser myBrowser myDDG)
+            , ("M1-s c", sshPrompt myXPConfig)
             -- -[GridSelect (Using Actions)]
-            , ((mod1Mask, xK_g), spawnSelected' myAppGrid)
-            , ((mod1Mask, xK_w), goToSelected $ myGridConfig myColourizer)
-            , ((mod1Mask, xK_b), bringSelected $ myGridConfig myColourizer)
+            , ("M1-g", spawnSelected' myAppGrid)
+            , ("M1-w", goToSelected $ myGridConfig myColourizer)
+            , ("M1-b", bringSelected $ myGridConfig myColourizer)
             -- -[TreeSelect (Using Actions)]
-            , ((mod1Mask, xK_t), treeselectAction tsDefaultConfig)
+            , ("M1-t", treeselectAction tsDefaultConfig)
             -----
-            , ((mod1Mask .|. shiftMask, xK_b), spawn "blueman-manager & disown")
-            , ((controlMask .|. mod1Mask, xK_b), spawn "bitwarden")
-            , ((controlMask, xK_F4), spawn "emacs")        -- spawn app (CTRL F4)
+            , ("M1-S-b", spawn "blueman-manager & disown")
+            , ("C-M1-b", spawn "bitwarden")
+            , ("C-<F4>", spawn "emacs")        -- spawn app (CTRL F4)
             --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
             -- [Scratchpads]
-            , ((mod1Mask, xK_a), scratchTerm)
-            , ((mod1Mask, xK_v), scratchMixer)
-            , ((mod1Mask, xK_F2), scratchDnsMon)
-            , ((mod1Mask, xK_e), scratchNotes)
-            , ((mod1Mask, xK_n), scratchEmacs)
-            , ((mod1Mask .|. mod4Mask, xK_f), scratchfileMan)
-            , ((mod1Mask .|. mod4Mask, xK_t), scratchqB)
+            , ("M1-a", scratchTerm)
+            , ("M1-v", scratchMixer)
+            , ("M1-<F2>", scratchDnsMon)
+            , ("M1-e", scratchNotes)
+            , ("M1-n", scratchEmacs)
+            , ("M1-M4-f", scratchfileMan)
+            , ("M1-M4-t", scratchqB)
             ----
             --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
-            , ((mod1Mask .|. mod4Mask, xK_Return), promote)                          -- Promote selected window to master pane
-            , ((mod1Mask .|. controlMask, xK_Right), nextWS)           -- shift to next WS (ALT UP-ARROW)
-            , ((mod1Mask .|. controlMask, xK_Left), prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
+            , ("M1-M4-<Return>", promote)                          -- Promote selected window to master pane
+            , ("M1-C-<R>", nextWS)           -- shift to next WS (ALT UP-ARROW)
+            , ("M1-C-<L>", prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
             --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
             --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_n),  shiftToNext)         -- shift to next WS (ALT + SHIFT DOWN ARROW)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_p),  shiftToPrev)           -- shift window to previous workspace (ALT + SHIFT UP ARROW)
+            , ("M1-C-S-n",  shiftToNext)
+            , ("M1-C-S-p",  shiftToPrev)
             --------------------------------------------------
             -- Manage Windows Easily Using Arrowkeys
-            , ((mod1Mask,                 xK_Right), sendMessage $ Go R)
-            , ((mod1Mask,                 xK_Left ), sendMessage $ Go L)
-            , ((mod1Mask,                 xK_Up   ), sendMessage $ Go U)
-            , ((mod1Mask,                 xK_Down ), sendMessage $ Go D)
-            , ((mod1Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
-            , ((mod1Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
-            , ((mod1Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
-            , ((mod1Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
+            , ("M1-<R>", sendMessage $ Go R)
+            , ("M1-<L>", sendMessage $ Go L)
+            , ("M1-<U>", sendMessage $ Go U)
+            , ("M1-<D>", sendMessage $ Go D)
+            , ("M1-S-<R>", sendMessage $ Swap R)
+            , ("M1-S-<L>", sendMessage $ Swap L)
+            , ("M1-S-<U>", sendMessage $ Swap U)
+            , ("M1-S-<D>", sendMessage $ Swap D)
             -- [Specific window manipulations keys for BSP layout]
-            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Up), sendMessage $ ShrinkFrom U)
-            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Down), sendMessage $ ShrinkFrom D)
-            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Left), sendMessage $ ShrinkFrom L)
-            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_Right), sendMessage $ ShrinkFrom R)
-            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Up), sendMessage $ ExpandTowards U)
-            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Down), sendMessage $ ExpandTowards D)
-            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Left), sendMessage $ ExpandTowards L)
-            , ((mod1Mask .|. mod4Mask .|. controlMask, xK_Right), sendMessage $ ExpandTowards R)
-            , ((mod1Mask, xK_r), sendMessage Rotate)
-            , ((mod1Mask .|. mod4Mask, xK_a), sendMessage Balance)
-            , ((mod1Mask .|. mod4Mask .|. shiftMask, xK_a), sendMessage Equalize)
+            , ("M1-M4-S-<U>", sendMessage $ ShrinkFrom U)
+            , ("M1-M4-S-<D>", sendMessage $ ShrinkFrom D)
+            , ("M1-M4-S-<L>", sendMessage $ ShrinkFrom L)
+            , ("M1-M4-S-<R>", sendMessage $ ShrinkFrom R)
+            , ("M1-M4-C-<U>", sendMessage $ ExpandTowards U)
+            , ("M1-M4-C-<D>", sendMessage $ ExpandTowards D)
+            , ("M1-M4-C-<L>", sendMessage $ ExpandTowards L)
+            , ("M1-M4-C-<R>", sendMessage $ ExpandTowards R)
+            , ("M1-r", sendMessage Rotate)
+            , ("M1-M4-a", sendMessage Balance)
+            , ("M1-M4-S-a", sendMessage Equalize)
             -- Window Resizing
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Up), sendMessage MirrorExpand)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Down), sendMessage MirrorShrink)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Left), sendMessage Shrink)
-            , ((mod1Mask .|. controlMask .|. shiftMask, xK_Right), sendMessage Expand)
+            , ("M1-C-S-<U>", sendMessage MirrorExpand)
+            , ("M1-C-S-<D>", sendMessage MirrorShrink)
+            , ("M1-C-S-<L>", sendMessage Shrink)
+            , ("M1-C-S-<R>", sendMessage Expand)
             -------------------------------------------------
             -- Switch focus to different screens easily
             -- Default: ALT (W,E,R)
@@ -700,18 +710,18 @@ main = do
             -- [+] R is screen 3
             -- But now, no matter how much screens I have, this will make sense as a keybind
             
-            , ((mod1Mask .|. mod4Mask, xK_Right), nextScreen)
-            , ((mod1Mask .|. mod4Mask, xK_Left), prevScreen)
+            , ("M1-M4-<R>", nextScreen)
+            , ("M1-M4-<L>", prevScreen)
 
             -- [ Shift Windows to Other Screens Easily ]
-            , ((mod1Mask .|. mod4Mask, xK_Up), shiftNextScreen)
-            , ((mod1Mask .|. mod4Mask, xK_Down), shiftPrevScreen)
+            , ("M1-M4-<U>", shiftNextScreen)
+            , ("M1-M4-<D>", shiftPrevScreen)
 
             --------------------------------------------------
             -- Toggle Modes
-            , ((mod1Mask, xK_Return), sendMessage (MT.Toggle NBFULL))
+            , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
             --, ((mod1Mask, xK_f), sendMessage (Toggle "realFull"))
-            , ((mod1Mask .|. mod4Mask, xK_b), sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
+            , ("M1-M4-b", sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
 
             --------------------------------------------------
             -- Seperate Workspace shortcuts (2nd monitor)
@@ -719,25 +729,25 @@ main = do
             --------------------------------------------------
 
 
-            , ((mod1Mask, xK_F7), spawn "/usr/bin/pamixer -d 2") -- decrease volume by n
-            , ((mod1Mask, xK_F8), spawn "/usr/bin/pamixer -i 2") -- increase volume by n
-            , ((mod1Mask, xK_F5), spawn "/usr/bin/pamixer -t") -- togglemute
+            , ("M1-<F7>", spawn "/usr/bin/pamixer -d 2") -- decrease volume by n
+            , ("M1-<F8>", spawn "/usr/bin/pamixer -i 2") -- increase volume by n
+            , ("M1-<F5>", spawn "/usr/bin/pamixer -t") -- togglemute
 
             
-            , ((mod1Mask .|. controlMask, xK_i), incWindowSpacing 4)    -- Increase Window Spacing on the Fly
-            , ((mod1Mask .|. controlMask, xK_d), decWindowSpacing 4)    -- Decrease Window Spacing on the Fly
+            , ("M1-C-i", incWindowSpacing 4)    -- Increase Window Spacing on the Fly
+            , ("M1-C-d", decWindowSpacing 4)    -- Decrease Window Spacing on the Fly
             
-            , ((mod1Mask, xK_Print), spawn "flameshot gui") -- screenshot
+            , ("M1-<Print>", spawn "flameshot gui") -- screenshot
             
-            , ((mod1Mask, xK_F12), spawn "killall picom; picom -b & disown") -- Restart Compositor
+            , ("M1-<F12>", spawn "killall picom; picom -b & disown") -- Restart Compositor
 
-            , ((mod1Mask .|. controlMask, xK_k), spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
+            , ("M1-C-k", spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
             
-            , ((mod1Mask, xK_F11), spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
+            , ("M1-<F11>", spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
             
             --, ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
 
-            , ((mod1Mask .|. controlMask, xK_space), sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
+            , ("M1-C-<Space>", sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
 
             --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
             --, ((mod1Mask .|. controlMask, xK_f), moveTo Next NonEmptyWS)  -- (ALT + SHIFT F) cycle between non-empty workspaces (application opened in them)
@@ -746,7 +756,7 @@ main = do
             --, ((modm,               xK_Left),  prevScreen)
             --, ((modm .|. shiftMask, xK_Right), shiftNextScreen)
             --, ((modm .|. shiftMask, xK_Left),  shiftPrevScreen)
-            , ((mod1Mask .|. controlMask, xK_z), toggleWS)                -- (ALT + Z) cycle between workspaces that are being used
+            , ("M1-C-z", toggleWS)                -- (ALT + Z) cycle between workspaces that are being used
             --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
 
             --, ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
