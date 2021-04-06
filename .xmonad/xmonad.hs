@@ -630,8 +630,10 @@ main = do
             , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
             -- [*} [Kill The Compositor]
             , ("M1-<F12>", spawn "killall picom; picom -b & disown")
+
             -- [*] [Show Keybinds (Heavily WIP)]
             , ("M1-C-k", spawn "mousepad ~/Documents/keybinds.txt")
+
             -- [*] [Change Volume]
             , ("M1-<F7>", spawn "/usr/bin/pamixer -d 2")
             , ("M1-<F8>", spawn "/usr/bin/pamixer -i 2")
@@ -656,22 +658,20 @@ main = do
             -- [Prompts]
             , ("M1-p r", shellPrompt myXPConfig)
             , ("M1-p m", manPrompt myXPConfig)
-            , ("M1-p n", do
-                         spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
-                         appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt"
-                         )
+            , ("M1-p n", do spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
+                            appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt")
             , ("M1-p b", promptSearchBrowser myXPConfig myBrowser myDDG)
             , ("M1-p h", promptSearchBrowser myXPConfig myBrowser myHak) 
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
             ---------------------------------------
-            -- -[GridSelect (Using Actions)]
+            -- [GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
             , ("M4-w", goToSelected $ myGridConfig myColourizer)
             , ("M4-b", bringSelected $ myGridConfig myColourizer)
             ---------------------------------------
-            -- -[TreeSelect (Using Actions)]
+            -- [TreeSelect (Using Actions)]
             , ("M4-t", treeselectAction tsDefaultConfig)
             ---------------------------------------
             -- [Scratchpads]
@@ -704,6 +704,7 @@ main = do
             -- [*] [Control Spacing Layout's Spacing]
             , ("M1-C-i", incWindowSpacing 4)
             , ("M1-C-d", decWindowSpacing 4)
+            
             -- [*] [Toggle Spacing Layout]
             , ("M1-C-<Space>", sendMessage ToggleLayout)
             ---------------------------------------
@@ -719,6 +720,7 @@ main = do
             , ("M1-r", sendMessage Rotate)
             , ("M1-M4-a", sendMessage Balance)
             , ("M1-M4-S-a", sendMessage Equalize)
+            ---------------------------------------
             -- [Window Resizing]
             , ("M1-C-S-<U>", sendMessage MirrorExpand)
             , ("M1-C-S-<D>", sendMessage MirrorShrink)
