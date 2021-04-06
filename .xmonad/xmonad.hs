@@ -648,24 +648,24 @@ main = do
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
             -- -[GridSelect (Using Actions)]
-            , ("M1-g", spawnSelected' myAppGrid)
-            , ("M1-w", goToSelected $ myGridConfig myColourizer)
-            , ("M1-b", bringSelected $ myGridConfig myColourizer)
+            , ("M4-g", spawnSelected' myAppGrid)
+            , ("M4-w", goToSelected $ myGridConfig myColourizer)
+            , ("M4-b", bringSelected $ myGridConfig myColourizer)
             -- -[TreeSelect (Using Actions)]
-            , ("M1-t", treeselectAction tsDefaultConfig)
+            , ("M4-t", treeselectAction tsDefaultConfig)
             -----
             , ("M1-S-b", spawn "blueman-manager & disown")
             , ("C-M1-b", spawn "bitwarden")
             , ("C-<F4>", spawn "emacs")        -- spawn app (CTRL F4)
             --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
             -- [Scratchpads]
-            , ("M1-s t", scratchTerm)
-            , ("M1-s v", scratchMixer)
-            , ("M1-s m", scratchDnsMon)
-            , ("M1-s e", scratchNotes)
-            , ("M1-s n", scratchEmacs)
-            , ("M1-s f", scratchfileMan)
-            , ("M1-s q", scratchqB)
+            , ("M1-M4-t", scratchTerm)
+            , ("M1-M4-v", scratchMixer)
+            , ("M1-M4-m", scratchDnsMon)
+            , ("M1-M4-e", scratchNotes)
+            , ("M1-M4-n", scratchEmacs)
+            , ("M1-M4-f", scratchfileMan)
+            , ("M1-M4-q", scratchqB)
             ----
             --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
             , ("M1-M4-<Return>", promote)                          -- Promote selected window to master pane
