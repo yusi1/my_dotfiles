@@ -619,27 +619,40 @@ main = do
       }
           `additionalKeysP`
            [
-            --((controlMask, xK_F1), spawn "pcmanfm")       -- spawn app (CTRL F1)
-            ("C-<F2>", spawn "librewolf")    -- spawn app (CTRL F2)
-            --, ((controlMask, xK_F3), spawn "epdfview")  -- spawn app (CTRL F3)
-            , ("C-<F3>", spawn "brave")  -- spawn app (CTRL F3)
-            --, ((mod1Mask, xK_r), spawn "alacritty -e ~/spawnjailedapps.sh")
-            -- [Recompile XMonad Properly and restart xmobar(s)
+            -- [Spawn Applications]
+            ("C-<F2>", spawn "librewolf")
+            , ("C-<F3>", spawn "brave")
+            , ("M1-S-b", spawn "blueman-manager & disown")
+            , ("C-M1-b", spawn "bitwarden")
+            , ("C-<F4>", spawn "emacs")
+            , ("M4-y", spawn "scrot Pictures/scrot_%M_%S.png") -- screenshot
+            , ("M4-u", spawn "scrot -u Pictures/scrot_%M_%S.png") -- screenshot focused
+            , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
+            -- [*} [Kill The Compositor]
+            , ("M1-<F12>", spawn "killall picom; picom -b & disown")
+            -- [*] [Show Keybinds (Heavily WIP)]
+            , ("M1-C-k", spawn "mousepad ~/Documents/keybinds.txt")
+            -- [*] [Change Volume]
+            , ("M1-<F7>", spawn "/usr/bin/pamixer -d 2")
+            , ("M1-<F8>", spawn "/usr/bin/pamixer -i 2")
+            , ("M1-<F5>", spawn "/usr/bin/pamixer -t")
+            ---------------------------------------
+            -- [Recompile XMonad Properly and restart running XMobar Instances]
             , ("M1-q", spawn "killall xmobar && killall xmobar; xmonad --recompile && xmonad --restart")
             , ("M4-r", spawn "jgmenu_run")
             , ("M1-c", spawn "/home/yusef/launchdmenu.sh")
+            ---------------------------------------
             -- [Turn off pc using script]
             , ("M1-S-q", spawn "~/Documents/powermenu.sh")
+            ---------------------------------------
             -- [Music Player (MOCP)]
             , ("M1-C-m", spawn "alacritty --class Alacritty,music -e mocp --theme=dylanwh -A")
+            ---------------------------------------
             -- [Toggle AvoidFloats]
             , ("M1-S-<KP_Equal>", sendMessage AvoidFloatToggle)
             , ("M1-C-<KP_Equal>", withFocused $ sendMessage . AvoidFloatToggleItem)
             , ("M1-S-C-<KP_Equal>", sendMessage (AvoidFloatSet False) >> sendMessage AvoidFloatClearItems)
-            ------
-            --, ((controlMask .|. mod4Mask, xK_F3), spawn "~/./spawnjailedbravebrowser.sh")
-            --, ((controlMask .|. mod4Mask, xK_F2), spawn "~/./spawnjailedlibrewolf.sh")
-            
+            ---------------------------------------
             -- [Prompts]
             , ("M1-p r", shellPrompt myXPConfig)
             , ("M1-p m", manPrompt myXPConfig)
@@ -652,17 +665,15 @@ main = do
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
+            ---------------------------------------
             -- -[GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
             , ("M4-w", goToSelected $ myGridConfig myColourizer)
             , ("M4-b", bringSelected $ myGridConfig myColourizer)
+            ---------------------------------------
             -- -[TreeSelect (Using Actions)]
             , ("M4-t", treeselectAction tsDefaultConfig)
-            -----
-            , ("M1-S-b", spawn "blueman-manager & disown")
-            , ("C-M1-b", spawn "bitwarden")
-            , ("C-<F4>", spawn "emacs")        -- spawn app (CTRL F4)
-            --, ((mod1Mask .|. controlMask, xK_b), spawn "icecat") -- spawn browser (C-M-b)
+            ---------------------------------------
             -- [Scratchpads]
             , ("M1-M4-t", scratchTerm)
             , ("M1-M4-v", scratchMixer)
@@ -671,17 +682,17 @@ main = do
             , ("M1-M4-n", scratchEmacs)
             , ("M1-M4-f", scratchfileMan)
             , ("M1-M4-q", scratchqB)
-            ----
-            --, ((mod1Mask, xK_Tab), cycleRecentWS [xK_Alt_L] xK_Tab xK_grave) -- Cycle workspaces (ALT TAB)
-            , ("M1-M4-<Return>", promote)                          -- Promote selected window to master pane
-            , ("M1-C-<R>", nextWS)           -- shift to next WS (ALT UP-ARROW)
-            , ("M1-C-<L>", prevWS)            -- shift to previous WS (ALT DOWN-ARROW)
-            --, ((mod1Mask .|. controlMask, xK_Left), DO.swapWith Prev NonEmptyWS)
-            --, ((mod1Mask .|. controlMask, xK_Right), DO.swapWith Next NonEmptyWS)
+            ---------------------------------------
+            -- [More Window Management]
+            , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
+            , ("M1-C-<R>", nextWS) -- shift to next WS
+            , ("M1-C-<L>", prevWS) -- shift to previous WS
             , ("M1-C-S-n",  shiftToNext)
             , ("M1-C-S-p",  shiftToPrev)
-            --------------------------------------------------
-            -- Manage Windows Easily Using Arrowkeys
+            -- [*] [Shift to a previously used workspace]
+            , ("M1-C-z", toggleWS)
+            ---------------------------------------
+            -- [Manage Windows Easily Using Arrowkeys]
             , ("M1-<R>", sendMessage $ Go R)
             , ("M1-<L>", sendMessage $ Go L)
             , ("M1-<U>", sendMessage $ Go U)
@@ -690,6 +701,12 @@ main = do
             , ("M1-S-<L>", sendMessage $ Swap L)
             , ("M1-S-<U>", sendMessage $ Swap U)
             , ("M1-S-<D>", sendMessage $ Swap D)
+            -- [*] [Control Spacing Layout's Spacing]
+            , ("M1-C-i", incWindowSpacing 4)
+            , ("M1-C-d", decWindowSpacing 4)
+            -- [*] [Toggle Spacing Layout]
+            , ("M1-C-<Space>", sendMessage ToggleLayout)
+            ---------------------------------------
             -- [Specific window manipulations keys for BSP layout]
             , ("M1-M4-S-<U>", sendMessage $ ShrinkFrom U)
             , ("M1-M4-S-<D>", sendMessage $ ShrinkFrom D)
@@ -702,76 +719,14 @@ main = do
             , ("M1-r", sendMessage Rotate)
             , ("M1-M4-a", sendMessage Balance)
             , ("M1-M4-S-a", sendMessage Equalize)
-            -- Window Resizing
+            -- [Window Resizing]
             , ("M1-C-S-<U>", sendMessage MirrorExpand)
             , ("M1-C-S-<D>", sendMessage MirrorShrink)
             , ("M1-C-S-<L>", sendMessage Shrink)
             , ("M1-C-S-<R>", sendMessage Expand)
-            -------------------------------------------------
-            -- Switch focus to different screens easily
-            -- Default: ALT (W,E,R)
-            -- Where :
-            -- [+] W is screen 1 
-            -- [+] E is screen 2 
-            -- [+] R is screen 3
-            -- But now, no matter how much screens I have, this will make sense as a keybind
-            
-            --, ("M1-M4-<R>", nextScreen)
-            --, ("M1-M4-<L>", prevScreen)
-
-            -- [ Shift Windows to Other Screens Easily ]
-            --, ("M1-M4-<U>", shiftNextScreen)
-            --, ("M1-M4-<D>", shiftPrevScreen)
-
-            --------------------------------------------------
-            -- Toggle Modes
+            ---------------------------------------
+            -- [Toggle Modes]
             , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
-            --, ((mod1Mask, xK_f), sendMessage (Toggle "realFull"))
-            , ("M1-M4-b", sendMessage ToggleStruts)  -- Toggle struts aka XMobar using a keybinding (ALT + F)
-
-            --------------------------------------------------
-            -- Seperate Workspace shortcuts (2nd monitor)
-            --, ((mod1Mask, xK_k), windows $ onCurrentScreen f i)
-            --------------------------------------------------
-
-
-            , ("M1-<F7>", spawn "/usr/bin/pamixer -d 2") -- decrease volume by n
-            , ("M1-<F8>", spawn "/usr/bin/pamixer -i 2") -- increase volume by n
-            , ("M1-<F5>", spawn "/usr/bin/pamixer -t") -- togglemute
-
-            
-            , ("M1-C-i", incWindowSpacing 4)    -- Increase Window Spacing on the Fly
-            , ("M1-C-d", decWindowSpacing 4)    -- Decrease Window Spacing on the Fly
-            
-            , ("M4-y", spawn "scrot Pictures/scrot_%M_%S.png") -- screenshot
-            , ("M4-u", spawn "scrot -u Pictures/scrot_%M_%S.png") -- screenshot focused
-            , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
-
-            , ("M1-<F12>", spawn "killall picom; picom -b & disown") -- Restart Compositor
-
-            , ("M1-C-k", spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
-            
-            , ("M1-<F11>", spawn "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1 --height 24 & disown") -- Restart Trayer
-            
-            --, ((mod1Mask .|. controlMask, xK_m), spawn "mailspring") -- spawn mail client
-
-            , ("M1-C-<Space>", sendMessage ToggleLayout) -- Toggle Layouts, specified in LayoutHook
-
-            --, ((mod1Mask, xK_f), moveTo Next EmptyWS)                   -- find a free workspace (ALT F)
-            --, ((mod1Mask .|. controlMask, xK_f), moveTo Next NonEmptyWS)  -- (ALT + SHIFT F) cycle between non-empty workspaces (application opened in them)
-            --, ((modm .|. shiftMask, xK_Up),    shiftToPrev)
-            --, ((modm,               xK_Right), nextScreen)
-            --, ((modm,               xK_Left),  prevScreen)
-            --, ((modm .|. shiftMask, xK_Right), shiftNextScreen)
-            --, ((modm .|. shiftMask, xK_Left),  shiftPrevScreen)
-            , ("M1-C-z", toggleWS)                -- (ALT + Z) cycle between workspaces that are being used
-            --, ((mod1Mask, xK_F7, lowerVolume 3 >> return ()))
-
-            --, ((mod1Mask, xK_Return), sendMessage ToggleLayout) -- Toggle Layouts (VERY HANDY)
-            --, ((mod1Mask .|. controlMask, xK_f), sendMessage (Toggle "nBFull"))
-            --, ((mod1Mask .|. shiftMask, xK_f), myLayout)
-            --, ((mod1Mask .|. controlMask, xK_Right),                  -- a crazy keybinding!
-                  --do t <- findWorkspace getSortByXineramaRule Next NonEmptyWS 2
-                    --windows . view $ t )
-           ]
-                
+            , ("M1-M4-b", sendMessage ToggleStruts)
+            ---------------------------------------
+           ]                
