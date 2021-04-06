@@ -43,8 +43,8 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     --, Run Network "enp4s5" ["-t", " <fn=1>\xf0aa </fn><tx>kb <fn=1>\xf0ab </fn><rx>kb"] 20
                     --, Run Network "enp4s5" ["-t", "3: <tx>kb/<rx>kb"] 20
                     --, Network "enp2s0" "enp3s0" "enp4s5" ["-t", " </fn=1>\xf0aa </fn><tx1> "] 20
-                    , Run Memory ["-t","<icon=ram_0.xpm/> [Mem: <used>M (<usedratio>%)]"] 50
-                    , Run Swap [] 50
+                    , Run Memory ["-t","<icon=ram_0.xpm/> [Mem: <used>M (<usedratio>%)]"] 10
+                    , Run Swap [] 10
                     , Run Date "<fn=1>\xf133 </fn> %d/%m/%Y" "date" 2000
                     , Run Date "%k:%M:%S" "date'" 10
                     --, Run Volume "default" "Master" [] 10
