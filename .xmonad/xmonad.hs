@@ -54,6 +54,7 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt.Man
 import XMonad.Prompt.AppendFile
 import XMonad.Prompt.Ssh
+import XMonad.Prompt.DirExec
 
 import XMonad.Layout
 --import XMonad.Layout.Combo
@@ -649,6 +650,7 @@ main = do
             , ("M1-p h", promptSearchBrowser myXPConfig myBrowser myHak) 
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
+            , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
             -- -[GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
             , ("M4-w", goToSelected $ myGridConfig myColourizer)
@@ -740,8 +742,10 @@ main = do
             , ("M1-C-i", incWindowSpacing 4)    -- Increase Window Spacing on the Fly
             , ("M1-C-d", decWindowSpacing 4)    -- Decrease Window Spacing on the Fly
             
-            , ("M1-<Print>", spawn "flameshot gui") -- screenshot
-            
+            , ("M4-y", spawn "scrot Pictures/scrot_%M_%S.png") -- screenshot
+            , ("M4-u", spawn "scrot -u Pictures/scrot_%M_%S.png") -- screenshot focused
+            , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
+
             , ("M1-<F12>", spawn "killall picom; picom -b & disown") -- Restart Compositor
 
             , ("M1-C-k", spawn "mousepad ~/Documents/keybinds.txt")  -- Show keybinds
