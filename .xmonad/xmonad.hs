@@ -713,12 +713,12 @@ main = do
             -- [+] R is screen 3
             -- But now, no matter how much screens I have, this will make sense as a keybind
             
-            , ("M1-M4-<R>", nextScreen)
-            , ("M1-M4-<L>", prevScreen)
+            --, ("M1-M4-<R>", nextScreen)
+            --, ("M1-M4-<L>", prevScreen)
 
             -- [ Shift Windows to Other Screens Easily ]
-            , ("M1-M4-<U>", shiftNextScreen)
-            , ("M1-M4-<D>", shiftPrevScreen)
+            --, ("M1-M4-<U>", shiftNextScreen)
+            --, ("M1-M4-<D>", shiftPrevScreen)
 
             --------------------------------------------------
             -- Toggle Modes
