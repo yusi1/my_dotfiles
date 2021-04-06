@@ -628,7 +628,7 @@ main = do
             , ("M4-y", spawn "scrot Pictures/scrot_%M_%S.png") -- screenshot
             , ("M4-u", spawn "scrot -u Pictures/scrot_%M_%S.png") -- screenshot focused
             , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
-            -- [*} [Kill The Compositor]
+            -- [*] [Kill The Compositor]
             , ("M1-<F12>", spawn "killall picom; picom -b & disown")
 
             -- [*] [Show Keybinds (Heavily WIP)]
