@@ -52,10 +52,8 @@ import XMonad.Prompt.FuzzyMatch
 -- Prompts
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Man
---import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.AppendFile
 import XMonad.Prompt.Ssh
---import XMonad.Prompt.Pass
 
 import XMonad.Layout
 --import XMonad.Layout.Combo

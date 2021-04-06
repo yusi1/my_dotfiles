@@ -49,9 +49,9 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     , Run Date "%k:%M:%S" "date'" 10
                     --, Run Volume "default" "Master" [] 10
                     , Run Com "uname" ["-r"] "kernelname" 0
-                    , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 3000
+                    , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 18000
                     , Run Com "/home/yusef/.local/bin/new" [] "vol" 3
-                    , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 5
+                    , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad"
                     , Run UnsafeStdinReader
                     ]
         , sepChar = "%"
