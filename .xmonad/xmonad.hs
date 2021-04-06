@@ -537,11 +537,13 @@ myTreeNavigation = M.fromList
 
 -------------------------------------------
 
+-- Show the window count of the current workspace in XMobar
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 --------------------------------------------------------------------
 
+-- Defining the LayoutHook
 myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders ( 
                 tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
                 ||| threecolToggle ||| accordion
@@ -552,6 +554,7 @@ myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smart
 -- Currently set to one, but is here in case I want to change it;
 -- In the future.
 
+-- Fade inactive windows to the amount of (fadeAmount)
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1
@@ -571,6 +574,7 @@ myStartupHook = do
             --spawnOnce "protonvpn-applet & disown"
 
 -------------------------------------------------------------------
+-- Where the config comes together
 
 main :: IO ()
 main = do
