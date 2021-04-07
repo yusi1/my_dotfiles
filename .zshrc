@@ -16,7 +16,6 @@ export PATH=/home/yusef/.emacs.d/bin:$PATH
 export BROWSER=/usr/bin/librewolf
 
 # SET MANPAGER
-#export MANPAGER="nvim -e -c 'set ft=man' -"
 export MANPAGER="nvim -c 'set ft=man' -"
 
 # Set name of the theme to load --- if set to "random", it will
