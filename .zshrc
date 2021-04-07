@@ -14,6 +14,7 @@ export ZSH="/home/yusef/.oh-my-zsh"
 export PATH=/home/yusef/.emacs.d/bin:$PATH
 
 export BROWSER=/usr/bin/librewolf
+
 # SET MANPAGER
 #export MANPAGER="nvim -e -c 'set ft=man' -"
 export MANPAGER="nvim -c 'set ft=man' -"
