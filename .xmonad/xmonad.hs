@@ -627,9 +627,9 @@ main = do
             , ("M1-S-b", spawn "blueman-manager & disown")
             , ("C-M1-b", spawn "bitwarden")
             , ("C-<F4>", spawn "emacs")
-            , ("M4-y", spawn "scrot Pictures/scrot_%M_%S.png") -- screenshot
-            , ("M4-u", spawn "scrot -u Pictures/scrot_%M_%S.png") -- screenshot focused
-            , ("M4-i", spawn "scrot -f -s Pictures/scrot_%M_%S.png") -- screenshot select
+            , ("M4-y", spawn "scrot Pictures/scrot_%H_%M_%S.png") -- screenshot
+            , ("M4-u", spawn "scrot -u Pictures/scrot_%H_%M_%S.png") -- screenshot focused
+            , ("M4-i", spawn "scrot -f -s Pictures/scrot_%H_%M_%S.png") -- screenshot select
             -- [*] [Kill The Compositor]
             , ("M1-<F12>", spawn "killall picom; picom -b & disown")
 
