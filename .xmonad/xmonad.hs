@@ -4,7 +4,7 @@
 -- Default Keys https://gist.github.com/c33k/1ecde9be24959f1c738d
 -- This config may be messy, but I am a beginner so please don't mind that.
 
-----------------------Imports----------------------------------------------
+-- [Imports] --
 
 module Main (main) where
 
