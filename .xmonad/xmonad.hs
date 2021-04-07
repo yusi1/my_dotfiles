@@ -132,7 +132,7 @@ gameApps = [
            ]
 
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine","music"]
-officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice"]
+officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice","libreoffice-impress"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
 systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb"]
