@@ -670,7 +670,7 @@ main = do
             -- [*] [ShellPrompt extra prompts]
             , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
             , ("M1-p o", prompt ("llpp" ++ " ") myXPConfig)
-            , ("M1-p l", prompt ("alacritty" ++ " -e epr ") myXPConfig)            
+            , ("M1-p l", prompt ("alacritty" ++ " -e epr ") myXPConfig) 
             ---------------------------------------
             -- [GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
