@@ -8,11 +8,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
 "!Plug 'romgrk/doom-one.vim'
+Plug 'sheerun/vim-polyglot'
 "Plug 'sainnhe/edge'
 "Plug 'ghifarit53/tokyonight-vim'
-"Plug 'morhetz/gruvbox'
-"Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
+"Plug 'joshdick/onedark.vim'
+"Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'overcache/NeoSolarized'
 
 " Initialize plugins
@@ -70,17 +72,19 @@ set termguicolors
 
 
 " -- Onedark Theme Configuration --
-syntax on
-colorscheme onedark
-let g:lightline = {
-    \ 'colorscheme': 'onedark',
-    \ }
+"syntax on
+"colorscheme onedark
+"let g:lightline = {
+    "\ 'colorscheme': 'onedark',
+    "\ }
 "----------------------------------
 
 " -- Gruvbox Theme Configuration --
-"autocmd vimenter * ++nested colorscheme gruvbox
-"let g:lightline = {}
-"let g:lightline.colorscheme = 'gruvbox'
+autocmd vimenter * ++nested colorscheme gruvbox
+set background=dark
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
+"let g:gruvbox_italic=1
 " ---------------------------------
 
 " -- Tokyonight Theme Configuration --
@@ -90,6 +94,10 @@ let g:lightline = {
 "let g:lightline = {'colorscheme' : 'tokyonight'}
 " ------------------------------------
 
+" -- Palenight (looks like doom-one & every other one-dark derivative) --
+"set background=dark
+"colorscheme palenight
+"let g:lightline = { 'colorscheme': 'palenight' }
 
 " -- Configuration Options --
 

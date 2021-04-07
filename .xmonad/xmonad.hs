@@ -544,10 +544,12 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 --------------------------------------------------------------------
 
 -- Defining the LayoutHook
-myLayoutHook = windowNavigation $ mkToggle (NBFULL ?? EOT) $ avoidStruts $ smartBorders ( 
-                tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
-                ||| threecolToggle ||| accordion
-                )
+myLayoutHook = windowNavigation 
+               $ mkToggle (NBFULL ?? EOT) 
+               $ avoidStruts 
+               $ smartBorders ( 
+               tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
+               ||| threecolToggle ||| accordion )
 
 --------------------------------------------------------------------
 -- [ Fade Inactive Windows ]
