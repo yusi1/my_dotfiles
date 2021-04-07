@@ -667,6 +667,10 @@ main = do
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
+            -- [*] [ShellPrompt extra prompts]
+            , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
+            , ("M1-p o", prompt ("llpp" ++ " ") myXPConfig)
+            , ("M1-p l", prompt ("alacritty" ++ " -e epr ") myXPConfig)
             ---------------------------------------
             -- [GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
