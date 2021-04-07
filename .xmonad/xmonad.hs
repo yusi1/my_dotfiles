@@ -547,8 +547,8 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myLayoutHook = windowNavigation 
                $ mkToggle (NBFULL ?? EOT) 
                $ avoidStruts 
-               $ smartBorders ( 
-               tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
+               $ smartBorders 
+               ( tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
                ||| threecolToggle ||| accordion )
 
 --------------------------------------------------------------------
