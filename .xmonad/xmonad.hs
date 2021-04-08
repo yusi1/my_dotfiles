@@ -694,8 +694,8 @@ main = do
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
             , ("M1-C-<R>", nextWS) -- shift to next WS
             , ("M1-C-<L>", prevWS) -- shift to previous WS
-            , ("M1-C-S-n",  shiftToNext)
-            , ("M1-C-S-p",  shiftToPrev)
+            , ("M1-S-n",  shiftToNext)
+            , ("M1-S-p",  shiftToPrev)
             -- [*] [Shift to a previously used workspace]
             , ("M1-C-z", toggleWS)
             ---------------------------------------
