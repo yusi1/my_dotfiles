@@ -95,6 +95,7 @@ import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow k
 --import XMonad.Actions.Volume
 import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Actions.GridSelect
+--import qualified XMonad.Actions.ConstrainedResize as Sqr
 
 import System.IO
 
@@ -706,6 +707,9 @@ main = do
             , ("M1-S-p",  shiftToPrev)
             -- [*] [Shift to a previously used workspace]
             , ("M1-C-z", toggleWS)
+
+            -- [*] [ConstrainedResize (Resize windows while maintaining aspect ratio)]
+            --("M1-S-<button3>", (\w -> focus w >> Sqr.mouseResizeWindow w True))
             ---------------------------------------
             -- [Manage Windows Easily Using Arrowkeys]
             , ("M1-<R>", sendMessage $ Go R)
