@@ -168,8 +168,8 @@ viewShift = doF . liftM2 (.) W.greedyView W.shift
 doShiftWS :: Int -> ManageHook
 doShiftWS a = doShift ( myWorkspaces !! a ) <+> viewShift ( myWorkspaces !! a )
 
-doWSNoShift :: Int -> ManageHook
-doWSNoShift a = doShift ( myWorkspaces !! a )
+doWsShiftNoView :: Int -> ManageHook
+doWsShiftNoView a = doShift ( myWorkspaces !! a )
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
@@ -192,7 +192,12 @@ myManageHook = composeAll . concat $
 -- [ My Workspaces ]
 
 myWorkspaces :: [String]
-myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>", "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>", "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>", "9:<fn=1>\xfb36 </fn>"]
+myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>", 
+                "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>",
+                "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", 
+                "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>",
+                "9:<fn=1>\xfb36 </fn>" ]
+
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 clickable ws = "<action=xdotool key alt+"++show i++">"++ws++"</action>"
@@ -281,7 +286,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
-        -- [PcManFM] File Manager
+        -- [PcManFM File Manager]
             spawnfileMan = "pcmanfm"
             findfileMan = className =? "Pcmanfm"
             managefileMan = customFloating $ W.RationalRect l t w h
@@ -502,20 +507,21 @@ treeselectAction a = TS.treeselectAction a
 
 -- TreeSelect (TS) Config For UI
 tsDefaultConfig :: TS.TSConfig a
-tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
-                             , TS.ts_background = 0xdd282c34
-                             , TS.ts_font = myFont
-                             , TS.ts_node = (0xffd0d0d0, 0xff1c1f24)
-                             , TS.ts_nodealt = (0xffd0d0d0, 0xff282c34)
-                             , TS.ts_highlight = (0xffffffff, 0xff755999)
-                             , TS.ts_extra = 0xffd0d0d0
-                             , TS.ts_node_width = 200
-                             , TS.ts_node_height = 20
-                             , TS.ts_originX = 100
-                             , TS.ts_originY = 100
-                             , TS.ts_indent = 40
-                             , TS.ts_navigate = myTreeNavigation
-                             }
+tsDefaultConfig = TS.TSConfig { 
+                TS.ts_hidechildren = True
+                , TS.ts_background = 0xdd282c34
+                , TS.ts_font = myFont
+                , TS.ts_node = (0xffd0d0d0, 0xff1c1f24)
+                , TS.ts_nodealt = (0xffd0d0d0, 0xff282c34)
+                , TS.ts_highlight = (0xffffffff, 0xff755999)
+                , TS.ts_extra = 0xffd0d0d0
+                , TS.ts_node_width = 200
+                , TS.ts_node_height = 20
+                , TS.ts_originX = 100
+                , TS.ts_originY = 100
+                , TS.ts_indent = 40
+                , TS.ts_navigate = myTreeNavigation 
+                }
 
 -- TreeSelect Navigation Keybinds
 myTreeNavigation = M.fromList
