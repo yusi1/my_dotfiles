@@ -107,16 +107,20 @@ myTerminal = "alacritty"
 myFallBackTerminal :: String
 myFallBackTerminal = "xterm"
 
--- Other good variables
+-- Setting more function names / string names
 myFont :: String
 myFont = "xft:Terminus:pixelsize=11"
 
+myBrowser :: String
 myBrowser = "/usr/bin/librewolf"
+
+myBrowser' :: String
 myBrowser' = "/usr/bin/brave"
 
 myDDG = intelligent duckduckgo
 myHak = intelligent hackage
 
+myServer :: String
 myServer = "/home/yusef/.xmonad/xmonadctl"
 
 ---------------------------------------------------------------------
@@ -618,9 +622,7 @@ main = do
                                  <+> serverModeEventHookCmd
                                  <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
           -- , modMask = mod1Mask
-      }
-          `additionalKeysP`
-           [
+      } `additionalKeysP` [
             -- [Spawn Applications]
             ("C-<F2>", spawn "librewolf")
             , ("C-<F3>", spawn "brave")
