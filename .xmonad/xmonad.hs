@@ -38,7 +38,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
 
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeysP)
+import XMonad.Util.EZConfig(additionalKeysP,additionalMouseBindings)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
@@ -83,6 +83,7 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- unambiguise (Swap)
 import XMonad.Layout.Accordion
 import XMonad.Layout.AvoidFloats
+import XMonad.Layout.Maximize
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -137,7 +138,7 @@ gameApps = [
            ]
 
 mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine","music"]
-officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice","libreoffice-impress"]
+officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice","libreoffice-impress","feh"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
 systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb"]
@@ -149,7 +150,7 @@ osintApps = ["Maltego"]
 
 socialApps = ["Microsoft Teams","discord"]
 otherApps = ["Progress","Xmessage","XClock","Zenity"]
-floatApps = ["Dialog","Confirm"]
+floatApps = ["Dialog","Confirm","Error"]
 customClasses = ["sandboxed","scratchpad"]
 
 -- # [ excluded apps: ]
@@ -175,18 +176,19 @@ doWsShiftNoView a = doShift ( myWorkspaces !! a )
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll . concat $
     [
-    [className =? c --> doShiftWS 6 | c <- gameApps]
-    , [className =? head customClasses --> doShiftWS 8]
+      [className =? c --> doShiftWS 6 | c <- gameApps]
+    , [className =? head customClasses   --> doShiftWS 8]
     , [className =? c --> doShiftWS 2 | c <- systemApps]
     , [className =? c --> doShiftWS 0 | c <- devApps]
-    , [resource  =? r --> doFloat | r <- floatApps]
-    , [className =? c --> doFloat | c <- otherApps]
+    , [resource  =? r --> doFloat     | r <- floatApps]
+    , [className =? c --> doFloat     | c <- otherApps]
     , [className =? c --> doShiftWS 3 | c <- virtApps]
-    , [className =? head generalApps --> doFloat]
-    , [className =? c --> doFloat | c <- take 2 officeApps] 
+    , [className =? head generalApps     --> doFloat]
+    , [className =? c --> doFloat     | c <- take 2 officeApps] 
     , [className =? c --> doShiftWS 5 | c <- mediaApps]
-    , [title =? last floatApps --> doFloat]
-    , [isFullscreen --> doFullFloat]
+    , [title     =? t --> doFloat     | t <- drop 1 floatApps]
+    , [className =? last officeApps      --> doFloat]
+    , [isFullscreen   --> doFullFloat]
     ]
 
 --------------------------------------------------------------------
@@ -334,22 +336,28 @@ threecolSp = defSpacing threecol
 threecolMSp = defSpacing threecolmid
 
 -- Rename layouts
-tiled           = renamed [Replace "Tall"]  
+tiled           = renamed [Replace "Tall"]
+                $ maximize
                 $ ResizableTall 1 (3/100) (1/2) []
 
-threecol        = renamed [Replace "ThreeCol"] 
+threecol        = renamed [Replace "ThreeCol"]
+                $ maximize
                 $ ThreeCol 1 (3/100) (1/2)
 
-threecolmid     = renamed [Replace "ThreeColMid"] 
+threecolmid     = renamed [Replace "ThreeColMid"]
+                $ maximize
                 $ ThreeColMid 1 (3/100) (1/2)
 
-bsp             = renamed [Replace "BSP"] 
+bsp             = renamed [Replace "BSP"]
+                $ maximize
                 $ emptyBSP 
 
-accordion       = renamed [Replace "Accordion"] 
+accordion       = renamed [Replace "Accordion"]
+                $ maximize
                 $ Accordion
 
-avoidfloats     = renamed [Replace "AvoidFloats"] 
+avoidfloats     = renamed [Replace "AvoidFloats"]
+                $ maximize
                 $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
@@ -569,8 +577,8 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 -- Defining the LayoutHook
 myLayoutHook = windowNavigation 
                $ mkToggle (NBFULL ?? EOT) 
-               $ avoidStruts 
-               $ smartBorders 
+               $ avoidStruts
+               $ smartBorders
                ( tiledToggle ||| bspToggle ||| threecolToggle' ||| avoidfloats  
                ||| threecolToggle ||| accordion )
 
@@ -762,6 +770,10 @@ main = do
             ---------------------------------------
             -- [Toggle Modes]
             , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
+            , ("M1-a", withFocused (sendMessage . maximizeRestore))
             , ("M1-M4-b", sendMessage ToggleStruts)
             ---------------------------------------
-           ]                
+            ] 
+            `additionalMouseBindings` [
+                ((0,9), \w -> withFocused (sendMessage . maximizeRestore)) 
+            ]

@@ -11,12 +11,17 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/home/yusef/.oh-my-zsh"
 
+# Set Emacs executable binary path
 export PATH=/home/yusef/.emacs.d/bin:$PATH
 
+# Set Browser Env Variable for XMonad
 export BROWSER=/usr/bin/librewolf
 
 # SET MANPAGER
 export MANPAGER="nvim -c 'set ft=man' -"
+
+# Set EDITOR (For sudoedit etc...)
+export EDITOR="nvim"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -139,3 +144,4 @@ echo "\n"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias config='/usr/bin/git --git-dir=/home/yusef/.cfg/ --work-tree=/home/yusef'
+alias se='sudoedit'
