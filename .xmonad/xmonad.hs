@@ -147,7 +147,7 @@ generalApps = ["firetools","qBittorrent","calibre","Pcmanfm","Mailspring","KeePa
 devApps = ["Code","Godot"]
 osintApps = ["Maltego"]
 
-socialApps = ["Microsoft Teams"]
+socialApps = ["Microsoft Teams","discord"]
 otherApps = ["Progress","Xmessage","XClock","Zenity"]
 floatApps = ["Dialog","Confirm"]
 customClasses = ["sandboxed","scratchpad"]
@@ -225,6 +225,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "emacs" spawnEmacs findEmacs manageEmacs
                 , NS "torrent" spawnqB findqB manageqB
                 , NS "fileman" spawnfileMan findfileMan managefileMan
+                , NS "discord" spawnDiscord findDiscord manageDiscord
                 ]
         where
         -- [Alacritty]
@@ -297,6 +298,16 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
+        -- [Discord]
+            spawnDiscord = "~/Documents/jailedappscripts/spawnjaileddiscord.sh"
+            findDiscord = className =? "discord"
+            manageDiscord = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
 -- Hide scratchpad workspace
 noScratchPad ws = if ws == "NSP" then "" else ws
 
@@ -307,6 +318,7 @@ scratchNotes = namedScratchpadAction myScratchPads "notes"
 scratchEmacs = namedScratchpadAction myScratchPads "emacs"
 scratchqB = namedScratchpadAction myScratchPads "torrent"
 scratchfileMan = namedScratchpadAction myScratchPads "fileman"
+scratchDiscord = namedScratchpadAction myScratchPads "discord"
 
 -------------------------------------------------------------------
 
@@ -698,6 +710,7 @@ main = do
             , ("M1-M4-n", scratchEmacs)
             , ("M1-M4-f", scratchfileMan)
             , ("M1-M4-q", scratchqB)
+            , ("M1-M4-d", scratchDiscord)
             ---------------------------------------
             -- [More Window Management]
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
