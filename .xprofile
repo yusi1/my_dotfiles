@@ -39,4 +39,4 @@
 /usr/bin/clipmenud & disown
 
 # Run xscreesaver
-/usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown
+#/usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-execapp="discord"
+execapp="discord-canary"
 dnsname="fdns"
 dns="127.1.1.1"
 cmd="firejail --dns=$dns /usr/bin/$execapp"
