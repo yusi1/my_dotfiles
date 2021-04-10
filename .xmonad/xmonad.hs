@@ -83,7 +83,7 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- unambiguise (Swap)
 import XMonad.Layout.Accordion
 import XMonad.Layout.AvoidFloats
-import XMonad.Layout.Maximize
+--import XMonad.Layout.Maximize
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
@@ -150,7 +150,7 @@ osintApps = ["Maltego"]
 
 socialApps = ["Microsoft Teams","discord"]
 otherApps = ["Progress","Xmessage","XClock","Zenity"]
-floatApps = ["Dialog","Confirm","Error"]
+floatApps = ["Dialog","Picture-in-Picture","Confirm","Error"]
 customClasses = ["sandboxed","scratchpad"]
 
 -- # [ excluded apps: ]
@@ -337,27 +337,27 @@ threecolMSp = defSpacing threecolmid
 
 -- Rename layouts
 tiled           = renamed [Replace "Tall"]
-                $ maximize
+                -- $ maximize
                 $ ResizableTall 1 (3/100) (1/2) []
 
 threecol        = renamed [Replace "ThreeCol"]
-                $ maximize
+                -- $ maximize
                 $ ThreeCol 1 (3/100) (1/2)
 
 threecolmid     = renamed [Replace "ThreeColMid"]
-                $ maximize
+                -- $ maximize
                 $ ThreeColMid 1 (3/100) (1/2)
 
 bsp             = renamed [Replace "BSP"]
-                $ maximize
+                -- $ maximize
                 $ emptyBSP 
 
 accordion       = renamed [Replace "Accordion"]
-                $ maximize
+                -- $ maximize
                 $ Accordion
 
 avoidfloats     = renamed [Replace "AvoidFloats"]
-                $ maximize
+                -- $ maximize
                 $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
@@ -770,10 +770,10 @@ main = do
             ---------------------------------------
             -- [Toggle Modes]
             , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
-            , ("M1-a", withFocused (sendMessage . maximizeRestore))
+            --, ("M1-a", withFocused (sendMessage . maximizeRestore))
             , ("M1-M4-b", sendMessage ToggleStruts)
             ---------------------------------------
             ] 
             `additionalMouseBindings` [
-                ((0,9), \w -> withFocused (sendMessage . maximizeRestore)) 
+                --((0,9), \w -> withFocused (sendMessage . maximizeRestore)) 
             ]
