@@ -201,10 +201,10 @@ myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>",
                 "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>",
                 "9:<fn=1>\xfb36 </fn>" ]
 
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
+--myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
-clickable ws = "<action=xdotool key alt+"++show i++">"++ws++"</action>"
-    where i = fromJust $ M.lookup ws myWorkspaceIndices
+--clickable ws = "<action=xdotool key alt+"++show i++">"++ws++"</action>"
+    --where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 -------------------------------------------------------------------
 -- [ Scratchpad config ]
@@ -589,8 +589,9 @@ myLayoutHook = windowNavigation
 
 -- Fade inactive windows to the amount of (fadeAmount)
 myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 1
+myLogHook = return () 
+    --fadeInactiveLogHook fadeAmount
+    --where fadeAmount = 1
 
 -------------------------------------------------------------------
 -- Startup Hook (check .xprofile too)
@@ -647,8 +648,8 @@ main = do
           , handleEventHook    = handleEventHook def 
                                  <+> fullscreenEventHook 
                                  <+> serverModeEventHook
-                                 <+> serverModeEventHookCmd
-                                 <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
+                                 -- <+> serverModeEventHookCmd
+                                 -- <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
           -- , modMask = mod1Mask
       } `additionalKeysP` [
             -- [Spawn Applications]
