@@ -603,10 +603,10 @@ myStartupHook = do
             -- spawnOnce "ckb-next & disown"
             setWMName "LG3D"    -- For java application support
             spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown"
-            spawnOnce "ckb-next -b & disown"
+            --spawnOnce "ckb-next -b & disown"
             --spawnOnce "openrgb --startminimized & disown; openrgb -p new.orp & disown"
-            spawnOnce "protonvpn-applet & disown"
-            spawnOnce "firetools --minimize & disown"
+            --spawnOnce "protonvpn-applet & disown"
+            --spawnOnce "firetools --minimize & disown"
 
 -------------------------------------------------------------------
 -- Where the config comes together
