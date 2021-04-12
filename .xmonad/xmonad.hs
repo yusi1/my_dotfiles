@@ -319,7 +319,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     h = 0.95
                     w = 0.45
                     t = 0.0245
-                    l = 0.998 - w
+                    l = 0.999 - w
 
 -- Hide scratchpad workspace
 noScratchPad ws = if ws == "NSP" then "" else ws
