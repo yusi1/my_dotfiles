@@ -38,7 +38,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
 
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeysP,additionalMouseBindings)
+import XMonad.Util.EZConfig(additionalKeysP)--,additionalMouseBindings)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
@@ -788,6 +788,6 @@ main = do
             , ("M1-C-b", sendMessage ToggleStruts)
             ---------------------------------------
             ] 
-            `additionalMouseBindings` [
+            --`additionalMouseBindings` [
                 --((0,9), \w -> withFocused (sendMessage . maximizeRestore)) 
-            ]
+            --]
