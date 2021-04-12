@@ -615,19 +615,19 @@ main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc" -- top scr1
     xmprocbtm <- spawnPipe "xmobar -x 0 /home/yusef/.config/xmobar/.xmobarrc3" -- btm scr1
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2" -- top scr2
-    xmproc2 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc4scr2" --btm scr2
+    --xmproc1 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc2" -- top scr2
+    --xmproc2 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc4scr2" --btm scr2
     xmonad $ ewmh $ docks def
       {
           borderWidth         = 2
           , terminal          = myTerminal
           , startupHook = myStartupHook
           , workspaces  = myWorkspaces
-          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads <+> workspaceByPos
+          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads -- <+> workspaceByPos
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
-                                ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
-                                --ppOutput = hPutStrLn xmproc
+                                --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
+                                ppOutput = hPutStrLn xmproc
                               , ppCurrent = xmobarColor "#98be65" "" . wrap "[+] " "" -- Current workspace in xmobar
                               , ppVisible = xmobarColor "#98be65" "" -- . clickable             -- Visible but not current workspace
                               , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- . clickable -- Hidden workspaces in xmobar
