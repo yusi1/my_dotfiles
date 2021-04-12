@@ -228,6 +228,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "torrent" spawnqB findqB manageqB
                 , NS "fileman" spawnfileMan findfileMan managefileMan
                 , NS "discord" spawnDiscord findDiscord manageDiscord
+                , NS "bitwarden" spawnBitW findBitW manageBitW
                 ]
         where
         -- [Alacritty]
@@ -310,6 +311,16 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.95 - h
                     l = 0.95 - w
 
+        -- [Bitwarden]
+            spawnBitW = "~/Documents/jailedappscripts/spawnjailedbitwarden.sh"
+            findBitW = className =? "Bitwarden"
+            manageBitW = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.95
+                    w = 0.45
+                    t = 0.0245
+                    l = 0.998 - w
+
 -- Hide scratchpad workspace
 noScratchPad ws = if ws == "NSP" then "" else ws
 
@@ -321,6 +332,7 @@ scratchEmacs = namedScratchpadAction myScratchPads "emacs"
 scratchqB = namedScratchpadAction myScratchPads "torrent"
 scratchfileMan = namedScratchpadAction myScratchPads "fileman"
 scratchDiscord = namedScratchpadAction myScratchPads "discord"
+scratchBitW = namedScratchpadAction myScratchPads "bitwarden"
 
 -------------------------------------------------------------------
 
@@ -656,7 +668,7 @@ main = do
             ("C-<F2>", spawn "librewolf")
             , ("C-<F3>", spawn "brave")
             , ("M1-S-b", spawn "blueman-manager & disown")
-            , ("C-M1-b", spawn "bitwarden")
+            --, ("C-M1-b", spawn "bitwarden")
             , ("C-<F4>", spawn "emacs")
             , ("M4-y", spawn "scrot Pictures/scrot_%H_%M_%S.png") -- screenshot
             , ("M4-u", spawn "scrot -u Pictures/scrot_%H_%M_%S.png") -- screenshot focused
@@ -721,6 +733,7 @@ main = do
             , ("M1-M4-f", scratchfileMan)
             , ("M1-M4-q", scratchqB)
             , ("M1-M4-d", scratchDiscord)
+            , ("M1-M4-p", scratchBitW)
             ---------------------------------------
             -- [More Window Management]
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
