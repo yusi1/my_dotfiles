@@ -733,7 +733,7 @@ main = do
             , ("M1-M4-f", scratchfileMan)
             , ("M1-M4-q", scratchqB)
             , ("M1-M4-d", scratchDiscord)
-            , ("M1-M4-p", scratchBitW)
+            , ("M1-M4-b", scratchBitW)
             ---------------------------------------
             -- [More Window Management]
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
@@ -785,7 +785,7 @@ main = do
             -- [Toggle Modes]
             , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
             , ("M1-f", withFocused (sendMessage . maximizeRestore))
-            , ("M1-M4-b", sendMessage ToggleStruts)
+            , ("M1-C-b", sendMessage ToggleStruts)
             ---------------------------------------
             ] 
             `additionalMouseBindings` [
