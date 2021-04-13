@@ -457,6 +457,7 @@ myAppGrid = [("LibreWolf", "librewolf")
             , ("Audacity", "audacity")
             , ("My Dotfiles", ((myBrowser) ++ " https://github.com/yusi1/my_dotfiles"))
             , ("MoviesJoy", ((myBrowser') ++ " https://moviesjoy.to"))
+            , ("Prayer Times (Aberdeen Mosque)", ((myBrowser) ++ " https://www.aberdeenmosque.org/"))
             ]
 
 -- [TreeSelect Config]
@@ -497,6 +498,7 @@ treeselectAction a = TS.treeselectAction a
             , nodesub "Hackage XMonad-Contrib" "XMonad-Contrib documentation" (spawn ((myBrowser) ++ " https://hackage.haskell.org/package/xmonad%2Dcontrib")) []
             , nodesub "Netflix" "Web content streaming" (spawn ((myBrowser') ++ " https://netflix.com")) []
             , nodesub "MoviesJoy" "Free movies & tv shows streaming" (spawn ((myBrowser') ++ " https://moviesjoy.to")) []
+            , nodesub "Prayer Times" "Aberdeen Mosque prayer times" (spawn ((myBrowser) ++ " https://www.aberdeenmosque.org/")) []
             ]
         ]
     , nodehead "+ Virtualization" "Virtualization Tools"
