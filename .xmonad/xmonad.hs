@@ -97,6 +97,7 @@ import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow k
 import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Actions.GridSelect
 --import qualified XMonad.Actions.ConstrainedResize as Sqr
+import XMonad.Actions.FloatKeys -- tmp solution to https://github.com/xmonad/xmonad/issues/290
 
 import System.IO
 
@@ -783,6 +784,15 @@ main = do
             , ("M1-C-S-<D>", sendMessage MirrorShrink)
             , ("M1-C-S-<L>", sendMessage Shrink)
             , ("M1-C-S-<R>", sendMessage Expand)
+
+            -- [*] [Float Window Resizing (WIP)]
+            -- Shrink Windows
+            , ("M1-M4-<R>", withFocused (keysResizeWindow (10,0) (0,0)))
+            , ("M1-M4-<L>", withFocused (keysResizeWindow (-10,0) (0,0)))
+            , ("M1-M4-<D>", withFocused (keysResizeWindow (0,-10) (1,1)))
+            , ("M1-M4-<U>", withFocused (keysResizeWindow (0,-10) (0,0)))
+            -- Expand Windows
+            --, ("M4-C-<R>", withFocused (keysResizeWindow (0,10) (1,1)))
             ---------------------------------------
             -- [Toggle Modes]
             , ("M1-<Return>", sendMessage (MT.Toggle NBFULL))
