@@ -476,7 +476,7 @@ treeselectAction a = TS.treeselectAction a
         ]
     , nodehead "+ OSINT" "Open-Source Intelligence Applications"
         [ nodesub "Maltego" "Maltego is an open source intelligence (OSINT) and graphical link analysis tool for any investigative task" (spawn "maltego") [] 
-        , nodesub "Sherlock" "Hunt down social media accounts by username across social networks" (spawn (myTerminal))  []
+        , nodesub "Sherlock" "Hunt down social media accounts by username across social networks" (spawn ((myTerminal) ++ " --hold -e sherlock -h"))  []
         ]
     , nodehead "+ Gaming" "Gaming Applications"
         [ nodesub "Steam" "Gaming library" (spawn "steam") []
