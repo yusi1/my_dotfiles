@@ -126,6 +126,9 @@ myHak = intelligent hackage
 myServer :: String
 myServer = "/home/yusef/.xmonad/xmonadctl"
 
+myFocusFollowsMouse :: Bool
+myFocusFollowsMouse = True
+
 ---------------------------------------------------------------------
 -- Define some variables for the manageHook, which contain application names
 -- To help with mass editing of how application windows are manipulated
@@ -200,7 +203,7 @@ myWorkspaces = ["1:<fn=1>\xe62b </fn>", "2:<fn=1>\xfa9e </fn>",
                 "3:<fn=1>\xf992 </fn>", "4:<fn=1>\xf17a </fn>",
                 "5:<fn=1>\xf724 </fn>", "6:<fn=1>\xf9c2 </fn>", 
                 "7:<fn=1>\xf1b7 </fn>", "8:<fn=1>\xf002 </fn>",
-                "9:<fn=1>\xfb36 </fn>" ]
+                "9:<fn=1>\xfb36 </fn>"]
 
 --myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
@@ -537,7 +540,7 @@ treeselectAction a = TS.treeselectAction a
     , nodehead "+ Power Menu" "Power Commands"
         [ nodesub "Shutdown" "Power the system off" (spawn "shutdown now") []
         , nodesub "Restart" "Restart the system" (spawn "shutdown -r now") []
-        , nodesub "Logout" "Logout of the system" (spawn "killall xmonad") []
+        , nodesub "Logout" "Logout of the system" (spawn "killall $HOME/.xmonad/xmonad-x86_64-linux") []
         ]
     ]
 
@@ -636,9 +639,10 @@ main = do
       {
           borderWidth         = 2
           , terminal          = myTerminal
-          , startupHook = myStartupHook
-          , workspaces  = myWorkspaces
-          , manageHook  = myManageHook <+> namedScratchpadManageHook myScratchPads -- <+> workspaceByPos
+          , startupHook       = myStartupHook
+          , workspaces        = myWorkspaces
+          , focusFollowsMouse = myFocusFollowsMouse
+          , manageHook        = myManageHook <+> namedScratchpadManageHook myScratchPads -- <+> workspaceByPos
           , layoutHook        = myLayoutHook
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
@@ -657,6 +661,7 @@ main = do
                               -- >> updatePointer (0.95, 0.95) (0.95, 0.95)
                               -- >> updatePointer (1, 1) (0, 0)
                               >> updatePointer (0.95, 0.95) (0, 0)
+                              -- >> updatePointer (0, 0) (0.95, 0.95) 
           --, focusedBorderColor = "#2aa198"
           , focusedBorderColor = "#46d9ff"
           , normalBorderColor = "#282c34"           
@@ -787,10 +792,10 @@ main = do
 
             -- [*] [Float Window Resizing (WIP)]
             -- Shrink Windows
-            , ("M1-M4-<R>", withFocused (keysResizeWindow (10,0) (0,0)))
-            , ("M1-M4-<L>", withFocused (keysResizeWindow (-10,0) (0,0)))
-            , ("M1-M4-<D>", withFocused (keysResizeWindow (0,-10) (1,1)))
-            , ("M1-M4-<U>", withFocused (keysResizeWindow (0,-10) (0,0)))
+            --, ("M1-M4-<R>", withFocused (keysResizeWindow (10,0) (0,0)))
+            --, ("M1-M4-<L>", withFocused (keysResizeWindow (-10,0) (0,0)))
+            --, ("M1-M4-<D>", withFocused (keysResizeWindow (0,-10) (1,1)))
+            --, ("M1-M4-<U>", withFocused (keysResizeWindow (0,-10) (0,0)))
             -- Expand Windows
             --, ("M4-C-<R>", withFocused (keysResizeWindow (0,10) (1,1)))
             ---------------------------------------
