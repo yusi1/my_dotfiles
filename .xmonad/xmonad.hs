@@ -359,27 +359,27 @@ threecolMSp = defSpacing threecolmid
 
 -- Rename layouts
 tiled           = renamed [Replace "Tall"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ ResizableTall 1 (3/100) (1/2) []
 
 threecol        = renamed [Replace "ThreeCol"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ ThreeCol 1 (3/100) (1/2)
 
 threecolmid     = renamed [Replace "ThreeColMid"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ ThreeColMid 1 (3/100) (1/2)
 
 bsp             = renamed [Replace "BSP"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ emptyBSP 
 
 accordion       = renamed [Replace "Accordion"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ Accordion
 
 avoidfloats     = renamed [Replace "AvoidFloats"]
-                $ maximize
+                $ maximizeWithPadding 10
                 $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
