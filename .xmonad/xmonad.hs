@@ -239,6 +239,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "fileman" spawnfileMan findfileMan managefileMan
                 , NS "discord" spawnDiscord findDiscord manageDiscord
                 , NS "bitwarden" spawnBitW findBitW manageBitW
+                , NS "spotify" spawnSpotify findSpotify manageSpotify
                 ]
         where
         -- [Alacritty]
@@ -331,6 +332,16 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     t = 0.025
                     l = 0.9989 - w
 
+        -- [Spotify]
+            spawnSpotify = "~/Documents/jailedappscripts/spawnjailedspotify.sh"
+            findSpotify = className =? "Spotify"
+            manageSpotify = customFloating $ W.RationalRect l t w h
+                where
+                    h = 0.9
+                    w = 0.9
+                    t = 0.95 - h
+                    l = 0.95 - w
+
 -- Hide scratchpad workspace
 noScratchPad ws = if ws == "NSP" then "" else ws
 
@@ -343,6 +354,7 @@ scratchqB = namedScratchpadAction myScratchPads "torrent"
 scratchfileMan = namedScratchpadAction myScratchPads "fileman"
 scratchDiscord = namedScratchpadAction myScratchPads "discord"
 scratchBitW = namedScratchpadAction myScratchPads "bitwarden"
+scratchSpotify = namedScratchpadAction myScratchPads "spotify"
 
 -------------------------------------------------------------------
 
@@ -749,6 +761,7 @@ main = do
             , ("M1-M4-q", scratchqB)
             , ("M1-M4-d", scratchDiscord)
             , ("M1-M4-b", scratchBitW)
+            , ("M1-M4-s", scratchSpotify)
             ---------------------------------------
             -- [More Window Management]
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane
