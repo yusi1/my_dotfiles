@@ -120,8 +120,12 @@ myBrowser = "/usr/bin/librewolf"
 myBrowser' :: String
 myBrowser' = "/usr/bin/brave"
 
+-- Custom Search Engines
+myArchWiki = searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+
 myDDG = intelligent duckduckgo
-myHak = intelligent hackage
+--myHak = intelligent hackage
+--myAWIntell = intelligent myArchWiki
 
 myServer :: String
 myServer = "/home/yusef/.xmonad/xmonadctl"
@@ -714,7 +718,8 @@ main = do
             , ("M1-p n", do spawn ("date>>"++"/home/yusef/Documents/tmpnotes.txt")
                             appendFilePrompt myXPConfig "/home/yusef/Documents/tmpnotes.txt")
             , ("M1-p b", promptSearchBrowser myXPConfig myBrowser myDDG)
-            , ("M1-p h", promptSearchBrowser myXPConfig myBrowser myHak) 
+            , ("M1-p h", promptSearchBrowser myXPConfig myBrowser hackage)
+            , ("M1-p a", promptSearchBrowser myXPConfig myBrowser myArchWiki)
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
             , ("M1-p s", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
