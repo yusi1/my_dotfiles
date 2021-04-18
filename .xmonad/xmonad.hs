@@ -38,7 +38,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
 
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeysP)--,additionalMouseBindings)
+import XMonad.Util.EZConfig(additionalKeysP,additionalMouseBindings)
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
@@ -99,7 +99,8 @@ import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow k
 import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Actions.GridSelect
 --import qualified XMonad.Actions.ConstrainedResize as Sqr
-import XMonad.Actions.FloatKeys -- tmp solution to https://github.com/xmonad/xmonad/issues/290
+--import XMonad.Actions.FloatKeys -- tmp solution to https://github.com/xmonad/xmonad/issues/290
+import XMonad.Actions.WithAll
 
 import System.IO
 
@@ -369,29 +370,32 @@ bspSp = defSpacing bsp
 threecolSp = defSpacing threecol
 threecolMSp = defSpacing threecolmid
 
+-- maximize layout padding
+maxPadding = 5
+
 -- Rename layouts
 tiled           = renamed [Replace "Tall"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ ResizableTall 1 (3/100) (1/2) []
 
 threecol        = renamed [Replace "ThreeCol"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ ThreeCol 1 (3/100) (1/2)
 
 threecolmid     = renamed [Replace "ThreeColMid"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ ThreeColMid 1 (3/100) (1/2)
 
 bsp             = renamed [Replace "BSP"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ emptyBSP 
 
 accordion       = renamed [Replace "Accordion"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ Accordion
 
 avoidfloats     = renamed [Replace "AvoidFloats"]
-                $ maximizeWithPadding 10
+                $ maximizeWithPadding maxPadding
                 $ avoidFloats Full
 
 -- Toggle Layouts in "Pairs" (Very Useful)
@@ -825,6 +829,7 @@ main = do
             , ("M1-C-b", sendMessage ToggleStruts)
             ---------------------------------------
             ] 
-            --`additionalMouseBindings` [
-                --((0,9), \w -> withFocused (sendMessage . maximizeRestore)) 
-            --]
+            `additionalMouseBindings` [
+                ((0,9), \w -> sendMessage (MT.Toggle NBFULL))
+                , ((0,8), \w -> withFocused (sendMessage . maximizeRestore))
+            ]
