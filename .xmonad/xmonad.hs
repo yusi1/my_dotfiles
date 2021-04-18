@@ -101,6 +101,7 @@ import XMonad.Actions.GridSelect
 --import qualified XMonad.Actions.ConstrainedResize as Sqr
 --import XMonad.Actions.FloatKeys -- tmp solution to https://github.com/xmonad/xmonad/issues/290
 import XMonad.Actions.WithAll
+import XMonad.Actions.WindowGo
 
 import System.IO
 
@@ -696,7 +697,11 @@ main = do
       } `additionalKeysP` [
             -- [Spawn Applications]
             ("C-<F2>", spawn "librewolf")
+            , ("C-S-<F2>", runOrRaise "librewolf" (className =? "LibreWolf"))
+            , ("M1-S-<F2>", raiseNext (className =? "LibreWolf"))
             , ("C-<F3>", spawn "brave")
+            , ("C-S-<F3>", runOrRaise "brave" (className =? "Brave-browser"))
+            , ("M1-S-<F3>", raiseNext (className =? "Brave-browser"))
             , ("M1-S-b", spawn "blueman-manager & disown")
             --, ("C-M1-b", spawn "bitwarden")
             , ("C-<F4>", spawn "emacs")
@@ -745,7 +750,7 @@ main = do
             , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
             , ("M1-p o", prompt ("llpp" ++ " ") myXPConfig)
             , ("M1-p l", prompt ("alacritty" ++ " -e epr ") myXPConfig) 
-            , ("M1-p v", prompt ("mpv" ++ " ") myXPConfig)
+            , ("M1-p v", prompt ("mpv" ++ " ") myXPConfig) 
             ---------------------------------------
             -- [GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
