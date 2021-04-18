@@ -723,7 +723,7 @@ main = do
             , ("M1-p h", promptSearchBrowser myXPConfig myBrowser hackage)
             , ("M1-p a", promptSearchBrowser myXPConfig myBrowser myArchWiki)
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
-            , ("M1-p r", sshPrompt myXPConfig)
+            , ("M1-p s", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
             -- [*] [ShellPrompt extra prompts]
             , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
