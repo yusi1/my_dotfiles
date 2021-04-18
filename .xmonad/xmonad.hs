@@ -47,6 +47,7 @@ import XMonad.Util.NamedScratchpad
 
 -- Prompt Libs
 import XMonad.Prompt
+--import qualified XMonad.Prompt as P
 import XMonad.Prompt.FuzzyMatch
 
 -- Prompts
@@ -89,6 +90,7 @@ import XMonad.Actions.UpdatePointer -- update pointer location to edge of new fo
 import XMonad.Actions.CycleRecentWS -- cycle recent workspaces with keys defined in myKeys
 --import XMonad.Actions.CycleSelectedLayouts
 import XMonad.Actions.Promote -- Promote selected window to master pane
+--import qualified XMonad.Actions.Submap as SM
 import XMonad.Actions.Search -- use search engine in XMonad
 import XMonad.Actions.CycleWS -- Cycle Workspaces, for example using the arrow keys
 --import XMonad.Actions.CycleWindows -- Cycle windows in current workspace
@@ -721,7 +723,7 @@ main = do
             , ("M1-p h", promptSearchBrowser myXPConfig myBrowser hackage)
             , ("M1-p a", promptSearchBrowser myXPConfig myBrowser myArchWiki)
             , ("M1-p c", selectSearchBrowser myBrowser myDDG)
-            , ("M1-p s", sshPrompt myXPConfig)
+            , ("M1-p r", sshPrompt myXPConfig)
             , ("M1-p x", dirExecPromptNamed myXPConfig spawn "/home/yusef/Documents/jailedappscripts" "Spawn Jailed: ")
             -- [*] [ShellPrompt extra prompts]
             , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
