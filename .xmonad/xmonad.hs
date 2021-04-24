@@ -750,7 +750,10 @@ main = do
             , ("M1-p e", prompt ("alacritty" ++ " --hold -e") myXPConfig)
             , ("M1-p o", prompt ("llpp" ++ " ") myXPConfig)
             , ("M1-p l", prompt ("alacritty" ++ " -e epr ") myXPConfig) 
-            , ("M1-p v", prompt ("mpv" ++ " ") myXPConfig) 
+            , ("M1-p v", prompt ("mpv" ++ " ") myXPConfig)
+
+            -- [*] [Rofi Wifi Prompt]
+            --, ("M1-p w", spawn "/usr/bin/rofi-wifi-menu")
             ---------------------------------------
             -- [GridSelect (Using Actions)]
             , ("M4-g", spawnSelected' myAppGrid)
@@ -770,7 +773,7 @@ main = do
             , ("M1-M4-q", scratchqB)
             , ("M1-M4-d", scratchDiscord)
             , ("M1-M4-b", scratchBitW)
-            , ("M1-M4-s", scratchSpotify)
+            , ("M1-M4-r", scratchSpotify)
             ---------------------------------------
             -- [More Window Management]
             , ("M1-M4-<Return>", promote) -- Promote selected window to master pane

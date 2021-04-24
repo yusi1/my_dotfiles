@@ -1,6 +1,6 @@
 #!/bin/bash
 
-execapp="librewolf --new-instance"
+execapp="bitwarden"
 dnsname="fdns"
 dns="127.1.1.1"
 cmd="firejail --dns=$dns /usr/bin/$execapp"

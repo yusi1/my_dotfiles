@@ -1,0 +1,34 @@
+-- xmobar (bottom of screen 0 ) config
+
+Config { --font = "xft:mononoki Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"
+         font = "xft:Terminus:style=Regular:pixelsize=11"
+         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
+         , bgColor = "#1A1C21"
+         , fgColor = "#FF6C6B"
+         , position = Static { xpos = 1920, ypos = 1058, width = 1180, height = 22}
+         , iconRoot = "/home/yusef/.xmonad/xpm"
+         , commands = [ --Run WeatherX "EGPD"
+                        --[ ("clear", "<icon=weather_sunny.xpm/>")
+                        --, ("sunny", "<icon=weather_sunny.xpm/>")
+                        --, ("mostly clear", "<fc=#8b8b8b> </fc>")
+                        --, ("mostly sunny", "<icon=weather_mostly_sunny.xpm/>")
+                        --, ("partly sunny", "<fc=#8b8b8b> </fc>")
+                        --, ("fair", "<icon=weather_cloudy.xpm/>")
+                        --, ("cloudy", "<icon=weather_cloudy.xpm/>")
+                        --, ("overcast", "<fc=#8b8b8b> </fc>")
+                        --, ("partly cloudy", "<icon=weather_obscured.xpm/>")
+                        --, ("mostly cloudy", "<icon=weather_mostly_cloudy.xpm/>") 
+                        --, ("considerable cloudiness", "<icon=weather_cloudy.xpm/>") ]
+                        --["-t","<fc=#46D9FF><fn=1><skyConditionS></fn> <skyCondition> <fn=1>\xf2c7 </fn><tempC>°C <fn=1>\xe373 </fn><rh>% <fn=1>\xfa9c </fn><windMph> MPH at: <hour></fc>"
+                        --,"-L","5","-H","13"
+                        --,"--high","orange","--low","#268BD2"
+                        --] 36000
+                        Run Com "/home/yusef/xmobar-tools/music2" [] "music" 10
+                      ]
+         , sepChar = "%"
+         , alignSep = "}{"
+         , textOffset = 15
+         , textOffsets = [15]
+         , template = " }%music%{ <action=`~/Documents/powermenu.sh` button=1><fc=#46D9FF><fn=1> </fn></fc></action>"
+        }
+

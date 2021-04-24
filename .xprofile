@@ -40,3 +40,6 @@
 
 # Run xscreesaver
 #/usr/bin/xscreensaver -no-splash -log ~/xscreensaver.log & disown
+
+# Run nm-applet (NetworkManager Manager Applet)
+/usr/bin/nm-applet & disown
