@@ -20,8 +20,10 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         --font = "xft:Hack Nerd Font:pixelsize=11:antialias=true;hinting=true"
         , additionalFonts = [ "xft:Fira Code Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
         --, bgColor = "#282c34"
-        , bgColor = "#1A1C21"
-        , fgColor = "#ff6c6b"
+        --, bgColor = "#1A1C21"
+        , bgColor = "#1d2021"
+        --, fgColor = "#ff6c6b"
+        , fgColor = "#bdae93"
         --, position = TopW L 90
         --, position = TopP 0 192
         --, position = Static { xpos = 0 , ypos = 0, width = 1728, height = 24 }
@@ -48,8 +50,8 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
                     , Run Date "<fn=1>\xf133 </fn> %d/%m/%Y" "date" 2000
                     , Run Date "%k:%M:%S" "date'" 10
                     --, Run Volume "default" "Master" [] 10
-                    , Run Com "uname" ["-r"] "kernelname" 0
-                    , Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 18000
+                    --, Run Com "uname" ["-r"] "kernelname" 0
+                    --, Run Com "/home/yusef/.local/bin/chkupdates" [] "upd" 18000
                     , Run Com "/home/yusef/.local/bin/new" [] "vol" 3
                     , Run Com "/home/yusef/.config/xmobar/trayer-icon-padding.sh" [] "trayerpad" 10
                     , Run UnsafeStdinReader
@@ -58,6 +60,21 @@ Config { --font = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=tr
         , alignSep = "}{"
         , textOffset = 15
         , textOffsets = [16]
-        , template = "<action=`jgmenu_run` button=1><icon=language-haskell.xpm/></action> <fc=#666666><fn=1>|</fn></fc> %UnsafeStdinReader% }{ <fc=#666666><fn=1>|</fn></fc>  <fc=#b3afc2><fn=1> </fn>%kernelname%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ecbe7b>%cpu%</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#ff6c6b>%memory% [%swap%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#98be65><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc> <fc=#666666><fn=1>|</fn></fc> <fc=#c678dd><fn=1> </fn>%upd%</fc> <fc=#666666><fn=1>|</fn></fc> <action=`pavucontrol` button=1><fc=#c678dd><fn=1> </fn> %vol%</fc></action><fc=#666666><fn=1>|</fn></fc> <action=`gsimplecal` button=1><fc=#46d9ff>%date%</fc></action> <action=`xclock` button=1><fc=#46d9ff>%date'%</fc></action> <fc=#666666><fn=1>|</fn></fc> %trayerpad%"
+        , template = "%UnsafeStdinReader%\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \}{\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \  <fc=#ecbe7b>%cpu%</fc>\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \  <fc=#ff6c6b>%memory% [%swap%]</fc>\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \  <fc=#458588><fn=1>ﯱ </fn>UP/DL: [%enp3s0%]</fc>\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \  <action=`pavucontrol` button=1><fc=#fb4934><fn=1> </fn> %vol%</fc></action>\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \  <action=`gsimplecal` button=1><fc=#8ec07c>%date%</fc></action>\
+                      \ <action=`xclock` button=1><fc=#8ec07c>%date'%</fc></action>\
+                      \  <fc=#665c54><fn=1>|</fn></fc>\
+                      \%trayerpad%"
 
         }

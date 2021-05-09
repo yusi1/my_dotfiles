@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill '/home/yusef/.config/variety/Downloaded/Bing/OHR.ChollaGarden_EN-US0706816050_1920x1080.jpg' 
+feh --no-fehbg --bg-scale '/home/yusef/Downloads/cliffs_waterfalls_mist_nature_68876_1920x1080.jpg' 

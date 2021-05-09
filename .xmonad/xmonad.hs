@@ -36,6 +36,7 @@ import XMonad.Hooks.SetWMName
 --import XMonad.Hooks.ToggleHook
 --import XMonad.Hooks.DynamicBars
 import XMonad.Hooks.ServerMode -- XMonad server mode: read input from external clients
+--import XMonad.Hooks.DynamicProperty -- Dynamic Property
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP,additionalMouseBindings)
@@ -153,7 +154,7 @@ mediaApps = ["Audacity","mpv","vlc","LBRY","obs","Clementine","music"]
 officeApps = ["Xarchiver","Soffice","Epdfview","llpp","libreoffice","LibreOffice","libreoffice-impress","feh"]
 
 webApps = ["firefox","IceCat","Chromium","LibreWolf","Brave-browser","qutebrowser"]
-systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb"]
+systemApps = ["qnvsm","Gnome-disks","Nvidia-settings","ckb-next","openrgb","GParted"]
 virtApps = ["Vmware","VirtualBox","Virt-manager"]
 
 generalApps = ["firetools","qBittorrent","calibre","Pcmanfm","Mailspring","KeePassXC","Mousepad"]
@@ -643,7 +644,7 @@ myStartupHook = do
             -- example:
             -- spawnOnce "ckb-next & disown"
             setWMName "LG3D"    -- For java application support
-            spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1A1C21 --widthtype request --monitor 0 --height 24 & disown"
+            spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --transparent true --alpha 0 --tint 0x1D2021 --widthtype request --monitor 0 --height 24 & disown"
             --spawnOnce "ckb-next -b & disown"
             --spawnOnce "openrgb --startminimized & disown; openrgb -p new.orp & disown"
             --spawnOnce "protonvpn-applet & disown"
@@ -660,7 +661,7 @@ main = do
     --xmproc2 <- spawnPipe "xmobar -x 1 /home/yusef/.config/xmobar/.xmobarrc4scr2" --btm scr2
     xmonad $ ewmh $ docks def
       {
-          borderWidth         = 2
+          borderWidth         = 3
           , terminal          = myTerminal
           , startupHook       = myStartupHook
           , workspaces        = myWorkspaces
@@ -670,24 +671,25 @@ main = do
           , logHook           = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP {
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 ppOutput = hPutStrLn xmproc
-                              , ppCurrent = xmobarColor "#98be65" "" . wrap "[+] " "" -- Current workspace in xmobar
-                              , ppVisible = xmobarColor "#98be65" "" -- . clickable             -- Visible but not current workspace
-                              , ppHidden = xmobarColor "#98be65" "" . wrap "* " "" . noScratchPad -- . clickable -- Hidden workspaces in xmobar
-                              , ppHiddenNoWindows = xmobarColor "#c792ea" "" . noScratchPad -- . clickable       -- Hidden workspaces (no windows)
-                              , ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
-                              , ppSep =  "<fc=#666666><fn=1> | </fn></fc>"          -- Separators in xmobar
-                              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                              , ppCurrent = wrap "<fc=#000000,#fb4934:2>  " " </fc>" -- Current workspace in xmobar
+                              , ppVisible = wrap "<fc=#000000,#d5c4a1:2>  " " [VIS]</fc>"-- . clickable             -- Visible but not current workspace
+                              , ppHidden = wrap "<fc=#000000,#83a598:2>  " " </fc>" . noScratchPad -- . clickable -- Hidden workspaces in xmobar
+                              , ppHiddenNoWindows = wrap "<fc=#000000,#458488:2>  " " </fc>" . noScratchPad -- . clickable       -- Hidden workspaces (no windows)
+                              --, ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
+                              , ppTitle = xmobarColor "#bdae93" "" . shorten 40
+                              , ppSep =  " <fc=#665c54><fn=1> | </fn></fc> "          -- Separators in xmobar
+                              , ppUrgent = wrap "<fc=#000000,#cc241d:2>  " "!! </fc>" -- Urgent workspace
                               , ppExtras  = [windowCount]   -- # of windows current workspace
                               --, ppSort = getSortByXineramaRule
-                              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                              , ppOrder  = \(ws:l:t:ex) -> [ws]++[l]++ex++[t]
                               }
                               -- >> updatePointer (0.95, 0.95) (0.95, 0.95)
                               -- >> updatePointer (1, 1) (0, 0)
                               >> updatePointer (0.95, 0.95) (0, 0)
                               -- >> updatePointer (0, 0) (0.95, 0.95) 
           --, focusedBorderColor = "#2aa198"
-          , focusedBorderColor = "#46d9ff"
-          , normalBorderColor = "#282c34"           
+          , focusedBorderColor = "#7cbabd"
+          , normalBorderColor = "#1d393a"           
           , handleEventHook    = handleEventHook def 
                                  <+> fullscreenEventHook 
                                  <+> serverModeEventHook
