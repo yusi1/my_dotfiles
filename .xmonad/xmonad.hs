@@ -84,7 +84,6 @@ import XMonad.Layout.ThreeColumns
 --import XMonad.Layout.IfMax
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- unambiguise (Swap)
 import XMonad.Layout.Accordion
-import XMonad.Layout.AvoidFloats
 --import XMonad.Layout.Maximize
 
 import XMonad.Actions.UpdatePointer -- update pointer location to edge of new focused window, to prevent unintended focus stealing
@@ -316,7 +315,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     l = 0.95 - w
 
         -- [Discord]
-            spawnDiscord = "~/Documents/jailedappscripts/spawnjaileddiscord.sh"
+            spawnDiscord = "~/Documents/jailedappscripts/spawnjailedappsinput.sh discord-canary"
             findDiscord = className =? "discord"
             manageDiscord = customFloating $ W.RationalRect l t w h
                 where
@@ -410,11 +409,11 @@ threecolToggle' = toggleLayouts threecolMSp (threecolmid)
 myXPConfig :: XPConfig
 myXPConfig = def 
         { font = myFont 
-        , bgColor = "#1a1c21"
-        , fgColor = "#bbc2cf"
-        , bgHLight = "#c792ea"
+        , bgColor = "#1d2021"
+        , fgColor = "#bdae93"
+        , bgHLight = "#458588"
         , fgHLight = "#000000"
-        , borderColor = "#535974"
+        , borderColor = "#7cbabd"
         , position = Top
         , height = 23
         , promptBorderWidth = 1
@@ -429,11 +428,11 @@ myXPConfig = def
 -- [Grid Select Config]
 myColourizer :: Window -> Bool -> X (String, String)
 myColourizer = colorRangeFromClassName
-                   (0x28,0x2c,0x34) -- lowest inactive bg
-                   (0x28,0x2c,0x34) -- highest inactive bg
-                   (0xc7,0x92,0xea) -- active bg
-                   (0xc0,0xa7,0x9a) -- inactive fg
-                   (0x28,0x2c,0x34) -- active fg
+                   (0x28,0x28,0x28) -- lowest inactive bg
+                   (0x28,0x28,0x28) -- highest inactive bg
+                   (0x45,0x85,0x88) -- active bg
+                   (0xfe,0x80,0x19) -- inactive fg
+                   (0x28,0x28,0x28) -- active fg
 
 myGridConfig :: p -> GSConfig Window
 myGridConfig colorizer = (buildDefaultGSConfig myColourizer)
@@ -672,7 +671,7 @@ main = do
                                 --ppOutput = \x -> hPutStrLn xmproc x  >> hPutStrLn xmproc1 x
                                 ppOutput = hPutStrLn xmproc
                               , ppCurrent = wrap "<fc=#000000,#fb4934:2>  " " </fc>" -- Current workspace in xmobar
-                              , ppVisible = wrap "<fc=#000000,#d5c4a1:2>  " " [VIS]</fc>"-- . clickable             -- Visible but not current workspace
+                              , ppVisible = wrap "<fc=#000000,#d5c4a1:2>  " " [VIS]</fc>" -- . clickable             -- Visible but not current workspace
                               , ppHidden = wrap "<fc=#000000,#83a598:2>  " " </fc>" . noScratchPad -- . clickable -- Hidden workspaces in xmobar
                               , ppHiddenNoWindows = wrap "<fc=#000000,#458488:2>  " " </fc>" . noScratchPad -- . clickable       -- Hidden workspaces (no windows)
                               --, ppTitle = xmobarColor "#b3afc2" "" . shorten 40    -- Title of active window in xmobar
