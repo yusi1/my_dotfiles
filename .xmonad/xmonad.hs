@@ -275,7 +275,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                     l = 0.6
 
         -- [Quick Notes]
-            spawnNotes = "mousepad"
+            spawnNotes = "mousepad ~/Documents/tmpnotes.txt"
             findNotes = className =? "Mousepad"
             manageNotes = customFloating $ W.RationalRect l t w h
                 where
@@ -768,8 +768,8 @@ main = do
             , ("M1-M4-t", scratchTerm)
             , ("M1-M4-v", scratchMixer)
             , ("M1-M4-m", scratchDnsMon)
-            , ("M1-M4-e", scratchNotes)
-            , ("M1-M4-n", scratchEmacs)
+            , ("M1-M4-n", scratchNotes)
+            , ("M1-M4-e", scratchEmacs)
             , ("M1-M4-f", scratchfileMan)
             , ("M1-M4-q", scratchqB)
             , ("M1-M4-d", scratchDiscord)
